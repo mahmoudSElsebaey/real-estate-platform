@@ -63,7 +63,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href={`/${locale}`} className="inline-flex items-center gap-2 mb-6">
-            <span className="text-xl font-semibold tracking-tight">{brandConfig.brandName}</span>
+            <span className="text-xl font-semibold tracking-tight">{locale === "ar" ? brandConfig.brandNameAr : brandConfig.brandName}</span>
           </Link>
           <h1 className="text-2xl font-semibold tracking-tight">{t("loginTitle")}</h1>
           <p className="text-muted-foreground mt-1 text-sm">{t("loginSubtitle")}</p>

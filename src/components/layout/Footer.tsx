@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import brandConfig from "@/config/brand.config";
 
@@ -8,6 +9,11 @@ export function Footer() {
   const t = useTranslations("Footer");
   const locale = useLocale();
   const year = new Date().getFullYear();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/user/me").then((r) => setIsLoggedIn(r.ok)).catch(() => setIsLoggedIn(false));
+  }, []);
 
   return (
     <footer className="site-footer bg-[hsl(var(--primary-900))] text-white">

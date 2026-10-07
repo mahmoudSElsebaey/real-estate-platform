@@ -1,7 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import { Hero } from "@/components/home/Hero";
 import Link from "next/link";
-import { ArrowRight, Building2, KeyRound, TrendingUp, ShieldCheck, MapPin, Sparkles } from "lucide-react";
+import { ArrowRight, Building2, KeyRound, TrendingUp, ShieldCheck, MapPin, Sparkles, Images } from "lucide-react";
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -18,6 +18,33 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     { name: ar ? "القاهرة الجديدة" : "New Cairo", image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1000&q=85" },
     { name: ar ? "الشيخ زايد" : "Sheikh Zayed", image: "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1000&q=85" },
     { name: ar ? "الساحل الشمالي" : "North Coast", image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1000&q=85" },
+  ];
+
+  const gallery = [
+    {
+      title: ar ? "Nile View Residence" : "Nile View Residence",
+      location: ar ? "الزمالك، القاهرة" : "Zamalek, Cairo",
+      image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1800&q=92",
+      size: "lg",
+    },
+    {
+      title: ar ? "Garden Villa" : "Garden Villa",
+      location: ar ? "القاهرة الجديدة" : "New Cairo",
+      image: "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1200&q=92",
+      size: "sm",
+    },
+    {
+      title: ar ? "Seafront Chalet" : "Seafront Chalet",
+      location: ar ? "الساحل الشمالي" : "North Coast",
+      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=92",
+      size: "sm",
+    },
+    {
+      title: ar ? "Modern Living" : "Modern Living",
+      location: ar ? "الشيخ زايد" : "Sheikh Zayed",
+      image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=92",
+      size: "sm",
+    },
   ];
 
   const steps = [
@@ -60,6 +87,46 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <Link key={title} href={`/${locale}/discover`} className="group overflow-hidden rounded-2xl border border-border bg-background shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
                 <div className="relative aspect-[4/3] overflow-hidden"><img src={image} alt={title} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" /><div className="absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold text-primary backdrop-blur">{ar ? "مميز" : "Featured"}</div></div>
                 <div className="p-5"><p className="text-xl font-semibold">{title}</p><p className="mt-1 flex items-center gap-1 text-sm text-muted-foreground"><MapPin className="h-3.5 w-3.5" />{location}</p><div className="mt-5 flex items-center justify-between"><span className="font-semibold text-primary">{price}</span><span className="text-xs text-muted-foreground">{ar ? "3 غرف · 2 حمام" : "3 beds · 2 baths"}</span></div></div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-background py-24 md:py-32">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-12 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+            <div>
+              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/5 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-primary">
+                <Images className="h-3.5 w-3.5" />
+                {ar ? "معرض مختارات عقارية" : "Property visual gallery"}
+              </div>
+              <h2 className="max-w-3xl text-4xl font-semibold tracking-tight md:text-6xl">
+                {ar ? "شاهد التفاصيل قبل أن تزور المكان" : "See the spaces before you step inside"}
+              </h2>
+              <p className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground md:text-lg">
+                {ar ? "جولة بصرية مختارة لعقارات مميزة، بصور كبيرة وتفاصيل تجعل كل مساحة أقرب للحقيقة." : "A visual collection of standout properties, presented through immersive photography and carefully framed details."}
+              </p>
+            </div>
+            <Link href={`/${locale}/discover`} className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-primary">
+              {ar ? "استكشف المزيد" : "Explore more"} <ArrowRight className={ar ? "h-4 w-4 rotate-180" : "h-4 w-4"} />
+            </Link>
+          </div>
+
+          <div className="grid auto-rows-[220px] grid-cols-1 gap-4 sm:grid-cols-2 lg:auto-rows-[260px] lg:grid-cols-4">
+            {gallery.map((item, index) => (
+              <Link
+                key={`${item.title}-${index}`}
+                href={`/${locale}/discover`}
+                className={`group relative overflow-hidden rounded-[1.75rem] bg-muted shadow-sm transition duration-500 hover:-translate-y-1 hover:shadow-2xl ${item.size === "lg" ? "sm:col-span-2 sm:row-span-2" : ""}`}
+              >
+                <img src={item.image} alt={item.title} className="absolute inset-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-105" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent opacity-90" />
+                <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
+                  <p className="text-lg font-semibold text-white md:text-xl">{item.title}</p>
+                  <div className="mt-1 flex items-center gap-1.5 text-sm text-white/75"><MapPin className="h-3.5 w-3.5" />{item.location}</div>
+                </div>
+                <span className="absolute end-5 top-5 rounded-full border border-white/20 bg-black/20 px-3 py-1 text-[11px] font-medium text-white backdrop-blur-md">{ar ? "عرض العقار" : "View property"}</span>
               </Link>
             ))}
           </div>

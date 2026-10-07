@@ -46,35 +46,35 @@ export function Hero() {
                 className="w-full bg-transparent text-white placeholder:text-white/50 text-base focus:outline-none py-3"
               />
             </div>
-            <Button size="lg" className="shrink-0 rounded-lg">
+            <Link href={`/${locale}/discover`} className="inline-flex h-11 shrink-0 items-center gap-2 rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground shadow transition hover:bg-[hsl(var(--primary-600))]">
               <Search className="w-4 h-4" />
               <span className="hidden sm:inline">Search</span>
-            </Button>
+            </Link>
           </div>
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4">
           <Link
-            href={`/${locale}/buy`}
+            href={`/${locale}/discover?purpose=sale`}
             className="inline-flex items-center justify-center gap-2 h-12 px-8 text-base font-medium rounded-md bg-primary text-primary-foreground shadow hover:bg-[hsl(var(--primary-600))] min-w-[140px] transition-colors"
           >
             {t("ctaBuy")}
             <ArrowRight className="w-4 h-4 rtl:rotate-180" />
           </Link>
           <Link
-            href={`/${locale}/rent`}
+            href={`/${locale}/discover?purpose=rent`}
             className="inline-flex items-center justify-center gap-2 h-12 px-8 text-base font-medium rounded-md border border-white/30 text-white hover:bg-white/10 min-w-[140px] transition-colors"
           >
             {t("ctaRent")}
           </Link>
           <Link
-            href={`/${locale}/invest`}
+            href={`/${locale}/discover?purpose=invest`}
             className="inline-flex items-center justify-center gap-2 h-12 px-8 text-base font-medium rounded-md border border-white/30 text-white hover:bg-white/10 min-w-[140px] transition-colors"
           >
             {t("ctaInvest")}
           </Link>
           <Link
-            href={`/${locale}/hotels`}
+            href={`/${locale}/discover?category=hotel`}
             className="inline-flex items-center justify-center gap-2 h-12 px-8 text-base font-medium rounded-md bg-[hsl(var(--premium))] text-[hsl(42_30%_12%)] shadow hover:opacity-90 min-w-[140px] transition-colors"
           >
             {t("ctaBook")}

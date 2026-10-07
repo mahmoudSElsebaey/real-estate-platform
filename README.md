@@ -24,6 +24,7 @@ cp .env.example .env.local
 # Set MONGODB_URI and AUTH_SECRET
 
 npm install
+npm run seed
 npm run dev
 ```
 
@@ -64,6 +65,24 @@ Open http://localhost:3000
 - InquiryForm on property detail
 - My Requests page
 - Owner Inbox with status updates
+
+## Demo Data
+
+Run `npm run seed` after configuring `MONGODB_URI` to create the complete demo dataset.
+
+All demo accounts use the password `Demo@12345`:
+
+| Role | Email |
+|---|---|
+| Buyer | demo.buyer@aether.test |
+| Renter | demo.renter@aether.test |
+| Investor | demo.investor@aether.test |
+| Owner | demo.owner@aether.test |
+| Agent | demo.agent@aether.test |
+| Hotel Operator | demo.hotel@aether.test |
+| Admin | demo.admin@aether.test |
+
+The seed is safe to run repeatedly. It upserts the demo users and properties and refreshes the demo favorites/inquiries for those seeded records.
 
 ## Roles
 

@@ -58,7 +58,7 @@ export default function RegisterPage() {
                 <circle cx="20" cy="22" r="2.5" fill="currentColor" opacity="0.9" />
               </svg>
             </div>
-            <span className="font-semibold text-xl">{brandConfig.shortName}</span>
+            <span className="font-semibold text-xl">{locale === "ar" ? brandConfig.brandNameAr : brandConfig.shortName}</span>
           </Link>
           <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mb-2">{t("registerTitle")}</h1>
           <p className="text-muted-foreground text-sm">{t("registerSubtitle")}</p>

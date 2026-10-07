@@ -55,7 +55,7 @@ export function Header() {
                 <circle cx="20" cy="22" r="2.5" fill="currentColor" opacity="0.9" />
               </svg>
             </div>
-            <span className={cn("font-semibold text-lg tracking-tight hidden sm:block transition-colors", scrolled ? "text-foreground" : "text-white")}>{brandConfig.shortName}</span>
+            <span className={cn("font-semibold text-lg tracking-tight hidden sm:block transition-colors", scrolled ? "text-foreground" : "text-white")}>{locale === "ar" ? brandConfig.brandNameAr : brandConfig.shortName}</span>
           </Link>
           <nav className="hidden lg:flex items-center gap-1">
             {navItems.map((item) => (

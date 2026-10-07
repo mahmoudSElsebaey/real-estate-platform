@@ -3,13 +3,8 @@
  * Usage: npm run seed
  * Requires MONGODB_URI in .env.local
  */
-import { config } from "dotenv";
-import { resolve } from "path";
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-
-config({ path: resolve(process.cwd(), ".env.local") });
-config({ path: resolve(process.cwd(), ".env") });
 
 const MONGODB_URI = process.env.MONGODB_URI;
 if (!MONGODB_URI) {

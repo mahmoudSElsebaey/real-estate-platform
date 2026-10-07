@@ -16,70 +16,293 @@
     "discover": "اكتشف"
   },
   "Hero": {
-    "eyebrow": "عقارات فاخرة وضيافة راقية",
-    "title": "اكتشف مساحات تُعرّف معنى الحياة الاستثنائية",
-    "subtitle": "اشترِ، استأجر، استثمر، أو احجز عقارات ومنتجعات وإقامات استثنائية مختارة بعناية لمن يقدّر الجودة والتصميم الخالد.",
+    "eyebrow": "عقارات وضيافة فاخرة",
+    "title": "اكتشف مساحات تعرّف معنى العيش الاستثنائي",
+    "subtitle": "اشترِ أو استأجر أو استثمر أو احجز عقارات ومنتجعات وإقامات استثنائية مختارة لمن يقدّر الجودة والتصميم الخالد.",
     "ctaBuy": "استكشف العقارات",
     "ctaRent": "ابحث عن إيجار",
-    "ctaInvest": "فرص الاستثمار",
-    "ctaBook": "احجز إقامة",
-    "searchPlaceholder": "مدينة، حي، أو عقار...",
+    "ctaInvest": "فرص استثمارية",
+    "ctaBook": "اكتشف الكل",
+    "searchPlaceholder": "مدينة أو حي أو عقار...",
     "stats": {
       "properties": "عقارات مختارة",
-      "locations": "مواقع فاخرة",
+      "locations": "مواقع مميزة",
       "investors": "مستثمرون نشطون",
       "satisfaction": "رضا العملاء"
     }
   },
   "Home": {
-    "featuredTitle": "إقامات مميزة",
-    "featuredSubtitle": "عقارات مختارة بعناية تجسد الحياة الراقية والإمكانات الاستثمارية القوية.",
-    "viewAll": "عرض كل العقارات",
-    "categoriesTitle": "استكشف حسب نيتك",
-    "categories": {
-      "buy": {
-        "title": "شراء",
-        "description": "امتلك قطعة من العمارة والموقع الاستثنائي."
-      },
-      "rent": {
-        "title": "إيجار",
-        "description": "حياة مرنة في إقامات وشقق فاخرة."
-      },
-      "invest": {
-        "title": "استثمار",
-        "description": "فرص منظمة بعوائد وجداول زمنية واضحة."
-      },
-      "hospitality": {
-        "title": "إقامة",
-        "description": "فنادق ومنتجعات وإقامات عطلات من أعلى المستويات."
-      }
-    },
-    "trustTitle": "مبنية على الثقة والشفافية",
-    "trustItems": {
-      "verified": "عقارات وملاك موثوقون",
-      "secure": "معاملات آمنة",
-      "support": "دعم كونسيرج مخصص",
-      "transparent": "أسعار وشروط واضحة"
-    }
+    "featuredTitle": "عقارات مميزة",
+    "featuredSubtitle": "إقامات وفرص مختارة بعناية"
   },
   "Footer": {
     "tagline": "حياة استثنائية. استثمار خالد.",
-    "discover": "اكتشف",
+    "explore": "استكشف",
     "company": "الشركة",
-    "support": "الدعم",
     "legal": "قانوني",
-    "newsletter": "ابقَ على اطلاع",
-    "newsletterPlaceholder": "بريدك الإلكتروني",
-    "subscribe": "اشترك",
-    "rights": "جميع الحقوق محفوظة.",
-    "locations": "المواقع الرئيسية"
+    "about": "من نحن",
+    "contact": "تواصل",
+    "careers": "الوظائف",
+    "privacy": "سياسة الخصوصية",
+    "terms": "الشروط والأحكام",
+    "rights": "جميع الحقوق محفوظة."
   },
   "Common": {
     "loading": "جاري التحميل...",
-    "error": "حدث خطأ ما",
-    "retry": "أعد المحاولة",
-    "learnMore": "اعرف المزيد",
-    "contactUs": "تواصل معنا",
-    "language": "اللغة"
+    "error": "حدث خطأ",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "back": "رجوع"
+  },
+  "Auth": {
+    "loginTitle": "مرحباً بعودتك",
+    "loginSubtitle": "سجّل الدخول إلى حساب أثير",
+    "registerTitle": "إنشاء حساب جديد",
+    "registerSubtitle": "انضم إلى أثير ريزيدنسز وابدأ رحلتك",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "name": "الاسم الكامل",
+    "role": "أنا",
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب",
+    "logout": "تسجيل الخروج",
+    "noAccount": "ليس لديك حساب؟",
+    "hasAccount": "لديك حساب بالفعل؟",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "roles": {
+      "buyer": "مشتري",
+      "renter": "مستأجر",
+      "investor": "مستثمر",
+      "owner": "مالك عقار",
+      "agent": "وكيل",
+      "hotel_operator": "مشغّل فندق / منتجع",
+      "admin": "مسؤول"
+    },
+    "errors": {
+      "invalidCredentials": "البريد أو كلمة المرور غير صحيحة",
+      "emailExists": "هذا البريد مسجل بالفعل",
+      "generic": "حدث خطأ. حاول مرة أخرى."
+    },
+    "success": {
+      "registered": "تم إنشاء الحساب بنجاح",
+      "loggedIn": "مرحباً بعودتك"
+    }
+  },
+  "Dashboard": {
+    "title": "لوحة التحكم",
+    "welcome": "مرحباً بعودتك، {name}",
+    "role": "الدور",
+    "quickActions": "إجراءات سريعة",
+    "profile": "ملفي الشخصي",
+    "favorites": "المفضلة",
+    "bookings": "حجوزاتي",
+    "investments": "استثماراتي",
+    "listings": "قوائمي",
+    "settings": "الإعدادات",
+    "inquiries": "طلباتي",
+    "inbox": "الوارد"
+  },
+  "Profile": {
+    "title": "ملفي الشخصي",
+    "edit": "تعديل الملف",
+    "save": "حفظ التغييرات",
+    "cancel": "إلغاء",
+    "name": "الاسم الكامل",
+    "email": "البريد الإلكتروني",
+    "phone": "رقم الهاتف",
+    "locale": "اللغة المفضلة",
+    "role": "نوع الحساب",
+    "memberSince": "عضو منذ",
+    "updated": "تم تحديث الملف بنجاح"
+  },
+  "Listings": {
+    "title": "قوائمي العقارية",
+    "subtitle": "إدارة عقاراتك",
+    "addNew": "إضافة عقار جديد",
+    "empty": "ليس لديك أي عقارات بعد",
+    "emptyCta": "أنشئ أول عقار لك",
+    "status": {
+      "draft": "مسودة",
+      "pending": "قيد المراجعة",
+      "approved": "مقبول",
+      "rejected": "مرفوض",
+      "published": "منشور",
+      "suspended": "موقوف",
+      "archived": "مؤرشف"
+    },
+    "actions": {
+      "edit": "تعديل",
+      "view": "عرض",
+      "delete": "أرشفة",
+      "submit": "إرسال للمراجعة"
+    },
+    "form": {
+      "createTitle": "إضافة عقار جديد",
+      "editTitle": "تعديل العقار",
+      "titleEn": "العنوان (إنجليزي)",
+      "titleAr": "العنوان (عربي)",
+      "descEn": "الوصف (إنجليزي)",
+      "descAr": "الوصف (عربي)",
+      "type": "نوع العقار",
+      "purpose": "الغرض من العرض",
+      "price": "سعر البيع",
+      "rentalPrice": "سعر الإيجار (شهري)",
+      "currency": "العملة",
+      "area": "المساحة (م²)",
+      "bedrooms": "غرف النوم",
+      "bathrooms": "الحمامات",
+      "floor": "الطابق",
+      "totalFloors": "إجمالي الطوابق",
+      "yearBuilt": "سنة البناء",
+      "furnishing": "التأثيث",
+      "amenities": "المرافق",
+      "city": "المدينة",
+      "district": "الحي",
+      "address": "العنوان",
+      "country": "الدولة",
+      "images": "الصور (روابط)",
+      "imagesHelp": "الصق روابط الصور. الصورة الأولى ستكون الرئيسية.",
+      "saveDraft": "حفظ كمسودة",
+      "submitReview": "إرسال للمراجعة",
+      "update": "تحديث العقار",
+      "cancel": "إلغاء",
+      "successCreate": "تم إنشاء العقار بنجاح",
+      "successUpdate": "تم تحديث العقار بنجاح",
+      "types": {
+        "apartment": "شقة",
+        "villa": "فيلا",
+        "townhouse": "تاون هاوس",
+        "penthouse": "بنتهاوس",
+        "studio": "استوديو",
+        "duplex": "دوبلكس",
+        "chalet": "شاليه",
+        "office": "مكتب",
+        "retail": "محل تجاري",
+        "land": "أرض",
+        "hotel": "فندق",
+        "resort": "منتجع",
+        "other": "أخرى"
+      },
+      "purposes": {
+        "sale": "للبيع",
+        "rent": "للإيجار",
+        "invest": "استثمار",
+        "both": "بيع وإيجار"
+      },
+      "furnishingOptions": {
+        "furnished": "مفروش",
+        "semi_furnished": "شبه مفروش",
+        "unfurnished": "غير مفروش"
+      }
+    }
+  },
+  "Discover": {
+    "title": "اكتشف العقارات",
+    "subtitle": "استكشف منازل وإقامات وفرص استثمارية مختارة بعناية",
+    "searchPlaceholder": "ابحث بالاسم أو المنطقة أو كلمة مفتاحية...",
+    "cityPlaceholder": "المدينة",
+    "search": "بحث",
+    "filters": "الفلاتر",
+    "purpose": "الغرض",
+    "type": "النوع",
+    "minPrice": "أقل سعر",
+    "maxPrice": "أعلى سعر",
+    "bedrooms": "غرف النوم",
+    "sort": "ترتيب حسب",
+    "sortNewest": "الأحدث",
+    "sortPriceAsc": "السعر: من الأقل للأعلى",
+    "sortPriceDesc": "السعر: من الأعلى للأقل",
+    "sortArea": "أكبر مساحة",
+    "any": "الكل",
+    "clearFilters": "مسح كل الفلاتر",
+    "resultsCount": "{count} عقار",
+    "empty": "لا توجد عقارات مطابقة",
+    "emptyHint": "جرّب تعديل الفلاتر أو كلمات البحث",
+    "error": "فشل تحميل العقارات",
+    "prev": "السابق",
+    "next": "التالي",
+    "noImage": "لا توجد صورة",
+    "featured": "مميز",
+    "month": "شهر"
+  },
+  "PropertyDetail": {
+    "backToDiscover": "العودة للاكتشاف",
+    "notFound": "العقار غير موجود",
+    "error": "فشل تحميل العقار",
+    "bedrooms": "غرف النوم",
+    "bathrooms": "الحمامات",
+    "area": "المساحة",
+    "furnishing": "التأثيث",
+    "yearBuilt": "سنة البناء",
+    "floor": "الطابق",
+    "description": "الوصف",
+    "amenities": "المرافق",
+    "contactAgent": "تواصل مع الوكيل",
+    "scheduleVisit": "حجز معاينة",
+    "month": "شهر"
+  },
+  "Favorites": {
+    "title": "المفضلة",
+    "subtitle": "{count} عقارات محفوظة",
+    "empty": "لا توجد مفضلات بعد",
+    "emptyHint": "تصفح العقارات واضغط على القلب لحفظها هنا",
+    "browse": "اكتشف العقارات",
+    "add": "أضف للمفضلة",
+    "remove": "إزالة من المفضلة",
+    "error": "فشل تحميل المفضلة"
+  },
+  "Compare": {
+    "title": "مقارنة العقارات",
+    "subtitle": "مقارنة {count} من 4 عقارات",
+    "empty": "لا توجد عقارات للمقارنة",
+    "emptyHint": "أضف عقارات من صفحة الاكتشاف لمقارنتها جنباً إلى جنب",
+    "browse": "اكتشف العقارات",
+    "clearAll": "مسح الكل",
+    "feature": "الميزة",
+    "price": "السعر",
+    "type": "النوع",
+    "purpose": "الغرض",
+    "location": "الموقع",
+    "bedrooms": "غرف النوم",
+    "bathrooms": "الحمامات",
+    "area": "المساحة",
+    "furnishing": "التأثيث",
+    "yearBuilt": "سنة البناء",
+    "add": "أضف للمقارنة",
+    "remove": "إزالة من المقارنة",
+    "full": "قائمة المقارنة ممتلئة (الحد 4)"
+  },
+  "Inquiry": {
+    "name": "الاسم الكامل",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "type": "نوع الطلب",
+    "message": "الرسالة",
+    "preferredDate": "تاريخ المعاينة المفضل",
+    "submit": "إرسال الطلب",
+    "error": "فشل إرسال الطلب. حاول مرة أخرى.",
+    "successTitle": "تم إرسال الطلب بنجاح",
+    "successMessage": "سيتواصل معك الوكيل قريباً.",
+    "sendAnother": "إرسال طلب آخر",
+    "types": {
+      "info": "طلب معلومات",
+      "visit": "حجز معاينة",
+      "offer": "تقديم عرض",
+      "other": "أخرى"
+    },
+    "status": {
+      "new": "جديد",
+      "in_progress": "قيد المتابعة",
+      "contacted": "تم التواصل",
+      "closed": "مغلق"
+    },
+    "myInquiries": "طلباتي",
+    "myInquiriesSubtitle": "الطلبات التي أرسلتها",
+    "inbox": "الوارد",
+    "inboxSubtitle": "الطلبات الواردة على عقاراتك",
+    "emptySent": "لم ترسل أي طلبات بعد",
+    "emptyInbox": "لا توجد طلبات واردة بعد",
+    "browse": "تصفح العقارات",
+    "listError": "فشل تحميل الطلبات"
   }
 }

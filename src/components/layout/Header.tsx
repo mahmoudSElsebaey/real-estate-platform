@@ -1,25 +1,31 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
-import { Menu, X, Heart, User, Globe } from "lucide-react";
+import { ChevronDown, Globe, Heart, LogOut, Menu, User, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import brandConfig from "@/config/brand.config";
 
 export function Header() {
   const t = useTranslations("Nav");
   const tAuth = useTranslations("Auth");
+  const tDashboard = useTranslations("Dashboard");
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const profileRef = useRef<HTMLDivElement>(null);
+
+  const isHome = pathname === `/${locale}`;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -28,10 +34,30 @@ export function Header() {
     fetch("/api/user/me").then((r) => setIsLoggedIn(r.ok)).catch(() => setIsLoggedIn(false));
   }, [pathname]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (profileRef.current && !profileRef.current.contains(event.target as Node)) setProfileOpen(false);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const switchLocale = () => {
     const newLocale = locale === "en" ? "ar" : "en";
     const pathWithoutLocale = pathname.replace(`/${locale}`, "") || "/";
     router.push(`/${newLocale}${pathWithoutLocale}`);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } finally {
+      setIsLoggedIn(false);
+      setProfileOpen(false);
+      setMobileOpen(false);
+      router.push(`/${locale}`);
+      router.refresh();
+    }
   };
 
   const navItems = [
@@ -41,13 +67,34 @@ export function Header() {
     { href: `/${locale}/discover`, label: t("discover") },
   ];
 
+  const profileItems = [
+    { href: `/${locale}/dashboard`, label: tDashboard("title") },
+    { href: `/${locale}/profile`, label: tDashboard("profile") },
+    { href: `/${locale}/bookings`, label: tDashboard("bookings") },
+    { href: `/${locale}/favorites`, label: tDashboard("favorites") },
+    { href: `/${locale}/inquiries`, label: tDashboard("inquiries") },
+    { href: `/${locale}/investments/my`, label: tDashboard("myInterests") },
+    { href: `/${locale}/listings`, label: tDashboard("listings") },
+  ];
+
+  const transparent = isHome && !scrolled;
+  const textClass = transparent ? "text-white/90 hover:text-white hover:bg-white/10" : "text-foreground/80 hover:text-foreground hover:bg-muted";
+  const brandClass = transparent ? "text-white" : "text-foreground";
+
   return (
-    <header className={cn("fixed top-0 inset-x-0 z-50 transition-all duration-300", scrolled ? "bg-[hsl(var(--background))]/95 backdrop-blur-md border-b border-[hsl(var(--border))] shadow-sm" : "bg-transparent")}>
+    <header
+      className={cn(
+        "site-header fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        transparent
+          ? "bg-transparent"
+          : "border-b border-[hsl(var(--border))] bg-[hsl(var(--background))]/95 shadow-sm backdrop-blur-md"
+      )}
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 md:h-20 items-center justify-between">
-          <Link href={`/${locale}`} className="flex items-center gap-2.5 group">
-            <div className={cn("w-9 h-9 flex items-center justify-center transition-colors", scrolled ? "text-primary" : "text-white")}>
-              <svg width="36" height="36" viewBox="0 0 40 40" fill="none" className="w-full h-full">
+        <div className="flex h-16 items-center justify-between md:h-20">
+          <Link href={`/${locale}`} className="group flex items-center gap-2.5">
+            <div className={cn("flex h-9 w-9 items-center justify-center transition-colors", brandClass)}>
+              <svg width="36" height="36" viewBox="0 0 40 40" fill="none" className="h-full w-full">
                 <rect x="6" y="18" width="8" height="16" rx="1" fill="currentColor" />
                 <rect x="16" y="12" width="8" height="22" rx="1" fill="currentColor" />
                 <rect x="26" y="16" width="8" height="18" rx="1" fill="currentColor" />
@@ -55,36 +102,105 @@ export function Header() {
                 <circle cx="20" cy="22" r="2.5" fill="currentColor" opacity="0.9" />
               </svg>
             </div>
-            <span className={cn("font-semibold text-lg tracking-tight hidden sm:block transition-colors", scrolled ? "text-foreground" : "text-white")}>{locale === "ar" ? brandConfig.brandNameAr : brandConfig.shortName}</span>
+            <span className={cn("hidden text-lg font-semibold tracking-tight transition-colors sm:block", brandClass)}>
+              {locale === "ar" ? brandConfig.brandNameAr : brandConfig.shortName}
+            </span>
           </Link>
-          <nav className="hidden lg:flex items-center gap-1">
+
+          <nav className="hidden items-center gap-1 lg:flex">
             {navItems.map((item) => (
-              <Link key={item.href} href={item.href} className={cn("px-4 py-2 text-sm font-medium rounded-md transition-colors", scrolled ? "text-foreground/80 hover:text-foreground hover:bg-muted" : "text-white/90 hover:text-white hover:bg-white/10")}>{item.label}</Link>
+              <Link key={item.href} href={item.href} className={cn("rounded-md px-4 py-2 text-sm font-medium transition-colors", textClass)}>
+                {item.label}
+              </Link>
             ))}
           </nav>
-          <div className="flex items-center gap-2">
-            <button onClick={switchLocale} className={cn("flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-sm transition-colors", scrolled ? "text-foreground/80 hover:bg-muted" : "text-white/90 hover:bg-white/10")} aria-label="Switch language">
-              <Globe className="w-4 h-4" /><span className="hidden sm:inline">{locale === "en" ? "العربية" : "English"}</span>
+
+          <div className="flex items-center gap-1.5">
+            <button onClick={switchLocale} className={cn("flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm transition-colors", textClass)} aria-label="Switch language">
+              <Globe className="h-4 w-4" /><span className="hidden sm:inline">{locale === "en" ? "العربية" : "English"}</span>
             </button>
-            <Link href={`/${locale}/favorites`} className={cn("p-2 rounded-md transition-colors", scrolled ? "text-foreground/80 hover:bg-muted" : "text-white/90 hover:bg-white/10")} aria-label={t("favorites")}><Heart className="w-5 h-5" /></Link>
+
+            <Link href={`/${locale}/favorites`} className={cn("rounded-md p-2 transition-colors", textClass)} aria-label={t("favorites")}>
+              <Heart className="h-5 w-5" />
+            </Link>
+
             {isLoggedIn ? (
-              <Link href={`/${locale}/dashboard`} className={cn("p-2 rounded-md transition-colors hidden sm:flex", scrolled ? "text-foreground/80 hover:bg-muted" : "text-white/90 hover:bg-white/10")} aria-label={t("account")}><User className="w-5 h-5" /></Link>
+              <div ref={profileRef} className="relative">
+                <button
+                  type="button"
+                  onClick={() => setProfileOpen((value) => !value)}
+                  className={cn("flex h-10 w-10 items-center justify-center rounded-full transition-colors", textClass)}
+                  aria-label={t("account")}
+                  aria-expanded={profileOpen}
+                >
+                  <User className="h-5 w-5" />
+                  <ChevronDown className="hidden h-3.5 w-3.5 sm:block" />
+                </button>
+
+                {profileOpen && (
+                  <div className="absolute end-0 top-12 z-[60] w-60 overflow-hidden rounded-2xl border border-border bg-background p-2 shadow-xl">
+                    <div className="border-b border-border px-3 py-2.5">
+                      <p className="text-xs font-medium text-muted-foreground">{t("account")}</p>
+                    </div>
+                    <div className="py-1">
+                      {profileItems.map((item) => (
+                        <Link key={item.href} href={item.href} onClick={() => setProfileOpen(false)} className="block rounded-xl px-3 py-2.5 text-sm font-medium text-foreground transition hover:bg-muted">
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                    <div className="border-t border-border pt-1">
+                      <button type="button" onClick={handleLogout} className="flex w-full items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium text-red-600 transition hover:bg-red-50">
+                        <LogOut className="h-4 w-4" />
+                        {tAuth("logout")}
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             ) : (
-              <Link href={`/${locale}/login`} className={cn("hidden sm:inline-flex items-center justify-center h-9 px-3 text-xs font-medium rounded-md transition-colors", scrolled ? "text-foreground/80 hover:bg-muted" : "text-white/90 hover:bg-white/10")}>{tAuth("login")}</Link>
+              <Link href={`/${locale}/login`} className={cn("hidden h-9 items-center justify-center rounded-md px-3 text-xs font-medium transition-colors sm:inline-flex", textClass)}>
+                {tAuth("login")}
+              </Link>
             )}
-            <Link href={isLoggedIn ? `/${locale}/listings/new` : `/${locale}/register`} className={cn("hidden md:inline-flex items-center justify-center h-9 px-3 text-xs font-medium rounded-md transition-colors", scrolled ? "bg-primary text-primary-foreground shadow hover:bg-[hsl(var(--primary-600))]" : "border border-white/30 text-white hover:bg-white/10")}>{t("listProperty")}</Link>
-            <button onClick={() => setMobileOpen(!mobileOpen)} className={cn("lg:hidden p-2 rounded-md", scrolled ? "text-foreground" : "text-white")} aria-label="Toggle menu">{mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}</button>
+
+            <Link href={isLoggedIn ? `/${locale}/listings/new` : `/${locale}/register`} className={cn("hidden h-9 items-center justify-center rounded-md px-3 text-xs font-medium transition-colors md:inline-flex", transparent ? "border border-white/30 text-white hover:bg-white/10" : "bg-primary text-primary-foreground shadow hover:bg-[hsl(var(--primary-600))]")}>
+              {t("listProperty")}
+            </Link>
+
+            <button onClick={() => setMobileOpen(!mobileOpen)} className={cn("rounded-md p-2 lg:hidden", transparent ? "text-white" : "text-foreground")} aria-label="Toggle menu">
+              {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
           </div>
         </div>
       </div>
+
       {mobileOpen && (
-        <div className="lg:hidden bg-[hsl(var(--background))] border-b border-[hsl(var(--border))]">
-          <nav className="px-4 py-4 space-y-1">
+        <div className="border-b border-[hsl(var(--border))] bg-[hsl(var(--background))] shadow-lg lg:hidden">
+          <nav className="space-y-1 px-4 py-4">
             {navItems.map((item) => (
-              <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)} className="block px-4 py-3 text-base font-medium text-foreground rounded-md hover:bg-muted">{item.label}</Link>
+              <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)} className="block rounded-md px-4 py-3 text-base font-medium text-foreground hover:bg-muted">
+                {item.label}
+              </Link>
             ))}
-            <Link href={isLoggedIn ? `/${locale}/listings/new` : `/${locale}/register`} onClick={() => setMobileOpen(false)} className="block px-4 py-3 text-base font-medium text-primary rounded-md hover:bg-muted">{t("listProperty")}</Link>
-            {!isLoggedIn && <Link href={`/${locale}/login`} onClick={() => setMobileOpen(false)} className="block px-4 py-3 text-base font-medium text-foreground rounded-md hover:bg-muted">{tAuth("login")}</Link>}
+            {isLoggedIn && profileItems.slice(0, 6).map((item) => (
+              <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)} className="block rounded-md px-4 py-3 text-base font-medium text-foreground hover:bg-muted">
+                {item.label}
+              </Link>
+            ))}
+            <Link href={isLoggedIn ? `/${locale}/listings/new` : `/${locale}/register`} onClick={() => setMobileOpen(false)} className="block rounded-md px-4 py-3 text-base font-medium text-primary hover:bg-muted">
+              {t("listProperty")}
+            </Link>
+            {!isLoggedIn ? (
+              <Link href={`/${locale}/login`} onClick={() => setMobileOpen(false)} className="block rounded-md px-4 py-3 text-base font-medium text-foreground hover:bg-muted">
+                {tAuth("login")}
+              </Link>
+            ) : (
+              <button type="button" onClick={handleLogout} className="flex w-full items-center gap-2 rounded-md px-4 py-3 text-start text-base font-medium text-red-600 hover:bg-red-50">
+                <LogOut className="h-4 w-4" />
+                {tAuth("logout")}
+              </button>
+            )}
           </nav>
         </div>
       )}

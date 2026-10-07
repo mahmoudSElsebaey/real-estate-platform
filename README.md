@@ -1,10 +1,10 @@
-# Aether Residences
+# Aqarco
 
 Premium Real Estate, Resorts, Property Investment, Hotel & Apartment Booking Platform.
 
 ## Brand
 
-**Aether Residences** — Exceptional Living. Timeless Investment.
+**Aqarco** — Exceptional Living. Timeless Investment.
 
 Centralized brand configuration: `src/config/brand.config.ts`.
 

@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowRight, Eye, EyeOff, Globe, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import brandConfig from "@/config/brand.config";
 
@@ -16,14 +19,21 @@ export default function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState<(typeof ROLE_OPTIONS)[number]>("buyer");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const switchLocale = () => {
+    const nextLocale = locale === "en" ? "ar" : "en";
+    router.push(`/${nextLocale}/register`);
+  };
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
     setLoading(true);
+
     try {
       const res = await fetch("/api/auth/register", {
         method: "POST",
@@ -31,11 +41,13 @@ export default function RegisterPage() {
         body: JSON.stringify({ name, email, password, role, preferredLocale: locale }),
       });
       const data = await res.json();
+
       if (!res.ok) {
         setError(data.error === "Email already registered" ? t("errors.emailExists") : data.error || t("errors.generic"));
         setLoading(false);
         return;
       }
+
       router.push(`/${locale}/dashboard`);
       router.refresh();
     } catch {
@@ -45,53 +57,151 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-4 py-16">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <Link href={`/${locale}`} className="inline-flex items-center gap-2 mb-6">
-            <div className="w-10 h-10 text-primary">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                <rect x="6" y="18" width="8" height="16" rx="1" fill="currentColor" />
-                <rect x="16" y="12" width="8" height="22" rx="1" fill="currentColor" />
-                <rect x="26" y="16" width="8" height="18" rx="1" fill="currentColor" />
-                <path d="M4 18 L20 6 L36 18" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                <circle cx="20" cy="22" r="2.5" fill="currentColor" opacity="0.9" />
-              </svg>
-            </div>
-            <span className="font-semibold text-xl">{locale === "ar" ? brandConfig.brandNameAr : brandConfig.shortName}</span>
+    <main data-auth-page className="min-h-screen overflow-hidden bg-background">
+      <div className="mx-auto flex min-h-screen max-w-7xl flex-col">
+        <div className="flex items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
+          <Link href={`/${locale}`} className="inline-flex items-center gap-2.5" aria-label={locale === "ar" ? brandConfig.brandNameAr : brandConfig.brandName}>
+            <Image src={brandConfig.logo.mark} alt={brandConfig.shortName} width={40} height={40} priority />
+            <span className="text-xl font-semibold tracking-tight">
+              {locale === "ar" ? brandConfig.brandNameAr : brandConfig.brandName}
+            </span>
           </Link>
-          <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mb-2">{t("registerTitle")}</h1>
-          <p className="text-muted-foreground text-sm">{t("registerSubtitle")}</p>
+          <button
+            type="button"
+            onClick={switchLocale}
+            className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-2 text-sm font-medium text-foreground shadow-sm transition hover:border-primary/30 hover:bg-primary/5"
+            aria-label="Switch language"
+          >
+            <Globe className="h-4 w-4" />
+            {locale === "en" ? "العربية" : "English"}
+          </button>
         </div>
-        <form onSubmit={handleSubmit} className="bg-card border border-[hsl(var(--border))] rounded-xl p-6 md:p-8 shadow-sm space-y-5">
-          {error && <div className="rounded-md bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">{error}</div>}
-          <div className="space-y-2">
-            <label htmlFor="name" className="text-sm font-medium">{t("name")}</label>
-            <input id="name" type="text" required minLength={2} value={name} onChange={(e) => setName(e.target.value)} className="w-full h-11 px-3 rounded-md border border-[hsl(var(--input))] bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="email" className="text-sm font-medium">{t("email")}</label>
-            <input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="w-full h-11 px-3 rounded-md border border-[hsl(var(--input))] bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="password" className="text-sm font-medium">{t("password")}</label>
-            <input id="password" type="password" required minLength={8} value={password} onChange={(e) => setPassword(e.target.value)} className="w-full h-11 px-3 rounded-md border border-[hsl(var(--input))] bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="role" className="text-sm font-medium">{t("role")}</label>
-            <select id="role" value={role} onChange={(e) => setRole(e.target.value as any)} className="w-full h-11 px-3 rounded-md border border-[hsl(var(--input))] bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring">
-              {ROLE_OPTIONS.map((r) => (
-                <option key={r} value={r}>{t(`roles.${r}`)}</option>
-              ))}
-            </select>
-          </div>
-          <Button type="submit" className="w-full h-11" disabled={loading}>{loading ? "..." : t("register")}</Button>
-          <p className="text-center text-sm text-muted-foreground">
-            {t("hasAccount")}{" "}
-            <Link href={`/${locale}/login`} className="text-primary font-medium hover:underline">{t("login")}</Link>
-          </p>
-        </form>
+
+        <div className="grid flex-1 items-stretch lg:grid-cols-2">
+          <motion.section
+            initial={{ opacity: 0, x: locale === "ar" ? 30 : -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="relative hidden min-h-[680px] overflow-hidden lg:block"
+          >
+            <Image
+              src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1600&q=85"
+              alt="Modern luxury residence"
+              fill
+              priority
+              sizes="50vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/25 to-black/65" />
+            <div className="relative z-10 flex h-full flex-col justify-end p-10 text-white xl:p-14">
+              <motion.div
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.6 }}
+                className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm backdrop-blur-md"
+              >
+                <Sparkles className="h-4 w-4" />
+                <span>{locale === "ar" ? "ابدأ رحلتك العقارية" : "Start your real estate journey"}</span>
+              </motion.div>
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="max-w-xl text-4xl font-semibold leading-tight tracking-tight xl:text-5xl"
+              >
+                {locale === "ar" ? brandConfig.tagline.ar : brandConfig.tagline.en}
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+                className="mt-5 max-w-lg text-base leading-7 text-white/75"
+              >
+                {locale === "ar" ? brandConfig.description.ar : brandConfig.description.en}
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.6 }}
+                className="mt-8 flex items-center gap-3 text-sm text-white/80"
+              >
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/15 backdrop-blur">
+                  <ShieldCheck className="h-4 w-4" />
+                </div>
+                <span>{locale === "ar" ? "تجربة آمنة وبسيطة من البداية" : "A secure, simple experience from the start"}</span>
+              </motion.div>
+            </div>
+          </motion.section>
+
+          <section className="flex items-center justify-center px-5 py-10 sm:px-8 lg:px-12 xl:px-16">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, ease: "easeOut" }}
+              className="w-full max-w-md"
+            >
+              <div className="mb-8">
+                <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                  <ArrowRight className={locale === "ar" ? "h-5 w-5 rotate-180" : "h-5 w-5"} />
+                </div>
+                <h1 className="text-3xl font-semibold tracking-tight">{t("registerTitle")}</h1>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{t("registerSubtitle")}</p>
+              </div>
+
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <AnimatePresence mode="wait">
+                  {error && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0, y: -8 }}
+                      animate={{ opacity: 1, height: "auto", y: 0 }}
+                      exit={{ opacity: 0, height: 0, y: -8 }}
+                      className="overflow-hidden rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+                    >
+                      {error}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                <div className="space-y-2">
+                  <label htmlFor="name" className="text-sm font-medium">{t("name")}</label>
+                  <input id="name" type="text" required minLength={2} value={name} onChange={(e) => setName(e.target.value)} className="h-12 w-full rounded-xl border border-input bg-card px-4 text-sm shadow-sm outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10" autoComplete="name" />
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="email" className="text-sm font-medium">{t("email")}</label>
+                  <input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="h-12 w-full rounded-xl border border-input bg-card px-4 text-sm shadow-sm outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10" autoComplete="email" />
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="password" className="text-sm font-medium">{t("password")}</label>
+                  <div className="relative">
+                    <input id="password" type={showPassword ? "text" : "password"} required minLength={8} value={password} onChange={(e) => setPassword(e.target.value)} className="h-12 w-full rounded-xl border border-input bg-card px-4 pe-12 text-sm shadow-sm outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10" autoComplete="new-password" />
+                    <button type="button" onClick={() => setShowPassword((value) => !value)} aria-label={showPassword ? "Hide password" : "Show password"} className="absolute inset-y-0 end-0 flex w-12 items-center justify-center text-muted-foreground transition-colors hover:text-foreground">
+                      {showPassword ? <EyeOff className="h-4.5 w-4.5" /> : <Eye className="h-4.5 w-4.5" />}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="role" className="text-sm font-medium">{t("role")}</label>
+                  <select id="role" value={role} onChange={(e) => setRole(e.target.value as (typeof ROLE_OPTIONS)[number])} className="h-12 w-full rounded-xl border border-input bg-card px-4 text-sm shadow-sm outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10">
+                    {ROLE_OPTIONS.map((r) => <option key={r} value={r}>{t(`roles.${r}`)}</option>)}
+                  </select>
+                </div>
+
+                <Button type="submit" className="h-12 w-full rounded-xl text-sm font-semibold shadow-lg shadow-primary/15 transition-transform hover:-translate-y-0.5" disabled={loading}>
+                  {loading ? "..." : t("register")}
+                </Button>
+
+                <p className="text-center text-sm text-muted-foreground">
+                  {t("hasAccount")}{" "}
+                  <Link href={`/${locale}/login`} className="font-semibold text-primary hover:underline">{t("login")}</Link>
+                </p>
+              </form>
+            </motion.div>
+          </section>
+        </div>
       </div>
-    </div>
+    </main>
   );
 }

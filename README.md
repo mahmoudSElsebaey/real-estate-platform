@@ -74,13 +74,13 @@ All demo accounts use the password `Demo@12345`:
 
 | Role | Email |
 |---|---|
-| Buyer | demo.buyer@aether.test |
-| Renter | demo.renter@aether.test |
-| Investor | demo.investor@aether.test |
-| Owner | demo.owner@aether.test |
-| Agent | demo.agent@aether.test |
-| Hotel Operator | demo.hotel@aether.test |
-| Admin | demo.admin@aether.test |
+| Buyer | demo.buyer@aqarco.test |
+| Renter | demo.renter@aqarco.test |
+| Investor | demo.investor@aqarco.test |
+| Owner | demo.owner@aqarco.test |
+| Agent | demo.agent@aqarco.test |
+| Hotel Operator | demo.hotel@aqarco.test |
+| Admin | demo.admin@aqarco.test |
 
 The seed is safe to run repeatedly. It upserts the demo users and properties and refreshes the demo favorites/inquiries for those seeded records.
 

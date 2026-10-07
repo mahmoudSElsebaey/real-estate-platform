@@ -140,3 +140,10 @@ html { scroll-behavior: smooth; }
   background-color: hsl(var(--primary-200));
   color: hsl(var(--primary-900));
 }
+
+
+/* Auth pages use their own minimal shell. */
+body:has([data-auth-page]) .site-header,
+body:has([data-auth-page]) .site-footer {
+  display: none;
+}

@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /listings
+Disallow: /inbox
+Disallow: /inquiries
+Disallow: /favorites
+Disallow: /compare
+
+Sitemap: https://aetherresidences.com/sitemap.xml

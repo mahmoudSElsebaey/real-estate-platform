@@ -9,13 +9,13 @@ if (!MONGODB_URI) {
 const DEMO_PASSWORD = "Demo@12345";
 
 const roles = [
-  ["buyer", "Demo Buyer", "demo.buyer@aether.test"],
-  ["renter", "Demo Renter", "demo.renter@aether.test"],
-  ["investor", "Demo Investor", "demo.investor@aether.test"],
-  ["owner", "Demo Owner", "demo.owner@aether.test"],
-  ["agent", "Demo Agent", "demo.agent@aether.test"],
-  ["hotel_operator", "Demo Hotel Operator", "demo.hotel@aether.test"],
-  ["admin", "Demo Admin", "demo.admin@aether.test"],
+  ["buyer", "Demo Buyer", "demo.buyer@aqarco.test"],
+  ["renter", "Demo Renter", "demo.renter@aqarco.test"],
+  ["investor", "Demo Investor", "demo.investor@aqarco.test"],
+  ["owner", "Demo Owner", "demo.owner@aqarco.test"],
+  ["agent", "Demo Agent", "demo.agent@aqarco.test"],
+  ["hotel_operator", "Demo Hotel Operator", "demo.hotel@aqarco.test"],
+  ["admin", "Demo Admin", "demo.admin@aqarco.test"],
 ];
 
 const propertyData = [

@@ -22,24 +22,36 @@ export function DevelopersSwiper() {
   const ar = locale === "ar";
   const viewportRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
-
   const visible = 3;
   const maxIndex = Math.max(0, developers.length - visible);
+
+  const scrollToIndex = (next: number) => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+    const child = viewport.children[next] as HTMLElement | undefined;
+    if (!child) return;
+
+    // Change only the horizontal scroll position. scrollIntoView() can also
+    // move the whole document vertically when the carousel auto-advances.
+    const targetLeft = child.offsetLeft - viewport.offsetLeft;
+    viewport.scrollTo({ left: targetLeft, behavior: "smooth" });
+  };
 
   const move = (direction: number) => {
     const next = Math.min(maxIndex, Math.max(0, index + direction));
     setIndex(next);
-    viewportRef.current?.children[next]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+    scrollToIndex(next);
   };
 
   useEffect(() => {
     const timer = window.setInterval(() => {
       setIndex((current) => {
         const next = current >= maxIndex ? 0 : current + 1;
-        viewportRef.current?.children[next]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+        scrollToIndex(next);
         return next;
       });
     }, 4000);
+
     return () => window.clearInterval(timer);
   }, [maxIndex]);
 
@@ -52,12 +64,20 @@ export function DevelopersSwiper() {
               <Building2 className="h-4 w-4" />
               {ar ? "أبرز المطورين" : "Leading developers"}
             </div>
-            <h2 className="text-3xl font-semibold tracking-tight md:text-5xl">{ar ? "وجهات من أكبر الشركات العقارية" : "Explore leading real estate developers"}</h2>
-            <p className="mt-3 max-w-2xl text-muted-foreground">{ar ? "تصفح مجموعة مختارة من أبرز المطورين العقاريين في السوق." : "Discover destinations from some of the most recognized real estate developers."}</p>
+            <h2 className="text-3xl font-semibold tracking-tight md:text-5xl">
+              {ar ? "وجهات من أكبر الشركات العقارية" : "Explore leading real estate developers"}
+            </h2>
+            <p className="mt-3 max-w-2xl text-muted-foreground">
+              {ar ? "تصفح مجموعة مختارة من أبرز المطورين العقاريين في السوق." : "Discover destinations from some of the most recognized real estate developers."}
+            </p>
           </div>
           <div className="hidden gap-2 sm:flex" dir="ltr">
-            <button onClick={() => move(-1)} className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md" aria-label="Previous"><ArrowLeft className="h-4 w-4" /></button>
-            <button onClick={() => move(1)} className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md" aria-label="Next"><ArrowRight className="h-4 w-4" /></button>
+            <button onClick={() => move(-1)} className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md" aria-label="Previous">
+              <ArrowLeft className="h-4 w-4" />
+            </button>
+            <button onClick={() => move(1)} className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md" aria-label="Next">
+              <ArrowRight className="h-4 w-4" />
+            </button>
           </div>
         </div>
 

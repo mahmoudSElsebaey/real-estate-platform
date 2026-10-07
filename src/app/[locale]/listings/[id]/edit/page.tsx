@@ -6,6 +6,7 @@ import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { PROPERTY_TYPES, LISTING_PURPOSE } from "@/models/Property";
+import { ImageUploader, type ImageItem } from "@/components/properties/ImageUploader";
 
 export default function EditPropertyPage() {
   const t = useTranslations("Listings.form");
@@ -33,7 +34,7 @@ export default function EditPropertyPage() {
   const [district, setDistrict] = useState("");
   const [address, setAddress] = useState("");
   const [furnishing, setFurnishing] = useState("");
-  const [imagesText, setImagesText] = useState("");
+  const [images, setImages] = useState<ImageItem[]>([]);
 
   useEffect(() => {
     async function load() {
@@ -51,7 +52,9 @@ export default function EditPropertyPage() {
         setBathrooms(p.bathrooms != null ? String(p.bathrooms) : "");
         setCity(p.location?.city || ""); setDistrict(p.location?.district || ""); setAddress(p.location?.address || "");
         setFurnishing(p.furnishing || "");
-        setImagesText((p.images || []).map((img: { url: string }) => img.url).join("\n"));
+        setImages((p.images || []).map((img: { url: string; publicId?: string; isPrimary?: boolean; order?: number; alt?: string }, i: number) => ({
+          url: img.url, publicId: img.publicId, isPrimary: Boolean(img.isPrimary) || i === 0, order: img.order ?? i, alt: img.alt,
+        })));
       } catch { setError("Failed to load property"); }
       finally { setLoading(false); }
     }
@@ -61,8 +64,6 @@ export default function EditPropertyPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(""); setSuccess(""); setSaving(true);
-    const imageUrls = imagesText.split(/[\n,]+/).map((s) => s.trim()).filter(Boolean);
-    const images = imageUrls.map((url, i) => ({ url, isPrimary: i === 0, order: i }));
     const body = {
       title: { en: titleEn, ar: titleAr },
       description: { en: descEn, ar: descAr },
@@ -74,7 +75,7 @@ export default function EditPropertyPage() {
       bathrooms: bathrooms ? Number(bathrooms) : null,
       furnishing: furnishing || null,
       location: { city, district: district || null, address: address || null, country: "Egypt" },
-      images,
+      images: images.map((img, i) => ({ url: img.url, publicId: img.publicId, isPrimary: img.isPrimary || i === 0, order: i, alt: img.alt })),
     };
     try {
       const res = await fetch(`/api/properties/${id}`, {
@@ -101,13 +102,13 @@ export default function EditPropertyPage() {
         {error && <div className="mb-6 rounded-md bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">{error}</div>}
         {success && <div className="mb-6 rounded-md bg-emerald-50 border border-emerald-200 px-4 py-3 text-sm text-emerald-700">{success}</div>}
         <form onSubmit={handleSubmit} className="bg-card border border-[hsl(var(--border))] rounded-xl p-6 md:p-8 space-y-8">
-          <section className="space-y-4">
+          <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2"><label className={labelClass}>{t("titleEn")}</label><input value={titleEn} onChange={(e) => setTitleEn(e.target.value)} required className={inputClass} /></div>
             <div className="space-y-2"><label className={labelClass}>{t("titleAr")}</label><input value={titleAr} onChange={(e) => setTitleAr(e.target.value)} required dir="rtl" className={inputClass} /></div>
           </section>
-          <section className="space-y-4">
-            <div className="space-y-2"><label className={labelClass}>{t("descEn")}</label><textarea value={descEn} onChange={(e) => setDescEn(e.target.value)} required rows={4} className="w-full px-3 py-2 rounded-md border border-[hsl(var(--input))] bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-y" /></div>
-            <div className="space-y-2"><label className={labelClass}>{t("descAr")}</label><textarea value={descAr} onChange={(e) => setDescAr(e.target.value)} required rows={4} dir="rtl" className="w-full px-3 py-2 rounded-md border border-[hsl(var(--input))] bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-y" /></div>
+          <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-2"><label className={labelClass}>{t("descEn")}</label><textarea value={descEn} onChange={(e) => setDescEn(e.target.value)} rows={3} className="w-full px-3 py-2 rounded-md border border-[hsl(var(--input))] bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring" /></div>
+            <div className="space-y-2"><label className={labelClass}>{t("descAr")}</label><textarea value={descAr} onChange={(e) => setDescAr(e.target.value)} rows={3} dir="rtl" className="w-full px-3 py-2 rounded-md border border-[hsl(var(--input))] bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring" /></div>
           </section>
           <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2"><label className={labelClass}>{t("type")}</label>
@@ -120,13 +121,13 @@ export default function EditPropertyPage() {
               </select></div>
           </section>
           <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="space-y-2"><label className={labelClass}>{t("price")}</label><input type="number" min={0} value={price} onChange={(e) => setPrice(e.target.value)} required className={inputClass} /></div>
-            <div className="space-y-2"><label className={labelClass}>{t("rentalPrice")}</label><input type="number" min={0} value={rentalPrice} onChange={(e) => setRentalPrice(e.target.value)} className={inputClass} /></div>
-            <div className="space-y-2"><label className={labelClass}>{t("area")}</label><input type="number" min={1} value={area} onChange={(e) => setArea(e.target.value)} required className={inputClass} /></div>
+            <div className="space-y-2"><label className={labelClass}>{t("price")}</label><input type="number" value={price} onChange={(e) => setPrice(e.target.value)} className={inputClass} /></div>
+            <div className="space-y-2"><label className={labelClass}>{t("rentalPrice")}</label><input type="number" value={rentalPrice} onChange={(e) => setRentalPrice(e.target.value)} className={inputClass} /></div>
+            <div className="space-y-2"><label className={labelClass}>{t("area")}</label><input type="number" value={area} onChange={(e) => setArea(e.target.value)} required className={inputClass} /></div>
           </section>
           <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="space-y-2"><label className={labelClass}>{t("bedrooms")}</label><input type="number" min={0} value={bedrooms} onChange={(e) => setBedrooms(e.target.value)} className={inputClass} /></div>
-            <div className="space-y-2"><label className={labelClass}>{t("bathrooms")}</label><input type="number" min={0} value={bathrooms} onChange={(e) => setBathrooms(e.target.value)} className={inputClass} /></div>
+            <div className="space-y-2"><label className={labelClass}>{t("bedrooms")}</label><input type="number" value={bedrooms} onChange={(e) => setBedrooms(e.target.value)} className={inputClass} /></div>
+            <div className="space-y-2"><label className={labelClass}>{t("bathrooms")}</label><input type="number" value={bathrooms} onChange={(e) => setBathrooms(e.target.value)} className={inputClass} /></div>
             <div className="space-y-2"><label className={labelClass}>{t("furnishing")}</label>
               <select value={furnishing} onChange={(e) => setFurnishing(e.target.value)} className={inputClass}>
                 <option value="">—</option>
@@ -142,8 +143,7 @@ export default function EditPropertyPage() {
           </section>
           <section className="space-y-2">
             <label className={labelClass}>{t("images")}</label>
-            <textarea value={imagesText} onChange={(e) => setImagesText(e.target.value)} rows={3} className="w-full px-3 py-2 rounded-md border border-[hsl(var(--input))] bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-y" />
-            <p className="text-xs text-muted-foreground">{t("imagesHelp")}</p>
+            <ImageUploader images={images} onChange={setImages} />
           </section>
           <div className="flex flex-wrap gap-3 pt-4 border-t border-[hsl(var(--border))]">
             <Button type="submit" disabled={saving}>{saving ? "..." : t("update")}</Button>

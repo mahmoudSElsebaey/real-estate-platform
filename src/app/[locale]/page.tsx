@@ -15,25 +15,25 @@ export default async function HomePage({
   const categories = [
     {
       key: "buy",
-      href: `/${locale}/buy`,
+      href: `/${locale}/discover?purpose=sale`,
       title: t("categories.buy.title"),
       description: t("categories.buy.description"),
     },
     {
       key: "rent",
-      href: `/${locale}/rent`,
+      href: `/${locale}/discover?purpose=rent`,
       title: t("categories.rent.title"),
       description: t("categories.rent.description"),
     },
     {
       key: "invest",
-      href: `/${locale}/invest`,
+      href: `/${locale}/discover?purpose=invest`,
       title: t("categories.invest.title"),
       description: t("categories.invest.description"),
     },
     {
       key: "hospitality",
-      href: `/${locale}/hotels`,
+      href: `/${locale}/discover`,
       title: t("categories.hospitality.title"),
       description: t("categories.hospitality.description"),
     },

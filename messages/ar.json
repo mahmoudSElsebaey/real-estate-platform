@@ -33,19 +33,58 @@
   },
   "Home": {
     "featuredTitle": "عقارات مميزة",
-    "featuredSubtitle": "إقامات وفرص مختارة بعناية"
+    "featuredSubtitle": "إقامات وفرص مختارة بعناية",
+    "viewAll": "عرض كل العقارات",
+    "categoriesTitle": "استكشف حسب نيتك",
+    "categories": {
+      "buy": {
+        "title": "شراء",
+        "description": "امتلك قطعة من العمارة والموقع الاستثنائي."
+      },
+      "rent": {
+        "title": "إيجار",
+        "description": "حياة مرنة في إقامات وشقق فاخرة."
+      },
+      "invest": {
+        "title": "استثمار",
+        "description": "فرص منظمة بعوائد وجداول زمنية واضحة."
+      },
+      "hospitality": {
+        "title": "إقامة",
+        "description": "فنادق ومنتجعات وإقامات عطلات من أعلى المستويات."
+      }
+    },
+    "trustTitle": "مبنية على الثقة والشفافية",
+    "trustItems": {
+      "verified": "عقارات وملاك موثوقون",
+      "secure": "معاملات آمنة",
+      "support": "دعم كونسيرج مخصص",
+      "transparent": "أسعار وشروط واضحة"
+    }
   },
   "Footer": {
     "tagline": "حياة استثنائية. استثمار خالد.",
     "explore": "استكشف",
+    "discover": "اكتشف",
     "company": "الشركة",
+    "support": "الدعم",
     "legal": "قانوني",
     "about": "من نحن",
     "contact": "تواصل",
     "careers": "الوظائف",
     "privacy": "سياسة الخصوصية",
     "terms": "الشروط والأحكام",
-    "rights": "جميع الحقوق محفوظة."
+    "help": "مركز المساعدة",
+    "userGuide": "دليل المستخدم",
+    "newsletter": "ابقَ على اطلاع",
+    "newsletterPlaceholder": "بريدك الإلكتروني",
+    "subscribe": "اشترك",
+    "rights": "جميع الحقوق محفوظة.",
+    "locations": "المواقع الرئيسية",
+    "buy": "شراء",
+    "rent": "إيجار",
+    "invest": "استثمار",
+    "hotels": "فنادق ومنتجعات"
   },
   "Common": {
     "loading": "جاري التحميل...",

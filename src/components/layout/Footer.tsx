@@ -24,7 +24,7 @@ export function Footer() {
                   <circle cx="20" cy="22" r="2.5" fill="currentColor" opacity="0.9" />
                 </svg>
               </div>
-              <span className="font-semibold text-xl tracking-tight">{brandConfig.brandName}</span>
+              <span className="font-semibold text-xl tracking-tight">{locale === "ar" ? brandConfig.brandNameAr : brandConfig.brandName}</span>
             </div>
             <p className="text-white/70 text-sm leading-relaxed max-w-xs mb-6">{t("tagline")}</p>
             <div className="flex gap-4">

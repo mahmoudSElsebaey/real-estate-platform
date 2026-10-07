@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-import "dotenv/config";
 
 const MONGODB_URI = process.env.MONGODB_URI;
 if (!MONGODB_URI) {
@@ -66,9 +65,7 @@ const propertyData = [
     type: "apartment", purpose: "rent", status: "published", price: 0, rentalPrice: 55000, currency: "EGP", area: 145, bedrooms: 3, bathrooms: 2, floor: 7, totalFloors: 12, yearBuilt: 2021, furnishing: "furnished",
     amenities: ["Sea view", "Elevator", "Security", "Parking", "Central air"],
     location: { city: "Alexandria", district: "Stanley", address: "Corniche Road", country: "Egypt" },
-    images: [
-      { url: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1600&q=80", isPrimary: true, order: 0, alt: "Seafront apartment" },
-    ],
+    images: [{ url: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1600&q=80", isPrimary: true, order: 0, alt: "Seafront apartment" }],
     isFeatured: false, views: 142,
   },
   {
@@ -78,9 +75,7 @@ const propertyData = [
     type: "office", purpose: "rent", status: "published", price: 0, rentalPrice: 95000, currency: "EGP", area: 210, bathrooms: 2, floor: 9, totalFloors: 18, yearBuilt: 2023, furnishing: "furnished",
     amenities: ["Reception", "Meeting room", "Parking", "Security", "High-speed internet"],
     location: { city: "Cairo", district: "New Capital", address: "Business District", country: "Egypt" },
-    images: [
-      { url: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1600&q=80", isPrimary: true, order: 0, alt: "Premium office interior" },
-    ],
+    images: [{ url: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1600&q=80", isPrimary: true, order: 0, alt: "Premium office interior" }],
     isFeatured: false, views: 88,
   },
   {
@@ -90,9 +85,7 @@ const propertyData = [
     type: "apartment", purpose: "invest", status: "published", price: 4800000, currency: "EGP", area: 125, bedrooms: 2, bathrooms: 2, floor: 5, totalFloors: 10, yearBuilt: 2025, furnishing: "unfurnished",
     amenities: ["Clubhouse", "Pool", "Gym", "Security", "Parking"],
     location: { city: "Cairo", district: "Mostakbal City", address: "Residential District", country: "Egypt" },
-    images: [
-      { url: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1600&q=80", isPrimary: true, order: 0, alt: "Investment apartment" },
-    ],
+    images: [{ url: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1600&q=80", isPrimary: true, order: 0, alt: "Investment apartment" }],
     isFeatured: true, views: 116,
   },
   {
@@ -102,9 +95,7 @@ const propertyData = [
     type: "resort", purpose: "invest", status: "published", price: 7200000, rentalPrice: 120000, currency: "EGP", area: 180, bedrooms: 2, bathrooms: 2, floor: 3, totalFloors: 6, yearBuilt: 2024, furnishing: "furnished",
     amenities: ["Beach access", "Pool", "Spa", "Housekeeping", "Restaurant", "Parking"],
     location: { city: "Hurghada", district: "Sahl Hasheesh", address: "Resort District", country: "Egypt" },
-    images: [
-      { url: "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1600&q=80", isPrimary: true, order: 0, alt: "Resort suite" },
-    ],
+    images: [{ url: "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1600&q=80", isPrimary: true, order: 0, alt: "Resort suite" }],
     isFeatured: true, views: 204,
   },
   {
@@ -114,9 +105,7 @@ const propertyData = [
     type: "townhouse", purpose: "sale", status: "pending", price: 8900000, currency: "EGP", area: 260, bedrooms: 4, bathrooms: 3, floor: 0, totalFloors: 2, yearBuilt: 2024, furnishing: "semi_furnished",
     amenities: ["Garden", "Garage", "Security", "Club access"],
     location: { city: "Cairo", district: "Madinaty", address: "Garden District", country: "Egypt" },
-    images: [
-      { url: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1600&q=80", isPrimary: true, order: 0, alt: "Townhouse exterior" },
-    ],
+    images: [{ url: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1600&q=80", isPrimary: true, order: 0, alt: "Townhouse exterior" }],
     isFeatured: false, views: 24,
   },
 ];
@@ -172,7 +161,6 @@ async function main() {
 
   const owner = users.get("owner");
   const agent = users.get("agent");
-  const hotel = users.get("hotel_operator");
   const buyer = users.get("buyer");
   const renter = users.get("renter");
 

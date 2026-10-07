@@ -5,15 +5,16 @@
  */
 
 export const brandConfig = {
-  brandName: "Aether Residences",
-  shortName: "Aether",
+  brandName: "Aqarco",
+  brandNameAr: "عقاركو",
+  shortName: "Aqarco",
   tagline: {
-    en: "Exceptional Living. Timeless Investment.",
-    ar: "حياة استثنائية. استثمار خالد.",
+    en: "Find Your Place. Build Your Future.",
+    ar: "مكانك يبدأ من هنا.",
   },
   description: {
-    en: "A premium platform for discovering, booking, and investing in exceptional real estate, resorts, and hospitality experiences.",
-    ar: "منصة فاخرة لاكتشاف وحجز والاستثمار في عقارات ومنتجعات وتجارب ضيافة استثنائية.",
+    en: "A modern platform for discovering, renting, buying, and investing in exceptional real estate and hospitality experiences.",
+    ar: "منصة حديثة لاكتشاف وشراء وتأجير والاستثمار في العقارات وتجارب الضيافة المميزة.",
   },
   logo: {
     mark: "/images/logo-mark.svg",
@@ -22,7 +23,7 @@ export const brandConfig = {
     ogImage: "/images/logo-mark.svg",
   },
   contact: {
-    email: "hello@aetherresidences.com",
+    email: "hello@aqarco.com",
     phone: "+20 100 000 0000",
     address: {
       en: "Cairo, Egypt",

@@ -1,5 +1,5 @@
 /**
- * Demo seed script for Aether Residences
+ * Demo seed script for Aqarco
  * Usage: npm run seed
  * Requires MONGODB_URI in .env.local
  */
@@ -20,7 +20,7 @@ if (!MONGODB_URI) {
 const DEMO_PASSWORD = "Demo@12345";
 
 const users = [
-  { name: "Admin Aether", email: "admin@aether.demo", role: "admin", phone: "+201000000001", preferredLocale: "en" },
+  { name: "Admin Aqarco", email: "admin@aether.demo", role: "admin", phone: "+201000000001", preferredLocale: "en" },
   { name: "Omar Owner", email: "owner@aether.demo", role: "owner", phone: "+201000000002", preferredLocale: "ar" },
   { name: "Sara Agent", email: "agent@aether.demo", role: "agent", phone: "+201000000003", preferredLocale: "en" },
   { name: "Layla Investor", email: "investor@aether.demo", role: "investor", phone: "+201000000004", preferredLocale: "en" },

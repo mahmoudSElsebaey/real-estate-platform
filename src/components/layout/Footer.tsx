@@ -37,35 +37,35 @@ export function Footer() {
           <div className="lg:col-span-2">
             <h3 className="font-semibold text-sm tracking-wide uppercase text-white/90 mb-4">{t("discover")}</h3>
             <ul className="space-y-3 text-sm text-white/70">
-              <li><Link href={`/${locale}/buy`} className="hover:text-white transition-colors">Buy</Link></li>
-              <li><Link href={`/${locale}/rent`} className="hover:text-white transition-colors">Rent</Link></li>
-              <li><Link href={`/${locale}/invest`} className="hover:text-white transition-colors">Invest</Link></li>
-              <li><Link href={`/${locale}/hotels`} className="hover:text-white transition-colors">Hotels & Resorts</Link></li>
+              <li><Link href={`/${locale}/discover?purpose=sale`} className="hover:text-white transition-colors">{t("buy")}</Link></li>
+              <li><Link href={`/${locale}/discover?purpose=rent`} className="hover:text-white transition-colors">{t("rent")}</Link></li>
+              <li><Link href={`/${locale}/discover?purpose=invest`} className="hover:text-white transition-colors">{t("invest")}</Link></li>
+              <li><Link href={`/${locale}/discover`} className="hover:text-white transition-colors">{t("hotels")}</Link></li>
             </ul>
           </div>
 
           <div className="lg:col-span-2">
             <h3 className="font-semibold text-sm tracking-wide uppercase text-white/90 mb-4">{t("company")}</h3>
             <ul className="space-y-3 text-sm text-white/70">
-              <li><Link href={`/${locale}/about`} className="hover:text-white transition-colors">About</Link></li>
-              <li><Link href={`/${locale}/contact`} className="hover:text-white transition-colors">Contact</Link></li>
-              <li><Link href={`/${locale}/careers`} className="hover:text-white transition-colors">Careers</Link></li>
+              <li><Link href={`/${locale}/about`} className="hover:text-white transition-colors">{t("about")}</Link></li>
+              <li><Link href={`/${locale}/contact`} className="hover:text-white transition-colors">{t("contact")}</Link></li>
+              <li><Link href={`/${locale}/careers`} className="hover:text-white transition-colors">{t("careers")}</Link></li>
             </ul>
           </div>
 
           <div className="lg:col-span-2">
             <h3 className="font-semibold text-sm tracking-wide uppercase text-white/90 mb-4">{t("support")}</h3>
             <ul className="space-y-3 text-sm text-white/70">
-              <li><Link href={`/${locale}/help`} className="hover:text-white transition-colors">Help Center</Link></li>
-              <li><Link href={`/${locale}/user-guide`} className="hover:text-white transition-colors">User Guide</Link></li>
-              <li><Link href={`/${locale}/privacy`} className="hover:text-white transition-colors">Privacy</Link></li>
-              <li><Link href={`/${locale}/terms`} className="hover:text-white transition-colors">Terms</Link></li>
+              <li><Link href={`/${locale}/help`} className="hover:text-white transition-colors">{t("help")}</Link></li>
+              <li><Link href={`/${locale}/user-guide`} className="hover:text-white transition-colors">{t("userGuide")}</Link></li>
+              <li><Link href={`/${locale}/privacy`} className="hover:text-white transition-colors">{t("privacy")}</Link></li>
+              <li><Link href={`/${locale}/terms`} className="hover:text-white transition-colors">{t("terms")}</Link></li>
             </ul>
           </div>
 
           <div className="lg:col-span-2">
             <h3 className="font-semibold text-sm tracking-wide uppercase text-white/90 mb-4">{t("newsletter")}</h3>
-            <form className="space-y-3">
+            <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
               <input type="email" placeholder={t("newsletterPlaceholder")} className="w-full px-3 py-2.5 rounded-md bg-white/10 border border-white/20 text-sm text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--accent-400))]" />
               <button type="submit" className="w-full px-4 py-2.5 rounded-md bg-[hsl(var(--accent-500))] text-[hsl(var(--primary-900))] text-sm font-medium hover:bg-[hsl(var(--accent-400))] transition-colors">{t("subscribe")}</button>
             </form>

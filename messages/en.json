@@ -1,85 +1,17 @@
 {
-  "Brand": {
-    "name": "Aether Residences",
-    "shortName": "Aether",
-    "tagline": "Exceptional Living. Timeless Investment."
-  },
-  "Nav": {
-    "buy": "Buy",
-    "rent": "Rent",
-    "invest": "Invest",
-    "hotels": "Hotels & Resorts",
-    "listProperty": "List Property",
-    "favorites": "Favorites",
-    "account": "Account",
-    "search": "Search properties...",
-    "discover": "Discover"
-  },
-  "Hero": {
-    "eyebrow": "Premium Real Estate & Hospitality",
-    "title": "Discover spaces that define exceptional living",
-    "subtitle": "Buy, rent, invest, or book extraordinary properties, resorts, and residences curated for those who value quality and timeless design.",
-    "ctaBuy": "Explore Properties",
-    "ctaRent": "Find a Rental",
-    "ctaInvest": "Investment Opportunities",
-    "ctaBook": "Book a Stay",
-    "searchPlaceholder": "City, neighborhood, or property...",
-    "stats": {
-      "properties": "Curated Properties",
-      "locations": "Premium Locations",
-      "investors": "Active Investors",
-      "satisfaction": "Client Satisfaction"
-    }
-  },
-  "Home": {
-    "featuredTitle": "Featured Residences",
-    "featuredSubtitle": "Hand-selected properties that embody refined living and strong investment potential.",
-    "viewAll": "View all properties",
-    "categoriesTitle": "Explore by Intention",
-    "categories": {
-      "buy": {
-        "title": "Buy",
-        "description": "Own a piece of exceptional architecture and location."
-      },
-      "rent": {
-        "title": "Rent",
-        "description": "Flexible living in premium residences and apartments."
-      },
-      "invest": {
-        "title": "Invest",
-        "description": "Structured opportunities with clear returns and timelines."
-      },
-      "hospitality": {
-        "title": "Stay",
-        "description": "Hotels, resorts, and vacation residences of the highest standard."
-      }
-    },
-    "trustTitle": "Built on trust and transparency",
-    "trustItems": {
-      "verified": "Verified Properties & Owners",
-      "secure": "Secure Transactions",
-      "support": "Dedicated Concierge Support",
-      "transparent": "Clear Pricing & Terms"
-    }
-  },
-  "Footer": {
-    "tagline": "Exceptional Living. Timeless Investment.",
-    "discover": "Discover",
-    "company": "Company",
-    "support": "Support",
-    "legal": "Legal",
-    "newsletter": "Stay informed",
-    "newsletterPlaceholder": "Your email address",
-    "subscribe": "Subscribe",
-    "rights": "All rights reserved.",
-    "locations": "Key Locations"
-  },
-  "Common": {
-    "loading": "Loading...",
-    "error": "Something went wrong",
-    "retry": "Try again",
-    "learnMore": "Learn more",
-    "contactUs": "Contact us",
-    "language": "Language"
-  }
+  "Brand": {"name": "Aether Residences", "shortName": "Aether", "tagline": "Exceptional Living. Timeless Investment."},
+  "Nav": {"buy": "Buy", "rent": "Rent", "invest": "Invest", "hotels": "Hotels & Resorts", "listProperty": "List Property", "favorites": "Favorites", "account": "Account", "search": "Search properties...", "discover": "Discover"},
+  "Hero": {"eyebrow": "Premium Real Estate & Hospitality", "title": "Discover spaces that define exceptional living", "subtitle": "Buy, rent, invest, or book extraordinary properties.", "ctaBuy": "Explore Properties", "ctaRent": "Find a Rental", "ctaInvest": "Investment Opportunities", "ctaBook": "Discover All", "searchPlaceholder": "City, neighborhood, or property...", "stats": {"properties": "Curated Properties", "locations": "Premium Locations", "investors": "Active Investors", "satisfaction": "Client Satisfaction"}},
+  "Home": {"featuredTitle": "Featured Properties", "featuredSubtitle": "Handpicked residences"},
+  "Footer": {"tagline": "Exceptional Living. Timeless Investment.", "explore": "Explore", "company": "Company", "legal": "Legal", "about": "About", "contact": "Contact", "careers": "Careers", "privacy": "Privacy Policy", "terms": "Terms of Service", "rights": "All rights reserved."},
+  "Common": {"loading": "Loading...", "error": "Something went wrong", "save": "Save", "cancel": "Cancel", "back": "Back"},
+  "Auth": {"loginTitle": "Welcome back", "loginSubtitle": "Sign in to your Aether account", "registerTitle": "Create your account", "registerSubtitle": "Join Aether Residences", "email": "Email address", "password": "Password", "name": "Full name", "role": "I am a", "login": "Sign in", "register": "Create account", "logout": "Sign out", "noAccount": "Don't have an account?", "hasAccount": "Already have an account?", "forgotPassword": "Forgot password?", "roles": {"buyer": "Buyer", "renter": "Renter", "investor": "Investor", "owner": "Property Owner", "agent": "Agent", "hotel_operator": "Hotel / Resort Operator", "admin": "Admin"}, "errors": {"invalidCredentials": "Invalid email or password", "emailExists": "This email is already registered", "generic": "Something went wrong. Please try again."}, "success": {"registered": "Account created successfully", "loggedIn": "Welcome back"}},
+  "Dashboard": {"title": "Dashboard", "welcome": "Welcome back, {name}", "role": "Role", "quickActions": "Quick actions", "profile": "My Profile", "favorites": "Favorites", "bookings": "My Bookings", "investments": "My Investments", "listings": "My Listings", "settings": "Settings", "inquiries": "My Requests", "inbox": "Inbox"},
+  "Profile": {"title": "My Profile", "edit": "Edit profile", "save": "Save changes", "cancel": "Cancel", "name": "Full name", "email": "Email", "phone": "Phone number", "locale": "Preferred language", "role": "Account type", "memberSince": "Member since", "updated": "Profile updated successfully"},
+  "Listings": {"title": "My Listings", "subtitle": "Manage your properties", "addNew": "Add new property", "empty": "You have no listings yet", "emptyCta": "Create your first listing", "status": {"draft": "Draft", "pending": "Pending review", "approved": "Approved", "rejected": "Rejected", "published": "Published", "suspended": "Suspended", "archived": "Archived"}, "actions": {"edit": "Edit", "view": "View", "delete": "Archive", "submit": "Submit for review"}, "form": {"createTitle": "Add new property", "editTitle": "Edit property", "titleEn": "Title (English)", "titleAr": "Title (Arabic)", "descEn": "Description (English)", "descAr": "Description (Arabic)", "type": "Property type", "purpose": "Listing purpose", "price": "Sale price", "rentalPrice": "Rental price (monthly)", "currency": "Currency", "area": "Area (sqm)", "bedrooms": "Bedrooms", "bathrooms": "Bathrooms", "floor": "Floor", "totalFloors": "Total floors", "yearBuilt": "Year built", "furnishing": "Furnishing", "amenities": "Amenities", "city": "City", "district": "District", "address": "Address", "country": "Country", "images": "Images (URLs)", "imagesHelp": "Paste image URLs. First image will be the primary.", "saveDraft": "Save as draft", "submitReview": "Submit for review", "update": "Update property", "cancel": "Cancel", "successCreate": "Property created successfully", "successUpdate": "Property updated successfully", "types": {"apartment": "Apartment", "villa": "Villa", "townhouse": "Townhouse", "penthouse": "Penthouse", "studio": "Studio", "duplex": "Duplex", "chalet": "Chalet", "office": "Office", "retail": "Retail", "land": "Land", "hotel": "Hotel", "resort": "Resort", "other": "Other"}, "purposes": {"sale": "For Sale", "rent": "For Rent", "invest": "Investment", "both": "Sale & Rent"}, "furnishingOptions": {"furnished": "Furnished", "semi_furnished": "Semi-furnished", "unfurnished": "Unfurnished"}}},
+  "Discover": {"title": "Discover Properties", "subtitle": "Explore curated homes and investment opportunities", "searchPlaceholder": "Search by name, area, or keyword...", "cityPlaceholder": "City", "search": "Search", "filters": "Filters", "purpose": "Purpose", "type": "Type", "minPrice": "Min price", "maxPrice": "Max price", "bedrooms": "Bedrooms", "sort": "Sort by", "sortNewest": "Newest", "sortPriceAsc": "Price: low to high", "sortPriceDesc": "Price: high to low", "sortArea": "Largest area", "any": "Any", "clearFilters": "Clear all filters", "resultsCount": "{count} properties found", "empty": "No properties match your criteria", "emptyHint": "Try adjusting filters", "error": "Failed to load properties", "prev": "Previous", "next": "Next", "noImage": "No image", "featured": "Featured", "month": "mo"},
+  "PropertyDetail": {"backToDiscover": "Back to discovery", "notFound": "Property not found", "error": "Failed to load property", "bedrooms": "Bedrooms", "bathrooms": "Bathrooms", "area": "Area", "furnishing": "Furnishing", "yearBuilt": "Year built", "floor": "Floor", "description": "Description", "amenities": "Amenities", "contactAgent": "Contact agent", "scheduleVisit": "Schedule a visit", "month": "month"},
+  "Favorites": {"title": "My Favorites", "subtitle": "{count} saved properties", "empty": "No favorites yet", "emptyHint": "Browse properties and tap the heart", "browse": "Discover properties", "add": "Add to favorites", "remove": "Remove from favorites", "error": "Failed to load favorites"},
+  "Compare": {"title": "Compare Properties", "subtitle": "Comparing {count} of 4 properties", "empty": "No properties to compare", "emptyHint": "Add properties from discovery", "browse": "Discover properties", "clearAll": "Clear all", "feature": "Feature", "price": "Price", "type": "Type", "purpose": "Purpose", "location": "Location", "bedrooms": "Bedrooms", "bathrooms": "Bathrooms", "area": "Area", "furnishing": "Furnishing", "yearBuilt": "Year built", "add": "Add to compare", "remove": "Remove from compare", "full": "Compare list is full (max 4)"},
+  "Inquiry": {"name": "Full name", "email": "Email", "phone": "Phone", "type": "Request type", "message": "Message", "preferredDate": "Preferred visit date", "submit": "Send request", "error": "Failed to send request.", "successTitle": "Request sent successfully", "successMessage": "The agent will contact you soon.", "sendAnother": "Send another request", "types": {"info": "Information request", "visit": "Schedule a visit", "offer": "Make an offer", "other": "Other"}, "status": {"new": "New", "in_progress": "In progress", "contacted": "Contacted", "closed": "Closed"}, "myInquiries": "My Requests", "myInquiriesSubtitle": "Requests you have sent", "inbox": "Inbox", "inboxSubtitle": "Incoming inquiries on your properties", "emptySent": "You haven't sent any requests yet", "emptyInbox": "No incoming inquiries yet", "browse": "Browse properties", "listError": "Failed to load inquiries"}
 }

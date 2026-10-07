@@ -20,13 +20,13 @@ if (!MONGODB_URI) {
 const DEMO_PASSWORD = "Demo@12345";
 
 const users = [
-  { name: "Admin Aqarco", email: "admin@aether.demo", role: "admin", phone: "+201000000001", preferredLocale: "en" },
-  { name: "Omar Owner", email: "owner@aether.demo", role: "owner", phone: "+201000000002", preferredLocale: "ar" },
-  { name: "Sara Agent", email: "agent@aether.demo", role: "agent", phone: "+201000000003", preferredLocale: "en" },
-  { name: "Layla Investor", email: "investor@aether.demo", role: "investor", phone: "+201000000004", preferredLocale: "en" },
-  { name: "Hassan Buyer", email: "buyer@aether.demo", role: "buyer", phone: "+201000000005", preferredLocale: "ar" },
-  { name: "Nour Renter", email: "renter@aether.demo", role: "renter", phone: "+201000000006", preferredLocale: "en" },
-  { name: "Hotel Nile", email: "hotel@aether.demo", role: "hotel_operator", phone: "+201000000007", preferredLocale: "en" },
+  { name: "Admin Aqarco", email: "admin@aqarco.demo", role: "admin", phone: "+201000000001", preferredLocale: "en" },
+  { name: "Omar Owner", email: "owner@aqarco.demo", role: "owner", phone: "+201000000002", preferredLocale: "ar" },
+  { name: "Sara Agent", email: "agent@aqarco.demo", role: "agent", phone: "+201000000003", preferredLocale: "en" },
+  { name: "Layla Investor", email: "investor@aqarco.demo", role: "investor", phone: "+201000000004", preferredLocale: "en" },
+  { name: "Hassan Buyer", email: "buyer@aqarco.demo", role: "buyer", phone: "+201000000005", preferredLocale: "ar" },
+  { name: "Nour Renter", email: "renter@aqarco.demo", role: "renter", phone: "+201000000006", preferredLocale: "en" },
+  { name: "Hotel Nile", email: "hotel@aqarco.demo", role: "hotel_operator", phone: "+201000000007", preferredLocale: "en" },
 ] as const;
 
 function img(id: string, alt: string) {
@@ -136,9 +136,9 @@ async function main() {
     }
   }
 
-  const ownerId = createdUsers["owner@aether.demo"];
-  const agentId = createdUsers["agent@aether.demo"];
-  const hotelId = createdUsers["hotel@aether.demo"];
+  const ownerId = createdUsers["owner@aqarco.demo"];
+  const agentId = createdUsers["agent@aqarco.demo"];
+  const hotelId = createdUsers["hotel@aqarco.demo"];
 
   const properties = [
     {

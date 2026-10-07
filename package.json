@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "seed": "node --env-file=.env.local scripts/seed.mjs"
+    "seed": "npx tsx scripts/seed.ts"
   },
   "dependencies": {
     "next": "16.4.0",
@@ -32,10 +32,12 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/bcryptjs": "^2.4.6",
+    "dotenv": "^16.4.0",
     "eslint": "^9",
     "eslint-config-next": "16.4.0",
     "postcss": "^8",
     "tailwindcss": "^4",
+    "tsx": "^4.19.0",
     "typescript": "^5"
   }
 }

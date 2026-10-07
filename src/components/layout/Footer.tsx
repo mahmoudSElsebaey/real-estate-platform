@@ -28,7 +28,7 @@ export function Footer() {
             </div>
             <p className="text-white/70 text-sm leading-relaxed max-w-xs mb-6">{t("tagline")}</p>
             <div className="flex gap-4">
-              {Object.entries(brandConfig.social).map(([key, url]) => (
+              {Object.entries(brandConfig.social).filter(([, url]) => Boolean(url)).map(([key, url]) => (
                 <a key={key} href={url} target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-[hsl(var(--accent-400))] transition-colors capitalize text-sm">{key}</a>
               ))}
             </div>

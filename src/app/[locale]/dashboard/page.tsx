@@ -26,9 +26,13 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
   const actions = [
     { href: `/${locale}/profile`, label: t("profile"), show: true },
     { href: `/${locale}/favorites`, label: t("favorites"), show: true },
-    { href: `/${locale}/bookings`, label: t("bookings"), show: ["buyer", "renter", "investor"].includes(userRole) },
-    { href: `/${locale}/investments`, label: t("investments"), show: ["investor", "admin"].includes(userRole) },
+    { href: `/${locale}/bookings`, label: t("bookings"), show: true },
+    { href: `/${locale}/bookings/inbox`, label: t("bookingsInbox"), show: ["owner", "agent", "hotel_operator", "admin"].includes(userRole) },
+    { href: `/${locale}/inquiries`, label: t("inquiries"), show: true },
+    { href: `/${locale}/inbox`, label: t("inbox"), show: ["owner", "agent", "hotel_operator", "admin"].includes(userRole) },
+    { href: `/${locale}/admin/properties`, label: t("moderation"), show: userRole === "admin" },
     { href: `/${locale}/listings`, label: t("listings"), show: ["owner", "agent", "hotel_operator", "admin"].includes(userRole) },
+    { href: `/${locale}/investments`, label: t("investments"), show: ["investor", "admin"].includes(userRole) },
   ].filter((a) => a.show);
 
   return (

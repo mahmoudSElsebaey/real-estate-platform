@@ -7,6 +7,16 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import brandConfig from "@/config/brand.config";
 
+const DEMO_ACCOUNTS = [
+  { role: "buyer", email: "demo.buyer@aether.test", password: "Demo@12345" },
+  { role: "renter", email: "demo.renter@aether.test", password: "Demo@12345" },
+  { role: "investor", email: "demo.investor@aether.test", password: "Demo@12345" },
+  { role: "owner", email: "demo.owner@aether.test", password: "Demo@12345" },
+  { role: "agent", email: "demo.agent@aether.test", password: "Demo@12345" },
+  { role: "hotel_operator", email: "demo.hotel@aether.test", password: "Demo@12345" },
+  { role: "admin", email: "demo.admin@aether.test", password: "Demo@12345" },
+] as const;
+
 export default function LoginPage() {
   const t = useTranslations("Auth");
   const locale = useLocale();
@@ -40,6 +50,12 @@ export default function LoginPage() {
     }
   }
 
+  function useDemoAccount(account: (typeof DEMO_ACCOUNTS)[number]) {
+    setEmail(account.email);
+    setPassword(account.password);
+    setError("");
+  }
+
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-16">
       <div className="w-full max-w-md">
@@ -59,6 +75,7 @@ export default function LoginPage() {
           <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mb-2">{t("loginTitle")}</h1>
           <p className="text-muted-foreground text-sm">{t("loginSubtitle")}</p>
         </div>
+
         <form onSubmit={handleSubmit} className="bg-card border border-[hsl(var(--border))] rounded-xl p-6 md:p-8 shadow-sm space-y-5">
           {error && (
             <div className="rounded-md bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900 px-4 py-3 text-sm text-red-700 dark:text-red-300">{error}</div>
@@ -80,6 +97,27 @@ export default function LoginPage() {
             <Link href={`/${locale}/register`} className="text-primary font-medium hover:underline">{t("register")}</Link>
           </p>
         </form>
+
+        <section className="mt-6 rounded-xl border border-[hsl(var(--border))] bg-card/70 p-5">
+          <div className="mb-4">
+            <h2 className="font-semibold">{t("demoTitle")}</h2>
+            <p className="text-xs text-muted-foreground mt-1">{t("demoSubtitle")}</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {DEMO_ACCOUNTS.map((account) => (
+              <button
+                key={account.role}
+                type="button"
+                onClick={() => useDemoAccount(account)}
+                className="flex items-center justify-between gap-3 rounded-lg border border-[hsl(var(--border))] px-3 py-2.5 text-start text-sm transition-colors hover:border-[hsl(var(--primary-300))] hover:bg-primary/5"
+              >
+                <span className="font-medium">{t(`roles.${account.role}`)}</span>
+                <span className="text-xs text-muted-foreground">{t("useDemo")}</span>
+              </button>
+            ))}
+          </div>
+          <p className="mt-4 text-xs text-muted-foreground">{t("demoCredentials")}</p>
+        </section>
       </div>
     </div>
   );

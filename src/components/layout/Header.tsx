@@ -79,15 +79,15 @@ export function Header() {
 
   const transparent = isHome && !scrolled;
   const textClass = transparent ? "text-white/90 hover:text-white hover:bg-white/10" : "text-foreground/80 hover:text-foreground hover:bg-muted";
-  const brandClass = transparent ? "text-white" : "text-foreground";
+  const brandClass = transparent ? "text-white" : "text-[hsl(var(--primary-500))]";
 
   return (
     <header
       className={cn(
-        "site-header fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        "site-header inset-x-0 top-0 z-50 transition-all duration-300",
         transparent
-          ? "bg-transparent"
-          : "border-b border-[hsl(var(--border))] bg-[hsl(var(--background))]/95 shadow-sm backdrop-blur-md"
+          ? "fixed bg-transparent"
+          : "sticky border-b border-[hsl(var(--border))] bg-[hsl(var(--background))]/95 shadow-sm backdrop-blur-md"
       )}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

@@ -8,13 +8,13 @@ import { Button } from "@/components/ui/button";
 import brandConfig from "@/config/brand.config";
 
 const DEMO_ACCOUNTS = [
-  { role: "admin", email: "admin@aether.demo" },
-  { role: "owner", email: "owner@aether.demo" },
-  { role: "agent", email: "agent@aether.demo" },
-  { role: "investor", email: "investor@aether.demo" },
-  { role: "buyer", email: "buyer@aether.demo" },
-  { role: "renter", email: "renter@aether.demo" },
-  { role: "hotel_operator", email: "hotel@aether.demo" },
+  { role: "admin", email: "admin@aqarco.demo" },
+  { role: "owner", email: "owner@aqarco.demo" },
+  { role: "agent", email: "agent@aqarco.demo" },
+  { role: "investor", email: "investor@aqarco.demo" },
+  { role: "buyer", email: "buyer@aqarco.demo" },
+  { role: "renter", email: "renter@aqarco.demo" },
+  { role: "hotel_operator", email: "hotel@aqarco.demo" },
 ] as const;
 
 const DEMO_PASSWORD = "Demo@12345";

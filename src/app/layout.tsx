@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import brandConfig from "@/config/brand.config";
+import { getSiteUrl, absoluteUrl } from "@/lib/seo";
+
+const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: brandConfig.brandName,
     template: `%s | ${brandConfig.brandName}`,
@@ -17,9 +21,10 @@ export const metadata: Metadata = {
     siteName: brandConfig.brandName,
     title: brandConfig.brandName,
     description: brandConfig.description.en,
+    url: siteUrl,
     images: [
       {
-        url: brandConfig.logo.ogImage,
+        url: absoluteUrl(brandConfig.logo.ogImage),
         width: 1200,
         height: 630,
         alt: brandConfig.brandName,
@@ -30,11 +35,18 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: brandConfig.brandName,
     description: brandConfig.description.en,
-    images: [brandConfig.logo.ogImage],
+    images: [absoluteUrl(brandConfig.logo.ogImage)],
   },
   robots: {
     index: true,
     follow: true,
+  },
+  alternates: {
+    canonical: siteUrl,
+    languages: {
+      en: absoluteUrl("/en"),
+      ar: absoluteUrl("/ar"),
+    },
   },
 };
 

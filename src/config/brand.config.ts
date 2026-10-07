@@ -31,10 +31,10 @@ export const brandConfig = {
     },
   },
   social: {
-    instagram: "https://instagram.com/aetherresidences",
-    twitter: "https://x.com/aetherresidences",
-    linkedin: "https://linkedin.com/company/aetherresidences",
-    facebook: "https://facebook.com/aetherresidences",
+    instagram: "",
+    twitter: "",
+    linkedin: "",
+    facebook: "",
   },
   colors: {
     primary: {

@@ -31,18 +31,44 @@ Open http://localhost:3000
 
 ## Stage Status
 
-### Stage 1 ✅
-- Brand system, design tokens, i18n, Header, Footer, Hero, homepage
+### Stage 1
+- Brand system, design tokens, i18n foundation, Header, Footer, Hero, homepage
 
-### Stage 2 ✅
+### Stage 2
 - User model + MongoDB connection
 - Register / Login / Logout APIs
 - JWT httpOnly session cookies
 - Profile page (view + edit)
 - Role-based dashboard
-- Auth UI (login + register) with full AR/EN support
-- Header auth state awareness
+- Auth UI with full AR/EN support
+
+### Stage 3
+- Property model + bilingual fields + images
+- CRUD APIs (create, list, get, update, archive)
+- My Listings, New Property, Edit Property pages
+
+### Stage 4
+- Discover page with search, filters, sort, pagination
+- PropertyCard component
+- Property detail page with gallery
+- Expanded public API filters
+
+### Stage 5
+- Favorite model + API
+- FavoriteButton on cards and detail
+- Favorites page
+- Compare page (up to 4 properties)
+
+### Stage 6
+- Inquiry model + API
+- InquiryForm on property detail
+- My Requests page
+- Owner Inbox with status updates
 
 ## Roles
 
 buyer · renter · investor · owner · agent · hotel_operator · admin
+
+## Environment
+
+See `.env.example`. Never commit secrets.

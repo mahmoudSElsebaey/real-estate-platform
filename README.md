@@ -6,50 +6,43 @@ Premium Real Estate, Resorts, Property Investment, Hotel & Apartment Booking Pla
 
 **Aether Residences** — Exceptional Living. Timeless Investment.
 
-Centralized brand configuration lives in `src/config/brand.config.ts`.
+Centralized brand configuration: `src/config/brand.config.ts`.
 
-## Tech Stack (Stage 1)
+## Tech Stack
 
-- Next.js 16 (App Router)
-- React 19
-- TypeScript
+- Next.js 16 (App Router) + React 19 + TypeScript
 - Tailwind CSS v4
 - next-intl (Arabic + English, RTL/LTR)
-- Framer Motion (prepared)
-- class-variance-authority + clsx + tailwind-merge
+- MongoDB + Mongoose
+- bcryptjs + jose (JWT sessions)
+- Zod validation
 
 ## Getting Started
 
 ```bash
+cp .env.example .env.local
+# Set MONGODB_URI and AUTH_SECRET
+
 npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). The app redirects to `/en` or `/ar`.
+Open http://localhost:3000
 
-## Structure
+## Stage Status
 
-```
-src/
-  app/[locale]/     # Localized routes
-  components/       # UI + Layout + Home
-  config/           # brand.config.ts
-  i18n/             # next-intl setup
-  lib/              # utils
-messages/           # en.json + ar.json
-```
+### Stage 1 ✅
+- Brand system, design tokens, i18n, Header, Footer, Hero, homepage
 
-## Stage 1 Status
+### Stage 2 ✅
+- User model + MongoDB connection
+- Register / Login / Logout APIs
+- JWT httpOnly session cookies
+- Profile page (view + edit)
+- Role-based dashboard
+- Auth UI (login + register) with full AR/EN support
+- Header auth state awareness
 
-- Brand system ✅
-- Design tokens ✅
-- i18n + RTL/LTR ✅
-- Header (creative, transparent/scrolled) ✅
-- Footer ✅
-- Hero ✅
-- Homepage sections ✅
-- Centralized brand config ✅
+## Roles
 
-## Development Stages
-
-See project documentation for the full stage roadmap.
+buyer · renter · investor · owner · agent · hotel_operator · admin

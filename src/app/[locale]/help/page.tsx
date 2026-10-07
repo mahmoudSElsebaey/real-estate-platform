@@ -1,31 +1,5 @@
-import { getTranslations, setRequestLocale } from "next-intl/server";
-import type { Metadata } from "next";
-import { absoluteUrl } from "@/lib/seo";
+"use client";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "Pages.help" });
-  return {
-    title: t("title"),
-    description: t("metaDescription"),
-    alternates: { canonical: absoluteUrl(`/${locale}/help`), languages: { en: absoluteUrl("/en/help"), ar: absoluteUrl("/ar/help") } },
-  };
-}
-
-export default async function HelpPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
-  setRequestLocale(locale);
-  const t = await getTranslations("Pages.help");
-  return (
-    <div className="min-h-[70vh] py-12 md:py-16">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl md:text-4xl font-semibold tracking-tight mb-6">{t("title")}</h1>
-        <div className="space-y-4 text-muted-foreground leading-relaxed">
-          <p>{t("intro")}</p>
-          <p>{t("body1")}</p>
-          <p>{t("body2")}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
+import { useLocale } from "next-intl";
+import { ArrowRight, BookOpen, Compass, Heart, MessageCircle, Search, ShieldCheck } from "lucide-react";
+export default function HelpPage(){const locale=useLocale();const ar=locale==="ar";const cards=[["البحث عن عقار","Find a property","استخدم البحث والفلاتر للوصول بسرعة إلى العقار المناسب.","Use search and filters to quickly find the right property.",Search],["المفضلة والمقارنة","Favorites & compare","احفظ العقارات وقارن بينها قبل اتخاذ قرارك.","Save properties and compare them before deciding.",Heart],["التواصل والحجز","Contact & booking","أرسل استفسارًا أو اطلب معاينة أو حجزًا من صفحة العقار.","Send an inquiry, visit request, or booking from a property page.",MessageCircle],["تجربة موثوقة","A trusted experience","معلومات واضحة وتجربة مصممة لقرار أكثر ثقة.","Clear information and an experience built for confident decisions.",ShieldCheck]];return <main><section className="relative isolate overflow-hidden bg-[hsl(var(--primary-950))]"><img src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=2200&q=85" className="absolute inset-0 -z-20 h-full w-full object-cover"/><div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/85 via-black/60 to-black/20"/><div className="mx-auto flex min-h-[500px] max-w-7xl items-end px-4 pb-20 pt-32 sm:px-6 lg:px-8"><div className="max-w-3xl text-white"><p className="text-xs font-semibold uppercase tracking-[.28em] text-white/60">Aqarco / {ar?"الدعم":"SUPPORT"}</p><h1 className="mt-5 text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">{ar?"كيف يمكننا مساعدتك؟":"How can we help?"}</h1><p className="mt-6 max-w-2xl text-lg leading-8 text-white/70">{ar?"دليل سريع لاستخدام أهم أدوات عقاركو بثقة.":"A simple guide to using Aqarco's key features with confidence."}</p></div></div></section><section className="relative z-10 mx-auto -mt-12 max-w-7xl px-4 pb-24 sm:px-6 lg:px-8"><div className="grid overflow-hidden rounded-3xl border bg-card shadow-2xl md:grid-cols-2 lg:grid-cols-4">{cards.map(([arT,enT,arD,enD,Icon],i)=>{const I=Icon as typeof Search;return <article key={enT as string} className={`p-7 sm:p-8 ${i?"border-t lg:border-s md:border-t-0":""}`}><div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[hsl(var(--primary-100))] text-[hsl(var(--primary-600))]"><I className="h-5 w-5"/></div><h2 className="mt-6 text-lg font-semibold">{ar?(arT as string):(enT as string)}</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">{ar?(arD as string):(enD as string)}</p></article>})}</div></section><section className="bg-muted/40 py-24"><div className="mx-auto max-w-5xl px-4 sm:px-6"><div className="rounded-3xl bg-[hsl(var(--primary-900))] p-8 text-white sm:p-12"><BookOpen className="h-7 w-7 text-white/70"/><h2 className="mt-5 text-3xl font-semibold">{ar?"ما زلت تحتاج للمساعدة؟":"Still need help?"}</h2><p className="mt-3 max-w-2xl leading-7 text-white/65">{ar?"تواصل مع فريق عقاركو للاستفسارات العامة والدعم.":"Contact the Aqarco team for general questions or support."}</p><a href={"/"+locale+"/contact"} className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[hsl(var(--primary-900))]">{ar?"تواصل معنا":"Contact us"}<ArrowRight className="h-4 w-4 rtl:rotate-180"/></a></div></div></section></main>}

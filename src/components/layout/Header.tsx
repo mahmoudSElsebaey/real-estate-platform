@@ -8,6 +8,8 @@ import { ChevronDown, Globe, Heart, LogOut, Menu, User, X, Building2 } from "luc
 import { cn } from "@/lib/utils";
 import brandConfig from "@/config/brand.config";
 
+const PROPERTY_MANAGER_ROLES = ["owner", "agent", "hotel_operator", "admin"] as const;
+
 export function Header() {
   const t = useTranslations("Nav");
   const tAuth = useTranslations("Auth");
@@ -20,18 +22,19 @@ export function Header() {
   const [propertiesOpen, setPropertiesOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState<string | null>(null);
   const propertiesRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
 
   const isHome = pathname === `/${locale}`;
-  // Pages with dark/image hero sections can safely use the immersive transparent header.
-  // Content/account pages keep the solid header to avoid contrast issues on light backgrounds.
   const immersivePage =
     isHome ||
     pathname === `/${locale}/discover` ||
     pathname === `/${locale}/about` ||
     pathname === `/${locale}/contact` ||
     pathname === `/${locale}/careers`;
+
+  const canManageListings = !!userRole && PROPERTY_MANAGER_ROLES.includes(userRole as (typeof PROPERTY_MANAGER_ROLES)[number]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -41,7 +44,35 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    fetch("/api/user/me").then((r) => setIsLoggedIn(r.ok)).catch(() => setIsLoggedIn(false));
+    let cancelled = false;
+
+    fetch("/api/user/me")
+      .then(async (response) => {
+        if (!response.ok) {
+          if (!cancelled) {
+            setIsLoggedIn(false);
+            setUserRole(null);
+          }
+          return;
+        }
+
+        const data = await response.json();
+
+        if (!cancelled) {
+          setIsLoggedIn(true);
+          setUserRole(data?.user?.role ?? null);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setIsLoggedIn(false);
+          setUserRole(null);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, [pathname]);
 
   useEffect(() => {
@@ -61,9 +92,11 @@ export function Header() {
   };
 
   const handleLogout = async () => {
-    try { await fetch("/api/auth/logout", { method: "POST" }); }
-    finally {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } finally {
       setIsLoggedIn(false);
+      setUserRole(null);
       setProfileOpen(false);
       setMobileOpen(false);
       router.push(`/${locale}`);
@@ -76,7 +109,9 @@ export function Header() {
     { href: `/${locale}/discover?purpose=rent`, label: t("rent"), description: locale === "ar" ? "إقامات تناسب أسلوب حياتك" : "Spaces that fit your lifestyle" },
     { href: `/${locale}/discover?purpose=invest`, label: t("invest"), description: locale === "ar" ? "فرص بقيمة طويلة الأجل" : "Long-term value opportunities" },
     { href: `/${locale}/discover`, label: t("discover"), description: locale === "ar" ? "استكشف كل العقارات" : "Explore the full collection" },
-    { href: isLoggedIn ? `/${locale}/listings/new` : `/${locale}/register`, label: t("listProperty"), description: locale === "ar" ? "اعرض عقارك على عقاركو" : "List your property on Aqarco" },
+    ...(canManageListings
+      ? [{ href: `/${locale}/listings/new`, label: t("listProperty"), description: locale === "ar" ? "اعرض عقارك على عقاركو" : "List your property on Aqarco" }]
+      : []),
   ];
 
   const profileItems = [

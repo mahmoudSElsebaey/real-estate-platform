@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Property from "@/models/Property";
 
+// GET /api/investments — published investment opportunities
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
@@ -11,11 +12,15 @@ export async function GET(req: NextRequest) {
     const q = searchParams.get("q") || "";
 
     await connectDB();
+
     const filter: Record<string, unknown> = {
       status: "published",
       purpose: { $in: ["invest", "both"] },
     };
-    if (city) filter["location.city"] = { $regex: city, $options: "i" };
+
+    if (city) {
+      filter["location.city"] = { $regex: city, $options: "i" };
+    }
     if (q) {
       filter.$or = [
         { "title.en": { $regex: q, $options: "i" } },
@@ -30,17 +35,27 @@ export async function GET(req: NextRequest) {
         .sort({ isFeatured: -1, publishedAt: -1, createdAt: -1 })
         .skip(skip)
         .limit(limit)
-        .select("title type purpose price currency area location images isFeatured publishedAt")
+        .select(
+          "title type purpose price currency area location images isFeatured publishedAt"
+        )
         .lean(),
       Property.countDocuments(filter),
     ]);
 
     return NextResponse.json({
       opportunities: properties,
-      pagination: { page, limit, total, pages: Math.max(1, Math.ceil(total / limit)) },
+      pagination: {
+        page,
+        limit,
+        total,
+        pages: Math.max(1, Math.ceil(total / limit)),
+      },
     });
   } catch (error) {
     console.error("List investments error:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }

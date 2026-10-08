@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { Bed, Bath, Maximize2, MapPin, ArrowLeft, Building2 } from "lucide-react";
+import { Bed, Bath, Maximize2, MapPin, ArrowLeft, Building2, Mail, CalendarDays } from "lucide-react";
+import { InquiryForm } from "@/components/properties/InquiryForm";
 
 interface PropertyDetail {
   _id: string;
@@ -41,6 +42,14 @@ export default function PropertyDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [activeImage, setActiveImage] = useState(0);
+  const [inquiryType, setInquiryType] = useState<"info" | "visit">("info");
+
+  function openInquiry(type: "info" | "visit") {
+    setInquiryType(type);
+    requestAnimationFrame(() => {
+      document.getElementById("property-inquiry")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
 
   useEffect(() => {
     async function load() {
@@ -165,8 +174,12 @@ export default function PropertyDetailPage() {
             </div>
 
             <div className="pt-2 space-y-2">
-              <button type="button" className="w-full h-11 rounded-md bg-primary text-primary-foreground text-sm font-medium shadow hover:bg-[hsl(var(--primary-600))] transition-colors">{t("contactAgent")}</button>
-              <button type="button" className="w-full h-11 rounded-md border border-[hsl(var(--border))] text-sm font-medium hover:bg-muted transition-colors">{t("scheduleVisit")}</button>
+              <button type="button" onClick={() => openInquiry("info")} className="w-full h-11 rounded-md bg-primary text-primary-foreground text-sm font-medium shadow hover:bg-[hsl(var(--primary-600))] transition-colors">
+                <span className="inline-flex items-center justify-center gap-2"><Mail className="h-4 w-4" />{t("contactAgent")}</span>
+              </button>
+              <button type="button" onClick={() => openInquiry("visit")} className="w-full h-11 rounded-md border border-[hsl(var(--border))] text-sm font-medium hover:bg-muted transition-colors">
+                <span className="inline-flex items-center justify-center gap-2"><CalendarDays className="h-4 w-4" />{t("scheduleVisit")}</span>
+              </button>
             </div>
           </div>
         </div>
@@ -174,6 +187,18 @@ export default function PropertyDetailPage() {
         <section className="mt-12 max-w-3xl">
           <h2 className="text-lg font-semibold mb-3">{t("description")}</h2>
           <p className="text-muted-foreground leading-relaxed whitespace-pre-line">{description}</p>
+        </section>
+
+        <section id="property-inquiry" className="mt-12 scroll-mt-28 max-w-3xl rounded-2xl border border-[hsl(var(--border))] bg-card p-5 md:p-7">
+          <div className="mb-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+              {inquiryType === "visit" ? t("scheduleVisit") : t("contactAgent")}
+            </p>
+            <h2 className="mt-2 text-xl font-semibold">
+              {inquiryType === "visit" ? t("scheduleVisit") : t("contactAgent")}
+            </h2>
+          </div>
+          <InquiryForm propertyId={property._id} initialType={inquiryType} />
         </section>
 
         {property.amenities?.length > 0 && (

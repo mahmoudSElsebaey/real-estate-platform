@@ -35,7 +35,23 @@ export default function ListPropertyExperience() {
   const [images, setImages] = useState<ImageItem[]>([]);
 
   async function handleSubmit(status: "draft" | "pending") {
-    setError(""); setSuccess(""); setLoading(true);
+    setError(""); setSuccess("");
+
+    const validationError =
+      titleEn.trim().length < 5 ? (ar ? "العنوان بالإنجليزية يجب أن يكون 5 أحرف على الأقل." : "English title must be at least 5 characters.") :
+      titleAr.trim().length < 5 ? (ar ? "العنوان بالعربية يجب أن يكون 5 أحرف على الأقل." : "Arabic title must be at least 5 characters.") :
+      descEn.trim().length < 20 ? (ar ? "الوصف بالإنجليزية يجب أن يكون 20 حرفًا على الأقل." : "English description must be at least 20 characters.") :
+      descAr.trim().length < 20 ? (ar ? "الوصف بالعربية يجب أن يكون 20 حرفًا على الأقل." : "Arabic description must be at least 20 characters.") :
+      !city.trim() || city.trim().length < 2 ? (ar ? "المدينة مطلوبة ويجب أن تكون حرفين على الأقل." : "City is required and must be at least 2 characters.") :
+      !area || Number(area) < 1 ? (ar ? "المساحة يجب أن تكون أكبر من صفر." : "Area must be greater than zero.") :
+      null;
+
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
+    setLoading(true);
     const body = {
       title: { en: titleEn, ar: titleAr },
       description: { en: descEn, ar: descAr },
@@ -53,7 +69,14 @@ export default function ListPropertyExperience() {
       const res = await fetch("/api/properties", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error === "Validation failed" ? (ar ? "راجع الحقول المطلوبة." : "Please check the required fields.") : data.error || "Failed");
+        const fieldErrors = data.details?.fieldErrors
+          ? Object.values(data.details.fieldErrors).flat().filter(Boolean).join(" ")
+          : "";
+        setError(
+          data.error === "Validation failed"
+            ? fieldErrors || (ar ? "راجع الحقول المطلوبة." : "Please check the required fields.")
+            : data.error || "Failed"
+        );
         setLoading(false); return;
       }
       setSuccess(t("successCreate"));
@@ -103,10 +126,10 @@ export default function ListPropertyExperience() {
               <section>
                 <h3 className="text-lg font-semibold">{ar ? "العنوان والوصف" : "Title & story"}</h3>
                 <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                  <input value={titleEn} onChange={e => setTitleEn(e.target.value)} placeholder={t("titleEn")} className={input} />
-                  <input value={titleAr} onChange={e => setTitleAr(e.target.value)} placeholder={t("titleAr")} dir="rtl" className={input} />
-                  <textarea value={descEn} onChange={e => setDescEn(e.target.value)} placeholder={t("descEn")} className={areaInput} />
-                  <textarea value={descAr} onChange={e => setDescAr(e.target.value)} placeholder={t("descAr")} dir="rtl" className={areaInput} />
+                  <input required minLength={5} value={titleEn} onChange={e => setTitleEn(e.target.value)} placeholder={t("titleEn")} className={input} />
+                  <input required minLength={5} value={titleAr} onChange={e => setTitleAr(e.target.value)} placeholder={t("titleAr")} dir="rtl" className={input} />
+                  <textarea required minLength={20} value={descEn} onChange={e => setDescEn(e.target.value)} placeholder={t("descEn")} className={areaInput} />
+                  <textarea required minLength={20} value={descAr} onChange={e => setDescAr(e.target.value)} placeholder={t("descAr")} dir="rtl" className={areaInput} />
                 </div>
               </section>
 
@@ -123,7 +146,7 @@ export default function ListPropertyExperience() {
                 <div className="mt-4 grid gap-4 sm:grid-cols-3">
                   <input type="number" value={price} onChange={e => setPrice(e.target.value)} placeholder={t("price")} className={input} />
                   <input type="number" value={rentalPrice} onChange={e => setRentalPrice(e.target.value)} placeholder={t("rentalPrice")} className={input} />
-                  <input type="number" value={area} onChange={e => setArea(e.target.value)} placeholder={t("area")} className={input} />
+                  <input required min={1} type="number" value={area} onChange={e => setArea(e.target.value)} placeholder={t("area")} className={input} />
                   <input type="number" value={bedrooms} onChange={e => setBedrooms(e.target.value)} placeholder={t("bedrooms")} className={input} />
                   <input type="number" value={bathrooms} onChange={e => setBathrooms(e.target.value)} placeholder={t("bathrooms")} className={input} />
                   <select value={furnishing} onChange={e => setFurnishing(e.target.value)} className={input}><option value="">{t("furnishing")}</option><option value="furnished">{t("furnishingOptions.furnished")}</option><option value="semi_furnished">{t("furnishingOptions.semi_furnished")}</option><option value="unfurnished">{t("furnishingOptions.unfurnished")}</option></select>
@@ -133,7 +156,7 @@ export default function ListPropertyExperience() {
               <section>
                 <h3 className="text-lg font-semibold">{ar ? "الموقع" : "Location"}</h3>
                 <div className="mt-4 grid gap-4 sm:grid-cols-3">
-                  <input value={city} onChange={e => setCity(e.target.value)} placeholder={t("city")} className={input} />
+                  <input required minLength={2} value={city} onChange={e => setCity(e.target.value)} placeholder={t("city")} className={input} />
                   <input value={district} onChange={e => setDistrict(e.target.value)} placeholder={t("district")} className={input} />
                   <input value={address} onChange={e => setAddress(e.target.value)} placeholder={t("address")} className={input} />
                 </div>

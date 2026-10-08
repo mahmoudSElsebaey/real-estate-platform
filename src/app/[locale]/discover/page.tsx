@@ -5,7 +5,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { PropertyCard, PropertyCardData } from "@/components/properties/PropertyCard";
 import { Search, SlidersHorizontal, X } from "lucide-react";
-import { PROPERTY_TYPES, LISTING_PURPOSE } from "@/models/Property";
+import { PROPERTY_TYPES, LISTING_PURPOSE } from "@/lib/properties/constants";
 
 function DiscoverContent() {
   const t = useTranslations("Discover");

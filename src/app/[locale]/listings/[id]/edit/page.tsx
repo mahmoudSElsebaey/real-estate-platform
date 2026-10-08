@@ -5,7 +5,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { PROPERTY_TYPES, LISTING_PURPOSE } from "@/models/Property";
+import { PROPERTY_TYPES, LISTING_PURPOSE } from "@/lib/properties/constants";
 import { ImageUploader, type ImageItem } from "@/components/properties/ImageUploader";
 
 export default function EditPropertyPage() {

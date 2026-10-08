@@ -53,7 +53,6 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
             ))}
           </div>
         </section>
-      </div>
     </AccountFrame>
   );
 }

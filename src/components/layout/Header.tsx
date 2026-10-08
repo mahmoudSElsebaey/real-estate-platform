@@ -110,6 +110,8 @@ export function Header() {
           </Link>
 
           <nav className="hidden items-center gap-1 lg:flex">
+            <Link href={`/${locale}/contact`} className={cn("rounded-full px-4 py-2.5 text-sm font-medium transition", textClass)}>{locale === "ar" ? "تواصل معنا" : "Contact"}</Link>
+            <Link href={`/${locale}/about`} className={cn("rounded-full px-4 py-2.5 text-sm font-medium transition", textClass)}>{locale === "ar" ? "من نحن" : "About us"}</Link>
             <div ref={propertiesRef} className="relative">
               <button type="button" onClick={() => setPropertiesOpen((v) => !v)} className={cn("inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-medium transition", textClass)} aria-expanded={propertiesOpen}>
                 <Building2 className="h-4 w-4" />
@@ -132,9 +134,7 @@ export function Header() {
                 </div>
               )}
             </div>
-            <Link href={`/${locale}/about`} className={cn("rounded-full px-4 py-2.5 text-sm font-medium transition", textClass)}>{locale === "ar" ? "من نحن" : "About us"}</Link>
             <Link href={`/${locale}/careers`} className={cn("rounded-full px-4 py-2.5 text-sm font-medium transition", textClass)}>{locale === "ar" ? "الوظائف" : "Careers"}</Link>
-            <Link href={`/${locale}/contact`} className={cn("rounded-full px-4 py-2.5 text-sm font-medium transition", textClass)}>{locale === "ar" ? "تواصل معنا" : "Contact"}</Link>
           </nav>
 
           <div className="flex items-center gap-1.5">

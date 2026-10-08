@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
-import { ChevronDown, Globe, Heart, LogOut, Menu, User, X } from "lucide-react";
+import { ChevronDown, Globe, Heart, LogOut, Menu, User, X, Building2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import brandConfig from "@/config/brand.config";
 
@@ -17,8 +17,10 @@ export function Header() {
   const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [propertiesOpen, setPropertiesOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const propertiesRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
 
   const isHome = pathname === `/${locale}`;
@@ -36,7 +38,9 @@ export function Header() {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (profileRef.current && !profileRef.current.contains(event.target as Node)) setProfileOpen(false);
+      const target = event.target as Node;
+      if (profileRef.current && !profileRef.current.contains(target)) setProfileOpen(false);
+      if (propertiesRef.current && !propertiesRef.current.contains(target)) setPropertiesOpen(false);
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -49,9 +53,8 @@ export function Header() {
   };
 
   const handleLogout = async () => {
-    try {
-      await fetch("/api/auth/logout", { method: "POST" });
-    } finally {
+    try { await fetch("/api/auth/logout", { method: "POST" }); }
+    finally {
       setIsLoggedIn(false);
       setProfileOpen(false);
       setMobileOpen(false);
@@ -60,11 +63,12 @@ export function Header() {
     }
   };
 
-  const navItems = [
-    { href: `/${locale}/discover?purpose=sale`, label: t("buy") },
-    { href: `/${locale}/discover?purpose=rent`, label: t("rent") },
-    { href: `/${locale}/discover?purpose=invest`, label: t("invest") },
-    { href: `/${locale}/discover`, label: t("discover") },
+  const propertyItems = [
+    { href: `/${locale}/discover?purpose=sale`, label: t("buy"), description: locale === "ar" ? "منازل وفرص للامتلاك" : "Homes and ownership opportunities" },
+    { href: `/${locale}/discover?purpose=rent`, label: t("rent"), description: locale === "ar" ? "إقامات تناسب أسلوب حياتك" : "Spaces that fit your lifestyle" },
+    { href: `/${locale}/discover?purpose=invest`, label: t("invest"), description: locale === "ar" ? "فرص بقيمة طويلة الأجل" : "Long-term value opportunities" },
+    { href: `/${locale}/discover`, label: t("discover"), description: locale === "ar" ? "استكشف كل العقارات" : "Explore the full collection" },
+    { href: isLoggedIn ? `/${locale}/listings/new` : `/${locale}/register`, label: t("listProperty"), description: locale === "ar" ? "اعرض عقارك على عقاركو" : "List your property on Aqarco" },
   ];
 
   const profileItems = [
@@ -81,18 +85,16 @@ export function Header() {
   const textClass = transparent ? "text-white/90 hover:text-white hover:bg-white/10" : "text-foreground/80 hover:text-foreground hover:bg-muted";
   const brandClass = transparent ? "text-white" : "text-[hsl(var(--primary-500))]";
 
+  const closeMenus = () => {
+    setMobileOpen(false);
+    setPropertiesOpen(false);
+  };
+
   return (
-    <header
-      className={cn(
-        "site-header inset-x-0 top-0 z-50 transition-all duration-300",
-        transparent
-          ? "fixed bg-transparent"
-          : "sticky border-b border-[hsl(var(--border))] bg-[hsl(var(--background))]/95 shadow-sm backdrop-blur-md"
-      )}
-    >
+    <header className={cn("site-header inset-x-0 top-0 z-50 transition-all duration-300", transparent ? "fixed bg-transparent" : "sticky border-b border-border/80 bg-background/90 shadow-sm backdrop-blur-xl")}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between md:h-20">
-          <Link href={`/${locale}`} className="group flex items-center gap-2.5">
+          <Link href={`/${locale}`} className="group flex items-center gap-2.5" onClick={closeMenus}>
             <div className={cn("flex h-9 w-9 items-center justify-center transition-colors", brandClass)}>
               <svg width="36" height="36" viewBox="0 0 40 40" fill="none" className="h-full w-full">
                 <rect x="6" y="18" width="8" height="16" rx="1" fill="currentColor" />
@@ -108,67 +110,56 @@ export function Header() {
           </Link>
 
           <nav className="hidden items-center gap-1 lg:flex">
-            {navItems.map((item) => (
-              <Link key={item.href} href={item.href} className={cn("rounded-md px-4 py-2 text-sm font-medium transition-colors", textClass)}>
-                {item.label}
-              </Link>
-            ))}
+            <div ref={propertiesRef} className="relative">
+              <button type="button" onClick={() => setPropertiesOpen((v) => !v)} className={cn("inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-medium transition", textClass)} aria-expanded={propertiesOpen}>
+                <Building2 className="h-4 w-4" />
+                {locale === "ar" ? "العقارات" : "Properties"}
+                <ChevronDown className={cn("h-4 w-4 transition-transform", propertiesOpen && "rotate-180")} />
+              </button>
+              {propertiesOpen && (
+                <div className="absolute start-1/2 top-12 w-[390px] -translate-x-1/2 overflow-hidden rounded-3xl border border-border bg-background p-2 shadow-2xl">
+                  <div className="px-4 pb-2 pt-3">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-muted-foreground">{locale === "ar" ? "استكشف عقاركو" : "EXPLORE AQARCO"}</p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-1">
+                    {propertyItems.map((item) => (
+                      <Link key={item.href} href={item.href} onClick={closeMenus} className="group rounded-2xl p-3.5 transition hover:bg-muted">
+                        <span className="block text-sm font-semibold text-foreground group-hover:text-primary">{item.label}</span>
+                        <span className="mt-1 block text-[11px] leading-4 text-muted-foreground">{item.description}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+            <Link href={`/${locale}/about`} className={cn("rounded-full px-4 py-2.5 text-sm font-medium transition", textClass)}>{locale === "ar" ? "من نحن" : "About us"}</Link>
+            <Link href={`/${locale}/careers`} className={cn("rounded-full px-4 py-2.5 text-sm font-medium transition", textClass)}>{locale === "ar" ? "الوظائف" : "Careers"}</Link>
+            <Link href={`/${locale}/contact`} className={cn("rounded-full px-4 py-2.5 text-sm font-medium transition", textClass)}>{locale === "ar" ? "تواصل معنا" : "Contact"}</Link>
           </nav>
 
           <div className="flex items-center gap-1.5">
-            <button onClick={switchLocale} className={cn("flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm transition-colors", textClass)} aria-label="Switch language">
+            <button onClick={switchLocale} className={cn("flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-sm transition", textClass)} aria-label="Switch language">
               <Globe className="h-4 w-4" /><span className="hidden sm:inline">{locale === "en" ? "العربية" : "English"}</span>
             </button>
-
-            <Link href={`/${locale}/favorites`} className={cn("rounded-md p-2 transition-colors", textClass)} aria-label={t("favorites")}>
-              <Heart className="h-5 w-5" />
-            </Link>
+            <Link href={`/${locale}/favorites`} className={cn("rounded-full p-2 transition", textClass)} aria-label={t("favorites")}><Heart className="h-5 w-5" /></Link>
 
             {isLoggedIn ? (
               <div ref={profileRef} className="relative">
-                <button
-                  type="button"
-                  onClick={() => setProfileOpen((value) => !value)}
-                  className={cn("flex h-10 w-10 items-center justify-center rounded-full transition-colors", textClass)}
-                  aria-label={t("account")}
-                  aria-expanded={profileOpen}
-                >
+                <button type="button" onClick={() => setProfileOpen((v) => !v)} className={cn("flex h-10 w-10 items-center justify-center rounded-full transition", textClass)} aria-label={t("account")} aria-expanded={profileOpen}>
                   <User className="h-5 w-5" />
-                  <ChevronDown className="hidden h-3.5 w-3.5 sm:block" />
                 </button>
-
                 {profileOpen && (
                   <div className="absolute end-0 top-12 z-[60] w-60 overflow-hidden rounded-2xl border border-border bg-background p-2 shadow-xl">
-                    <div className="border-b border-border px-3 py-2.5">
-                      <p className="text-xs font-medium text-muted-foreground">{t("account")}</p>
-                    </div>
-                    <div className="py-1">
-                      {profileItems.map((item) => (
-                        <Link key={item.href} href={item.href} onClick={() => setProfileOpen(false)} className="block rounded-xl px-3 py-2.5 text-sm font-medium text-foreground transition hover:bg-muted">
-                          {item.label}
-                        </Link>
-                      ))}
-                    </div>
-                    <div className="border-t border-border pt-1">
-                      <button type="button" onClick={handleLogout} className="flex w-full items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium text-red-600 transition hover:bg-red-50">
-                        <LogOut className="h-4 w-4" />
-                        {tAuth("logout")}
-                      </button>
-                    </div>
+                    <div className="border-b border-border px-3 py-2.5"><p className="text-xs font-medium text-muted-foreground">{t("account")}</p></div>
+                    <div className="py-1">{profileItems.map((item) => <Link key={item.href} href={item.href} onClick={() => setProfileOpen(false)} className="block rounded-xl px-3 py-2.5 text-sm font-medium text-foreground transition hover:bg-muted">{item.label}</Link>)}</div>
+                    <div className="border-t border-border pt-1"><button type="button" onClick={handleLogout} className="flex w-full items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium text-red-600 transition hover:bg-red-50"><LogOut className="h-4 w-4" />{tAuth("logout")}</button></div>
                   </div>
                 )}
               </div>
             ) : (
-              <Link href={`/${locale}/login`} className={cn("hidden h-9 items-center justify-center rounded-md px-3 text-xs font-medium transition-colors sm:inline-flex", textClass)}>
-                {tAuth("login")}
-              </Link>
+              <Link href={`/${locale}/login`} className={cn("hidden rounded-full px-3 py-2 text-xs font-medium transition sm:inline-flex", textClass)}>{tAuth("login")}</Link>
             )}
-
-            <Link href={isLoggedIn ? `/${locale}/listings/new` : `/${locale}/register`} className={cn("hidden h-9 items-center justify-center rounded-md px-3 text-xs font-medium transition-colors md:inline-flex", transparent ? "border border-white/30 text-white hover:bg-white/10" : "bg-primary text-primary-foreground shadow hover:bg-[hsl(var(--primary-600))]")}>
-              {t("listProperty")}
-            </Link>
-
-            <button onClick={() => setMobileOpen(!mobileOpen)} className={cn("rounded-md p-2 lg:hidden", transparent ? "text-white" : "text-foreground")} aria-label="Toggle menu">
+            <button onClick={() => setMobileOpen((v) => !v)} className={cn("rounded-full p-2 lg:hidden", transparent ? "text-white" : "text-foreground")} aria-label="Toggle menu">
               {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
@@ -176,31 +167,16 @@ export function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="border-b border-[hsl(var(--border))] bg-[hsl(var(--background))] shadow-lg lg:hidden">
+        <div className="border-b border-border bg-background shadow-xl lg:hidden">
           <nav className="space-y-1 px-4 py-4">
-            {navItems.map((item) => (
-              <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)} className="block rounded-md px-4 py-3 text-base font-medium text-foreground hover:bg-muted">
-                {item.label}
-              </Link>
-            ))}
-            {isLoggedIn && profileItems.slice(0, 6).map((item) => (
-              <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)} className="block rounded-md px-4 py-3 text-base font-medium text-foreground hover:bg-muted">
-                {item.label}
-              </Link>
-            ))}
-            <Link href={isLoggedIn ? `/${locale}/listings/new` : `/${locale}/register`} onClick={() => setMobileOpen(false)} className="block rounded-md px-4 py-3 text-base font-medium text-primary hover:bg-muted">
-              {t("listProperty")}
-            </Link>
-            {!isLoggedIn ? (
-              <Link href={`/${locale}/login`} onClick={() => setMobileOpen(false)} className="block rounded-md px-4 py-3 text-base font-medium text-foreground hover:bg-muted">
-                {tAuth("login")}
-              </Link>
-            ) : (
-              <button type="button" onClick={handleLogout} className="flex w-full items-center gap-2 rounded-md px-4 py-3 text-start text-base font-medium text-red-600 hover:bg-red-50">
-                <LogOut className="h-4 w-4" />
-                {tAuth("logout")}
-              </button>
-            )}
+            <p className="px-4 pb-2 pt-1 text-[10px] font-bold uppercase tracking-[0.24em] text-muted-foreground">{locale === "ar" ? "العقارات" : "PROPERTIES"}</p>
+            {propertyItems.map((item) => <Link key={item.href} href={item.href} onClick={closeMenus} className="block rounded-2xl px-4 py-3 text-base font-medium text-foreground transition hover:bg-muted">{item.label}</Link>)}
+            <div className="my-2 border-t border-border" />
+            <Link href={`/${locale}/about`} onClick={closeMenus} className="block rounded-2xl px-4 py-3 text-base font-medium">{locale === "ar" ? "من نحن" : "About us"}</Link>
+            <Link href={`/${locale}/careers`} onClick={closeMenus} className="block rounded-2xl px-4 py-3 text-base font-medium">{locale === "ar" ? "الوظائف" : "Careers"}</Link>
+            <Link href={`/${locale}/contact`} onClick={closeMenus} className="block rounded-2xl px-4 py-3 text-base font-medium">{locale === "ar" ? "تواصل معنا" : "Contact"}</Link>
+            {!isLoggedIn && <Link href={`/${locale}/login`} onClick={closeMenus} className="block rounded-2xl px-4 py-3 text-base font-medium text-primary">{tAuth("login")}</Link>}
+            {isLoggedIn && <button type="button" onClick={handleLogout} className="flex w-full items-center gap-2 rounded-2xl px-4 py-3 text-start font-medium text-red-600"><LogOut className="h-4 w-4" />{tAuth("logout")}</button>}
           </nav>
         </div>
       )}

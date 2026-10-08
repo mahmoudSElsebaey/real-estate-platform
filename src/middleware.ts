@@ -4,7 +4,6 @@ import { routing } from "./i18n/routing";
 
 const intlMiddleware = createMiddleware(routing);
 
-/** Paths (without locale prefix) that require an authenticated session cookie */
 const PROTECTED_PREFIXES = [
   "/dashboard",
   "/profile",
@@ -17,49 +16,38 @@ const PROTECTED_PREFIXES = [
   "/investments/my",
   "/investments/inbox",
   "/admin",
-];
+] as const;
 
-function stripLocale(pathname: string): string {
+function getLocaleAndPath(pathname: string): { locale: string; path: string } {
   const segments = pathname.split("/").filter(Boolean);
-  if (segments.length === 0) return "/";
-  const maybeLocale = segments[0];
-  if (routing.locales.includes(maybeLocale as "en" | "ar")) {
-    const rest = "/" + segments.slice(1).join("/");
-    return rest === "/" ? "/" : rest.replace(/\/$/, "") || "/";
+  const first = segments[0];
+  if (first === "en" || first === "ar") {
+    const path =
+      segments.length > 1 ? "/" + segments.slice(1).join("/") : "/";
+    return { locale: first, path };
   }
-  return pathname;
+  return { locale: routing.defaultLocale, path: pathname || "/" };
 }
 
-function isProtectedPath(pathWithoutLocale: string): boolean {
-  return PROTECTED_PREFIXES.some(
-    (prefix) =>
-      pathWithoutLocale === prefix ||
-      pathWithoutLocale.startsWith(prefix + "/")
-  );
-}
-
-function hasSessionCookie(req: NextRequest): boolean {
-  return Boolean(req.cookies.get("aether_session")?.value);
+function isProtected(path: string): boolean {
+  for (const prefix of PROTECTED_PREFIXES) {
+    if (path === prefix || path.startsWith(prefix + "/")) return true;
+  }
+  return false;
 }
 
 export default function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
+  const { locale, path } = getLocaleAndPath(pathname);
 
-  if (pathname.startsWith("/api") || pathname.startsWith("/_next")) {
-    return NextResponse.next();
-  }
-
-  const pathWithoutLocale = stripLocale(pathname);
-
-  if (isProtectedPath(pathWithoutLocale) && !hasSessionCookie(req)) {
-    const segments = pathname.split("/").filter(Boolean);
-    const locale =
-      segments[0] && routing.locales.includes(segments[0] as "en" | "ar")
-        ? segments[0]
-        : routing.defaultLocale;
-    const loginUrl = new URL(`/${locale}/login`, req.url);
-    loginUrl.searchParams.set("next", pathname);
-    return NextResponse.redirect(loginUrl);
+  if (isProtected(path)) {
+    const token = req.cookies.get("aether_session")?.value;
+    if (!token) {
+      const loginUrl = req.nextUrl.clone();
+      loginUrl.pathname = `/${locale}/login`;
+      loginUrl.searchParams.set("next", pathname);
+      return NextResponse.redirect(loginUrl);
+    }
   }
 
   return intlMiddleware(req);

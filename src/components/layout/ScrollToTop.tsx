@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useLocale } from "next-intl";
-import { ArrowUp, Sparkles } from "lucide-react";
+import { Building2 } from "lucide-react";
 
 export function ScrollToTop() {
   const locale = useLocale();
@@ -39,21 +39,21 @@ export function ScrollToTop() {
         onClick={scrollToTop}
         aria-label={locale === "ar" ? "العودة إلى أعلى الصفحة" : "Back to top"}
         title={locale === "ar" ? "العودة للأعلى" : "Back to top"}
-        className={`group pointer-events-auto relative grid h-14 w-14 place-items-center rounded-full border border-white/20 bg-[#102019]/90 text-white shadow-[0_14px_40px_rgba(16,32,25,.28)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:scale-105 hover:bg-[#163127] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-400))] focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:h-15 sm:w-15 ${visible ? "translate-y-0 scale-100 opacity-100" : "translate-y-6 scale-75 opacity-0"}`}
+        className={`group pointer-events-auto relative grid h-11 w-11 place-items-center rounded-full border border-white/20 bg-[#102019]/90 text-white shadow-[0_10px_28px_rgba(16,32,25,.26)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:scale-105 hover:bg-[#163127] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-400))] focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:h-12 sm:w-12 ${visible ? "translate-y-0 scale-100 opacity-100" : "translate-y-5 scale-75 opacity-0"}`}
       >
         <svg
-          className="absolute inset-[-3px] h-[calc(100%+6px)] w-[calc(100%+6px)] -rotate-90"
+          className="absolute inset-[-4px] h-[calc(100%+8px)] w-[calc(100%+8px)] -rotate-90"
           viewBox="0 0 64 64"
           aria-hidden="true"
         >
-          <circle cx="32" cy="32" r="29" fill="none" stroke="currentColor" strokeWidth="1" className="text-white/10" />
+          <circle cx="32" cy="32" r="29" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-white/10" />
           <circle
             cx="32"
             cy="32"
             r="29"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth="4"
             strokeLinecap="round"
             pathLength="100"
             strokeDasharray="100"
@@ -62,11 +62,10 @@ export function ScrollToTop() {
           />
         </svg>
 
-        <span className="absolute -top-1 -end-1 grid h-5 w-5 place-items-center rounded-full border border-[#102019] bg-[hsl(var(--accent-400))] text-[#102019] shadow-sm transition-transform duration-300 group-hover:rotate-12">
-          <Sparkles className="h-2.5 w-2.5" strokeWidth={2.5} />
-        </span>
-
-        <ArrowUp className="relative h-5 w-5 transition-transform duration-300 group-hover:-translate-y-1" strokeWidth={1.8} />
+        <Building2
+          className="relative h-[17px] w-[17px] transition-transform duration-300 group-hover:-translate-y-0.5"
+          strokeWidth={1.9}
+        />
         <span className="sr-only">{locale === "ar" ? "العودة إلى أعلى الصفحة" : "Back to top"}</span>
       </button>
     </div>

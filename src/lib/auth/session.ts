@@ -2,7 +2,7 @@ import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { UserRole } from "@/models/User";
 
-const SESSION_COOKIE = "aether_session";
+const SESSION_COOKIE = "aqarco_session";
 const SESSION_DURATION = 60 * 60 * 24 * 7; // 7 days
 
 export interface SessionPayload {
@@ -20,9 +20,13 @@ function getSecretKey() {
         "AUTH_SECRET environment variable is required in production"
       );
     }
+    // Dev-only fallback — never used in production
     return new TextEncoder().encode(
-      "dev-only-secret-change-me-in-production-aether-2026"
+      "dev-only-secret-change-me-in-production-aqarco-2026"
     );
+  }
+  if (secret.length < 32) {
+    throw new Error("AUTH_SECRET must be at least 32 characters");
   }
   return new TextEncoder().encode(secret);
 }
@@ -66,7 +70,11 @@ export async function destroySession(): Promise<void> {
 
 export async function requireSession(): Promise<SessionPayload> {
   const session = await getSession();
-  if (!session) throw new Error("Unauthorized");
+  if (!session) {
+    const err = new Error("Unauthorized") as Error & { status: number };
+    err.status = 401;
+    throw err;
+  }
   return session;
 }
 
@@ -75,7 +83,17 @@ export async function requireRole(
 ): Promise<SessionPayload> {
   const session = await requireSession();
   if (!roles.includes(session.role)) {
-    throw new Error("Forbidden");
+    const err = new Error("Forbidden") as Error & { status: number };
+    err.status = 403;
+    throw err;
   }
   return session;
+}
+
+export function unauthorizedResponse(message = "Unauthorized") {
+  return Response.json({ error: message }, { status: 401 });
+}
+
+export function forbiddenResponse(message = "Forbidden") {
+  return Response.json({ error: message }, { status: 403 });
 }

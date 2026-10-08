@@ -37,10 +37,22 @@
     "viewAll": "View all",
     "categoriesTitle": "Explore by intention",
     "categories": {
-      "buy": { "title": "Buy", "description": "Own exceptional architecture." },
-      "rent": { "title": "Rent", "description": "Flexible premium living." },
-      "invest": { "title": "Invest", "description": "Structured opportunities." },
-      "hospitality": { "title": "Stay", "description": "Hotels and resorts." }
+      "buy": {
+        "title": "Buy",
+        "description": "Own exceptional architecture."
+      },
+      "rent": {
+        "title": "Rent",
+        "description": "Flexible premium living."
+      },
+      "invest": {
+        "title": "Invest",
+        "description": "Structured opportunities."
+      },
+      "hospitality": {
+        "title": "Stay",
+        "description": "Hotels and resorts."
+      }
     },
     "trustTitle": "Built on trust",
     "trustItems": {
@@ -375,7 +387,10 @@
     "scheduleVisit": "Schedule a visit",
     "bookStay": "Book a stay",
     "expressInterest": "Express investment interest",
-    "month": "month"
+    "month": "month",
+    "saveFavorite": "Save to favorites",
+    "saved": "Saved",
+    "favoriteError": "Could not update favorites"
   },
   "Favorites": {
     "title": "My Favorites",
@@ -420,8 +435,18 @@
     "successTitle": "Sent",
     "successMessage": "We will contact you.",
     "sendAnother": "Send another",
-    "types": { "info": "Information", "visit": "Visit", "offer": "Offer", "other": "Other" },
-    "status": { "new": "New", "in_progress": "In progress", "contacted": "Contacted", "closed": "Closed" },
+    "types": {
+      "info": "Information",
+      "visit": "Visit",
+      "offer": "Offer",
+      "other": "Other"
+    },
+    "status": {
+      "new": "New",
+      "in_progress": "In progress",
+      "contacted": "Contacted",
+      "closed": "Closed"
+    },
     "myInquiries": "My Requests",
     "myInquiriesSubtitle": "Sent requests",
     "inbox": "Inbox",
@@ -454,7 +479,12 @@
     "cancel": "Cancel",
     "estimate": "Estimate",
     "guest": "Guest",
-    "status": { "pending": "Pending", "confirmed": "Confirmed", "cancelled": "Cancelled", "completed": "Completed" }
+    "status": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "cancelled": "Cancelled",
+      "completed": "Completed"
+    }
   },
   "Moderation": {
     "title": "Property moderation",
@@ -501,7 +531,13 @@
     "successMessage": "The owner will contact you.",
     "viewMyInterests": "View my interests",
     "investor": "Investor",
-    "status": { "new": "New", "contacted": "Contacted", "closed": "Closed" }
+    "status": {
+      "new": "New",
+      "contacted": "Contacted",
+      "closed": "Closed"
+    },
+    "expressTitle": "Express your interest",
+    "close": "Close"
   },
   "Pages": {
     "about": {

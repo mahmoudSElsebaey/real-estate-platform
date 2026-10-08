@@ -1,14 +1,27 @@
 /**
  * Demo seed script for Aqarco
  * Usage: npm run seed
- * Requires MONGODB_URI in .env.local
+ * Loads environment variables from .env.local (or .env as fallback).
  */
+import "dotenv/config";
+import fs from "node:fs";
+import path from "node:path";
+import dotenv from "dotenv";
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const envLocalPath = path.resolve(process.cwd(), ".env.local");
+const envPath = path.resolve(process.cwd(), ".env");
+
+if (fs.existsSync(envLocalPath)) {
+  dotenv.config({ path: envLocalPath, override: true });
+} else if (fs.existsSync(envPath)) {
+  dotenv.config({ path: envPath, override: true });
+}
+
+const MONGODB_URI = process.env.MONGODB_URI?.trim();
 if (!MONGODB_URI) {
-  console.error("Missing MONGODB_URI. Set it in .env.local");
+  console.error("Missing MONGODB_URI. Add it to .env.local or .env");
   process.exit(1);
 }
 

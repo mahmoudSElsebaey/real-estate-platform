@@ -1,5 +1,5 @@
 /**
- * Full demo seed for Aether Residences / Aqarco
+ * Full demo seed for Aqarco
  * Usage: npm run seed
  * Requires MONGODB_URI in .env.local
  *
@@ -24,13 +24,13 @@ if (!MONGODB_URI) {
 const DEMO_PASSWORD = "Demo@12345";
 
 const users = [
-  { name: "Admin Aether", email: "admin@aether.demo", role: "admin", phone: "+201000000001", preferredLocale: "en" },
-  { name: "Omar Owner", email: "owner@aether.demo", role: "owner", phone: "+201000000002", preferredLocale: "ar" },
-  { name: "Sara Agent", email: "agent@aether.demo", role: "agent", phone: "+201000000003", preferredLocale: "en" },
-  { name: "Layla Investor", email: "investor@aether.demo", role: "investor", phone: "+201000000004", preferredLocale: "en" },
-  { name: "Hassan Buyer", email: "buyer@aether.demo", role: "buyer", phone: "+201000000005", preferredLocale: "ar" },
-  { name: "Nour Renter", email: "renter@aether.demo", role: "renter", phone: "+201000000006", preferredLocale: "en" },
-  { name: "Hotel Nile", email: "hotel@aether.demo", role: "hotel_operator", phone: "+201000000007", preferredLocale: "en" },
+  { name: "Admin Aqarco", email: "admin@aqarco.demo", role: "admin", phone: "+201000000001", preferredLocale: "en" },
+  { name: "Omar Owner", email: "owner@aqarco.demo", role: "owner", phone: "+201000000002", preferredLocale: "ar" },
+  { name: "Sara Agent", email: "agent@aqarco.demo", role: "agent", phone: "+201000000003", preferredLocale: "en" },
+  { name: "Layla Investor", email: "investor@aqarco.demo", role: "investor", phone: "+201000000004", preferredLocale: "en" },
+  { name: "Hassan Buyer", email: "buyer@aqarco.demo", role: "buyer", phone: "+201000000005", preferredLocale: "ar" },
+  { name: "Nour Renter", email: "renter@aqarco.demo", role: "renter", phone: "+201000000006", preferredLocale: "en" },
+  { name: "Hotel Nile", email: "hotel@aqarco.demo", role: "hotel_operator", phone: "+201000000007", preferredLocale: "en" },
 ] as const;
 
 const PHOTOS = {
@@ -38,18 +38,18 @@ const PHOTOS = {
   apt2: "photo-1522708323590-d24dbb6b0267",
   apt3: "photo-1560448204-e02f11c3d0e2",
   apt4: "photo-1493809842364-78817add7ffb",
-  apt5: "photo-1484154216822-a623f0c8c7f9",
+  apt5: "photo-1560448204-603b3fc33ddc",
   villa1: "photo-1613490493576-7fde63acd811",
   villa2: "photo-1600596542815-ffad4c1539a9",
   villa3: "photo-1600585154340-be6161a56a0c",
   villa4: "photo-1600607687939-ce8a6c25118c",
   villa5: "photo-1564013799919-ab600027ffc6",
   pent1: "photo-1512917774080-9991f1c4c750",
-  pent2: "photo-1600047509807-ba8f99d2cd00",
+  pent2: "photo-1545324418-cc1a3fa10c00",
   studio1: "photo-1536376072261-38c75010e6c9",
   studio2: "photo-1505693416388-ac5ce068fe85",
   duplex1: "photo-1600566753190-17f0baa2a6c3",
-  town1: "photo-1605276374104-dee2afe26b10",
+  town1: "photo-1600585154526-990dced4db0d",
   office1: "photo-1497366216548-37526070297c",
   office2: "photo-1497366811353-6870744d04b2",
   retail1: "photo-1441986300917-64674bd600d8",
@@ -61,15 +61,15 @@ const PHOTOS = {
   resort1: "photo-1584132967334-10e028bd69f7",
   resort2: "photo-1571003123894-1f0594d2b5d9",
   chalet1: "photo-1499793983690-e29da59ef1c2",
-  chalet2: "photo-1510798831971-480df6d0a4c4",
+  chalet2: "photo-1439066615861-d1af74d74000",
   kitchen: "photo-1556912173-3bb406ef7e77",
-  living: "photo-1618221195710-dd6b41fa5956",
+  living: "photo-1586023492125-27b2c045efd7",
   bedroom: "photo-1616594039964-ae9021a400a0",
   pool: "photo-1575429198097-0414ec08e8cd",
   exterior: "photo-1600047509358-9dc75507daeb",
   modern: "photo-1600210492486-724fe5c67fb0",
   luxury: "photo-1600607687644-c7171b42498f",
-  coast: "photo-1499793983690-e29da59ef1c2",
+  coast: "photo-1507525428034-b723cf961d3e",
 };
 
 function img(id: string, alt: string, primary = true, order = 0) {
@@ -560,9 +560,9 @@ async function main() {
   }
 
   const ownerMap = {
-    owner: createdUsers["owner@aether.demo"],
-    agent: createdUsers["agent@aether.demo"],
-    hotel: createdUsers["hotel@aether.demo"],
+    owner: createdUsers["owner@aqarco.demo"],
+    agent: createdUsers["agent@aqarco.demo"],
+    hotel: createdUsers["hotel@aqarco.demo"],
   };
 
   const seedOwnerIds = Object.values(ownerMap);
@@ -588,9 +588,9 @@ async function main() {
     console.log(`Property: ${p.title.en} [${p.status}/${p.purpose}/${p.type}]`);
   }
 
-  const buyerId = createdUsers["buyer@aether.demo"];
-  const renterId = createdUsers["renter@aether.demo"];
-  const investorId = createdUsers["investor@aether.demo"];
+  const buyerId = createdUsers["buyer@aqarco.demo"];
+  const renterId = createdUsers["renter@aqarco.demo"];
+  const investorId = createdUsers["investor@aqarco.demo"];
 
   await Favorite.deleteMany({ user: { $in: [buyerId, renterId, investorId] } });
   const favTargets = createdProps.slice(0, 12);
@@ -672,7 +672,7 @@ async function main() {
   }
   console.log(`Investment interests: ${intCount}`);
 
-  console.log("\n========== SEED COMPLETE ==========");
+  console.log("\n========== SEED COMPLETE ==========" );
   console.log(`Users: ${users.length}`);
   console.log(`Properties: ${createdProps.length}`);
   console.log(`Favorites: ${favCount}`);

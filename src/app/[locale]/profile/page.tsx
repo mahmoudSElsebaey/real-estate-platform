@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { AccountFrame } from "@/components/account/AccountFrame";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -77,12 +78,8 @@ export default function ProfilePage() {
   if (!user) return null;
 
   return (
-    <div className="min-h-[70vh] py-12 md:py-16">
-      <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-8">
-          <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">{t("title")}</h1>
-          <Button variant="outline" size="sm" onClick={handleLogout}>{tAuth("logout")}</Button>
-        </div>
+    <AccountFrame title={t("title")} eyebrow="AQARCO / PROFILE">
+      <div>
         {message && <div className="mb-6 rounded-md bg-emerald-50 border border-emerald-200 px-4 py-3 text-sm text-emerald-700">{message}</div>}
         {error && <div className="mb-6 rounded-md bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">{error}</div>}
         <div className="bg-card border border-[hsl(var(--border))] rounded-xl p-6 md:p-8 shadow-sm">
@@ -117,6 +114,6 @@ export default function ProfilePage() {
           )}
         </div>
       </div>
-    </div>
+    </AccountFrame>
   );
 }

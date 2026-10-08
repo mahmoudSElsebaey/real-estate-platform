@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { AccountFrame } from "@/components/account/AccountFrame";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -34,15 +35,8 @@ export default function FavoritesPage() {
   }
 
   return (
-    <div className="min-h-[70vh] py-12 md:py-16">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-10">
-          <h1 className="text-3xl font-semibold tracking-tight flex items-center gap-2">
-            <Heart className="w-7 h-7 text-primary" />
-            {t("title")}
-          </h1>
-          <p className="text-muted-foreground mt-1">{t("subtitle", { count: properties.length })}</p>
-        </div>
+    <AccountFrame title={t("title")} subtitle={t("subtitle", { count: properties.length })} eyebrow="AQARCO / FAVORITES">
+      <div>
         {error && <div className="mb-6 rounded-md bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">{error}</div>}
         {properties.length === 0 ? (
           <div className="text-center py-20 border border-dashed border-[hsl(var(--border))] rounded-xl">
@@ -57,6 +51,6 @@ export default function FavoritesPage() {
           </div>
         )}
       </div>
-    </div>
+    </AccountFrame>
   );
 }

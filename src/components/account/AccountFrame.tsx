@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useLocale, usePathname } from "next-intl";
+import { useLocale } from "next-intl";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { LayoutDashboard, UserRound, CalendarDays, Heart, MessageSquare, TrendingUp, Building2 } from "lucide-react";
 

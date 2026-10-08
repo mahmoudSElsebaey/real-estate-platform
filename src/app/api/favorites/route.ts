@@ -21,6 +21,22 @@ export async function GET() {
   }
 }
 
+export async function DELETE(req: NextRequest) {
+  try {
+    const session = await getSession();
+    if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    const body = await req.json();
+    const propertyId = body.propertyId;
+    if (!propertyId) return NextResponse.json({ error: "propertyId is required" }, { status: 400 });
+    await connectDB();
+    await Favorite.deleteOne({ user: session.userId, property: propertyId });
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Remove favorite error:", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const session = await getSession();

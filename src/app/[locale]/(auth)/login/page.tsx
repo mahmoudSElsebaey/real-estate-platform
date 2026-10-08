@@ -79,8 +79,8 @@ export default function LoginPage() {
             className="inline-flex items-center gap-2.5"
             aria-label={locale === "ar" ? brandConfig.brandNameAr : brandConfig.brandName}
           >
-            <span aria-hidden="true" className="h-10 w-10 shrink-0 bg-primary" style={{ maskImage: `url(${brandConfig.logo.mark})`, WebkitMaskImage: `url(${brandConfig.logo.mark})`, maskRepeat: "no-repeat", WebkitMaskRepeat: "no-repeat", maskPosition: "center", WebkitMaskPosition: "center", maskSize: "contain", WebkitMaskSize: "contain" }} />
-            <span className="text-xl font-semibold tracking-tight text-primary">
+            <span aria-hidden="true" className="h-10 w-10 shrink-0 bg-[hsl(var(--accent-400))]" style={{ maskImage: `url(${brandConfig.logo.mark})`, WebkitMaskImage: `url(${brandConfig.logo.mark})`, maskRepeat: "no-repeat", WebkitMaskRepeat: "no-repeat", maskPosition: "center", WebkitMaskPosition: "center", maskSize: "contain", WebkitMaskSize: "contain" }} />
+            <span className="text-xl font-semibold tracking-tight text-[hsl(var(--primary-900))]">
               {locale === "ar" ? brandConfig.brandNameAr : brandConfig.brandName}
             </span>
           </Link>

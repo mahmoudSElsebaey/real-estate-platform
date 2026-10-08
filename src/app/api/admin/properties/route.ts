@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
-import Property, { PROPERTY_STATUS } from "@/models/Property";
+import Property from "@/models/Property";
+import { PROPERTY_STATUS } from "@/lib/properties/constants";
 import { getSession } from "@/lib/auth/session";
 
 export async function GET(req: NextRequest) {

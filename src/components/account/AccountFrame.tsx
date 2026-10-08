@@ -29,6 +29,7 @@ export function AccountFrame({ children, title, subtitle, eyebrow = "AQARCO ACCO
   const text = labels[locale];
   const roleLabels = locale === "ar" ? { admin: "مدير النظام", owner: "مالك عقار", agent: "وسيط عقاري", investor: "مستثمر", buyer: "مشتري", renter: "مستأجر", hotel_operator: "مشغّل فندقي" } : { admin: "Administrator", owner: "Property Owner", agent: "Real Estate Agent", investor: "Investor", buyer: "Buyer", renter: "Renter", hotel_operator: "Hotel Operator" };
   const [user, setUser] = useState<{ name: string; avatar?: string; role?: string } | null>(null);
+  const canManageListings = ["owner", "agent", "hotel_operator", "admin"].includes(user?.role || "");
 
   useEffect(() => {
     fetch("/api/user/me").then(async (res) => {
@@ -72,7 +73,7 @@ export function AccountFrame({ children, title, subtitle, eyebrow = "AQARCO ACCO
         <aside className="h-fit rounded-3xl border border-black/5 bg-white/95 p-2 shadow-[0_12px_40px_rgba(16,32,25,.07)] lg:sticky lg:top-28">
           <p className="px-3 pb-2 pt-3 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">{locale === "ar" ? "مساحة حسابك" : "YOUR SPACE"}</p>
           <nav className="grid grid-cols-2 gap-1 lg:grid-cols-1">
-            {items.map(({ key, href, icon: Icon }) => {
+            {items.filter(({ key }) => key !== "listings" || canManageListings).map(({ key, href, icon: Icon }) => {
               const active = current === href || (key === "investments" && current.startsWith("investments/my"));
               return <Link key={key} href={`/${locale}/${href}`} className={cn("flex items-center gap-3 rounded-2xl px-3 py-3 text-sm font-medium transition", active ? "bg-[#102019] text-white shadow-md" : "text-foreground/70 hover:bg-muted hover:text-foreground")}>
                 <Icon className="h-4 w-4 shrink-0" />{text[key as keyof typeof text]}

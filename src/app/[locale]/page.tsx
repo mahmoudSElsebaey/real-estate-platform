@@ -1,6 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import { Hero } from "@/components/home/Hero";
 import { AccountCTA } from "@/components/home/AccountCTA";
+import { HomePremiumSections } from "@/components/home/HomePremiumSections";
 import { DevelopersSwiper } from "@/components/home/DevelopersSwiper";
 import Link from "next/link";
 import { ArrowRight, Building2, KeyRound, TrendingUp, ShieldCheck, MapPin, Images } from "lucide-react";

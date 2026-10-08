@@ -37,22 +37,10 @@
     "viewAll": "عرض الكل",
     "categoriesTitle": "استكشف حسب نيتك",
     "categories": {
-      "buy": {
-        "title": "شراء",
-        "description": "امتلك عمارة استثنائية."
-      },
-      "rent": {
-        "title": "إيجار",
-        "description": "حياة فاخرة مرنة."
-      },
-      "invest": {
-        "title": "استثمار",
-        "description": "فرص منظمة."
-      },
-      "hospitality": {
-        "title": "إقامة",
-        "description": "فنادق ومنتجعات."
-      }
+      "buy": { "title": "شراء", "description": "امتلك عمارة استثنائية." },
+      "rent": { "title": "إيجار", "description": "حياة فاخرة مرنة." },
+      "invest": { "title": "استثمار", "description": "فرص منظمة." },
+      "hospitality": { "title": "إقامة", "description": "فنادق ومنتجعات." }
     },
     "trustTitle": "مبنية على الثقة",
     "trustItems": {
@@ -136,18 +124,107 @@
     "welcome": "مرحباً بعودتك، {name}",
     "role": "الدور",
     "quickActions": "إجراءات سريعة",
+    "overview": "نظرة عامة",
     "profile": "ملفي",
     "favorites": "المفضلة",
     "bookings": "حجوزاتي",
     "bookingsInbox": "وارد الحجوزات",
     "investments": "الاستثمار",
-    "myInterests": "اهتماماتي",
-    "investmentsInbox": "وارد الاستثمار",
     "listings": "قوائمي",
+    "addListing": "إضافة عقار",
     "settings": "الإعدادات",
     "inquiries": "طلباتي",
     "inbox": "الوارد",
-    "moderation": "مراجعة العقارات"
+    "moderation": "مراجعة العقارات",
+    "myInterests": "اهتماماتي",
+    "investmentsInbox": "وارد الاستثمار",
+    "users": "إدارة المستخدمين",
+    "browse": "تصفح العقارات",
+    "loading": "جاري تحميل لوحة التحكم...",
+    "error": "فشل تحميل بيانات اللوحة",
+    "refresh": "تحديث",
+    "viewAll": "عرض الكل",
+    "empty": "لا يوجد شيء بعد",
+    "investorTipTitle": "استكشف فرص الاستثمار",
+    "investorTipBody": "تصفح عقارات استثمارية مختارة وسجّل اهتمامك مباشرة من صفحة العقار.",
+    "browseOpportunities": "تصفح الفرص",
+    "stats": {
+      "usersTotal": "إجمالي المستخدمين",
+      "activeUsers": "مستخدمون نشطون",
+      "propertiesTotal": "إجمالي العقارات",
+      "pendingReview": "بانتظار المراجعة",
+      "published": "منشور",
+      "newInquiries": "طلبات جديدة",
+      "pendingBookings": "حجوزات معلّقة",
+      "newInterests": "اهتمامات استثمارية جديدة",
+      "needsAttention": "يحتاج انتباهك",
+      "myListings": "قوائمي",
+      "drafts": "مسودات",
+      "inboxInquiries": "وارد الطلبات",
+      "inboxBookings": "وارد الحجوزات",
+      "inboxInterests": "وارد الاستثمار",
+      "savedByUsers": "محفوظ لدى المستخدمين",
+      "favorites": "المفضلة",
+      "myBookings": "حجوزاتي",
+      "myInquiries": "طلباتي",
+      "myInterests": "اهتماماتي",
+      "newCount": "{count} جديد",
+      "pendingCount": "{count} معلّق"
+    },
+    "charts": {
+      "usersByRole": "المستخدمون حسب الدور",
+      "propertiesByStatus": "العقارات حسب الحالة"
+    },
+    "recent": {
+      "inquiries": "أحدث الطلبات",
+      "bookings": "أحدث الحجوزات",
+      "favorites": "أحدث المفضلة"
+    },
+    "actions": {
+      "profileDesc": "عرض وتحديث بيانات حسابك",
+      "favoritesDesc": "عقارات حفظتها لاحقاً",
+      "bookingsDesc": "تتبع طلبات الإقامة والإيجار",
+      "bookingsInboxDesc": "إدارة طلبات الحجز الواردة",
+      "inquiriesDesc": "طلبات أرسلتها للملاك",
+      "inboxDesc": "رسائل واردة عن قوائمك",
+      "listingsDesc": "إنشاء وإدارة عقاراتك",
+      "addListingDesc": "نشر إعلان عقار جديد",
+      "investmentsDesc": "استكشف فرص الاستثمار",
+      "myInterestsDesc": "طلبات الاهتمام التي أرسلتها",
+      "investmentsInboxDesc": "اهتمام المستثمرين بقوائمك",
+      "moderationDesc": "قبول أو رفض أو إيقاف العقارات",
+      "usersDesc": "بحث وتعديل الأدوار وتفعيل أو إيقاف المستخدمين",
+      "browseDesc": "اكتشف عقارات مختارة على عقاركو"
+    }
+  },
+  "AdminUsers": {
+    "title": "إدارة المستخدمين",
+    "subtitle": "{count} مستخدم",
+    "backDashboard": "لوحة التحكم",
+    "moderationLink": "مراجعة العقارات",
+    "searchPlaceholder": "ابحث بالاسم أو البريد أو الهاتف...",
+    "search": "بحث",
+    "allRoles": "كل الأدوار",
+    "allStatus": "كل الحالات",
+    "active": "نشط",
+    "inactive": "موقوف",
+    "colName": "الاسم",
+    "colEmail": "البريد",
+    "colRole": "الدور",
+    "colStatus": "الحالة",
+    "colJoined": "تاريخ الانضمام",
+    "colActions": "إجراءات",
+    "loading": "جاري التحميل...",
+    "empty": "لا يوجد مستخدمون",
+    "error": "فشل تحميل المستخدمين",
+    "updateError": "فشل تحديث المستخدم",
+    "forbidden": "ليس لديك صلاحية إدارة المستخدمين",
+    "deactivate": "إيقاف",
+    "activate": "تفعيل",
+    "confirmDeactivate": "إيقاف هذا المستخدم؟ لن يتمكن من تسجيل الدخول.",
+    "prev": "السابق",
+    "next": "التالي",
+    "pageOf": "صفحة {page} من {pages} · {total} إجمالي"
   },
   "Profile": {
     "title": "ملفي",
@@ -343,18 +420,8 @@
     "successTitle": "تم الإرسال",
     "successMessage": "سنتواصل قريباً",
     "sendAnother": "طلب آخر",
-    "types": {
-      "info": "معلومات",
-      "visit": "معاينة",
-      "offer": "عرض",
-      "other": "أخرى"
-    },
-    "status": {
-      "new": "جديد",
-      "in_progress": "قيد المتابعة",
-      "contacted": "تم التواصل",
-      "closed": "مغلق"
-    },
+    "types": { "info": "معلومات", "visit": "معاينة", "offer": "عرض", "other": "أخرى" },
+    "status": { "new": "جديد", "in_progress": "قيد المتابعة", "contacted": "تم التواصل", "closed": "مغلق" },
     "myInquiries": "طلباتي",
     "myInquiriesSubtitle": "المرسلة",
     "inbox": "الوارد",
@@ -387,12 +454,7 @@
     "cancel": "إلغاء",
     "estimate": "التقدير",
     "guest": "الضيف",
-    "status": {
-      "pending": "انتظار",
-      "confirmed": "مؤكد",
-      "cancelled": "ملغى",
-      "completed": "مكتمل"
-    }
+    "status": { "pending": "انتظار", "confirmed": "مؤكد", "cancelled": "ملغى", "completed": "مكتمل" }
   },
   "Moderation": {
     "title": "مراجعة العقارات",
@@ -439,11 +501,7 @@
     "successMessage": "سيتواصل المالك معك.",
     "viewMyInterests": "عرض اهتماماتي",
     "investor": "المستثمر",
-    "status": {
-      "new": "جديد",
-      "contacted": "تم التواصل",
-      "closed": "مغلق"
-    }
+    "status": { "new": "جديد", "contacted": "تم التواصل", "closed": "مغلق" }
   },
   "Pages": {
     "about": {

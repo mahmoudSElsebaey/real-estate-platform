@@ -43,9 +43,8 @@ async function uploadToCloudinary(file: File): Promise<UploadedImage> {
   const buffer = Buffer.from(bytes);
   const base64 = `data:${file.type};base64,${buffer.toString("base64")}`;
 
-  // Signed upload via Cloudinary Admin API (upload endpoint with auth)
   const timestamp = Math.floor(Date.now() / 1000).toString();
-  const folder = "aether-residences";
+  const folder = "aqarco";
   const crypto = await import("crypto");
   const toSign = `folder=${folder}&timestamp=${timestamp}${secret}`;
   const signature = crypto.createHash("sha1").update(toSign).digest("hex");

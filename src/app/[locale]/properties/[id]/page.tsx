@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { Bed, Bath, Maximize2, MapPin, ArrowLeft, Building2, Mail, CalendarDays } from "lucide-react";
+import { Bed, Bath, Maximize2, MapPin, ArrowLeft, Building2, Mail, CalendarDays, Heart, Check, TrendingUp } from "lucide-react";
+import { InvestmentInterestModal } from "@/components/properties/InvestmentInterestModal";
 import { PropertyInquiryModal } from "@/components/properties/PropertyInquiryModal";
 
 interface PropertyDetail {
@@ -44,6 +45,10 @@ export default function PropertyDetailPage() {
   const [activeImage, setActiveImage] = useState(0);
   const [inquiryType, setInquiryType] = useState<"info" | "visit">("info");
   const [inquiryOpen, setInquiryOpen] = useState(false);
+  const [interestOpen, setInterestOpen] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [favoriteLoading, setFavoriteLoading] = useState(false);
+  const [favoriteError, setFavoriteError] = useState("");
 
   function openInquiry(type: "info" | "visit") {
     setInquiryType(type);
@@ -70,6 +75,43 @@ export default function PropertyDetailPage() {
 
     if (id) load();
   }, [id, t]);
+
+  useEffect(() => {
+    if (!id) return;
+    fetch("/api/favorites")
+      .then(async (res) => {
+        if (!res.ok) return;
+        const data = await res.json();
+        setIsFavorite((data.favorites || []).some((item: { _id?: string }) => item._id === id));
+      })
+      .catch(() => {});
+  }, [id]);
+
+  async function toggleFavorite() {
+    setFavoriteLoading(true);
+    setFavoriteError("");
+    try {
+      const res = await fetch("/api/favorites", {
+        method: isFavorite ? "DELETE" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ propertyId: id }),
+      });
+      if (res.status === 401) {
+        router.push(`/${locale}/login`);
+        return;
+      }
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setFavoriteError(data.error || t("favoriteError"));
+        return;
+      }
+      setIsFavorite((value) => !value);
+    } catch {
+      setFavoriteError(t("favoriteError"));
+    } finally {
+      setFavoriteLoading(false);
+    }
+  }
 
   if (loading) {
     return <div className="min-h-[60vh] flex items-center justify-center"><p className="text-muted-foreground">...</p></div>;
@@ -193,7 +235,18 @@ export default function PropertyDetailPage() {
                 )}
               </div>
 
-              <div className="pt-2 space-y-2">
+              <div className="pt-2 grid grid-cols-2 gap-2">
+                <button type="button" onClick={toggleFavorite} disabled={favoriteLoading} className="h-11 rounded-md border border-[hsl(var(--border))] text-sm font-medium transition hover:bg-muted disabled:opacity-60">
+                  <span className="inline-flex items-center justify-center gap-2"><Heart className={`h-4 w-4 ${isFavorite ? "fill-current text-primary" : ""}`} />{isFavorite ? t("saved") : t("saveFavorite")}</span>
+                </button>
+                {["invest", "both"].includes(property.purpose) && (
+                  <button type="button" onClick={() => setInterestOpen(true)} className="h-11 rounded-md bg-[#102019] text-sm font-medium text-white transition hover:bg-[#193126]">
+                    <span className="inline-flex items-center justify-center gap-2"><TrendingUp className="h-4 w-4" />{t("expressInterest")}</span>
+                  </button>
+                )}
+              </div>
+              {favoriteError && <p className="text-xs text-red-600">{favoriteError}</p>}
+              <div className="pt-0 space-y-2">
                 <button type="button" onClick={() => openInquiry("info")} className="w-full h-11 rounded-md bg-primary text-primary-foreground text-sm font-medium shadow hover:bg-[hsl(var(--primary-600))] transition-colors">
                   <span className="inline-flex items-center justify-center gap-2"><Mail className="h-4 w-4" />{t("contactAgent")}</span>
                 </button>
@@ -222,6 +275,8 @@ export default function PropertyDetailPage() {
           )}
         </div>
       </div>
+
+      <InvestmentInterestModal open={interestOpen} propertyId={property._id} propertyTitle={title} onClose={() => setInterestOpen(false)} />
 
       <PropertyInquiryModal
         open={inquiryOpen}

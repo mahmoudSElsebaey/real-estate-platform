@@ -1,14 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
-import Property from "@/models/Property";
-import { PROPERTY_STATUS } from "@/lib/properties/constants";
+import Property, { PROPERTY_STATUS } from "@/models/Property";
 import { getSession } from "@/lib/auth/session";
 
+// GET /api/admin/properties?status=pending&page=1
 export async function GET(req: NextRequest) {
   try {
     const session = await getSession();
-    if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    if (session.role !== "admin") return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    if (session.role !== "admin") {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
 
     const { searchParams } = new URL(req.url);
     const status = searchParams.get("status") || "";
@@ -17,6 +21,7 @@ export async function GET(req: NextRequest) {
     const q = searchParams.get("q") || "";
 
     await connectDB();
+
     const filter: Record<string, unknown> = {};
     if (status && (PROPERTY_STATUS as readonly string[]).includes(status)) {
       filter.status = status;
@@ -42,10 +47,18 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({
       properties,
-      pagination: { page, limit, total, pages: Math.max(1, Math.ceil(total / limit)) },
+      pagination: {
+        page,
+        limit,
+        total,
+        pages: Math.max(1, Math.ceil(total / limit)),
+      },
     });
   } catch (error) {
     console.error("Admin list properties error:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }

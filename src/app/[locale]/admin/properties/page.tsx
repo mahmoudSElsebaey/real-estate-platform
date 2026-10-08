@@ -5,7 +5,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Shield, Search } from "lucide-react";
-import { PROPERTY_STATUS } from "@/models/Property";
+import { PROPERTY_STATUS } from "@/lib/properties/constants";
 
 interface AdminProperty {
   _id: string;

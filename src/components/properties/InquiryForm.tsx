@@ -7,6 +7,7 @@ interface InquiryFormProps {
   propertyId: string;
   defaultName?: string;
   defaultEmail?: string;
+  initialType?: "info" | "visit" | "offer" | "other";
   onSuccess?: () => void;
 }
 
@@ -14,13 +15,14 @@ export function InquiryForm({
   propertyId,
   defaultName = "",
   defaultEmail = "",
+  initialType = "info",
   onSuccess,
 }: InquiryFormProps) {
   const t = useTranslations("Inquiry");
   const [name, setName] = useState(defaultName);
   const [email, setEmail] = useState(defaultEmail);
   const [phone, setPhone] = useState("");
-  const [type, setType] = useState<"info" | "visit" | "offer" | "other">("info");
+  const [type, setType] = useState<"info" | "visit" | "offer" | "other">(initialType);
   const [message, setMessage] = useState("");
   const [preferredDate, setPreferredDate] = useState("");
   const [loading, setLoading] = useState(false);

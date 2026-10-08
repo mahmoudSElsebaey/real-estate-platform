@@ -37,10 +37,22 @@
     "viewAll": "عرض الكل",
     "categoriesTitle": "استكشف حسب نيتك",
     "categories": {
-      "buy": { "title": "شراء", "description": "امتلك عمارة استثنائية." },
-      "rent": { "title": "إيجار", "description": "حياة فاخرة مرنة." },
-      "invest": { "title": "استثمار", "description": "فرص منظمة." },
-      "hospitality": { "title": "إقامة", "description": "فنادق ومنتجعات." }
+      "buy": {
+        "title": "شراء",
+        "description": "امتلك عمارة استثنائية."
+      },
+      "rent": {
+        "title": "إيجار",
+        "description": "حياة فاخرة مرنة."
+      },
+      "invest": {
+        "title": "استثمار",
+        "description": "فرص منظمة."
+      },
+      "hospitality": {
+        "title": "إقامة",
+        "description": "فنادق ومنتجعات."
+      }
     },
     "trustTitle": "مبنية على الثقة",
     "trustItems": {
@@ -374,8 +386,11 @@
     "contactAgent": "تواصل مع الوكيل",
     "scheduleVisit": "حجز معاينة",
     "bookStay": "احجز إقامة",
-    "expressInterest": "سجّل اهتمامًا استثماريًا",
-    "month": "شهر"
+    "expressInterest": "سجّل اهتمامك الاستثماري",
+    "month": "شهر",
+    "saveFavorite": "إضافة للمفضلة",
+    "saved": "تم الحفظ",
+    "favoriteError": "تعذر تحديث المفضلة"
   },
   "Favorites": {
     "title": "المفضلة",
@@ -420,8 +435,18 @@
     "successTitle": "تم الإرسال",
     "successMessage": "سنتواصل قريباً",
     "sendAnother": "طلب آخر",
-    "types": { "info": "معلومات", "visit": "معاينة", "offer": "عرض", "other": "أخرى" },
-    "status": { "new": "جديد", "in_progress": "قيد المتابعة", "contacted": "تم التواصل", "closed": "مغلق" },
+    "types": {
+      "info": "معلومات",
+      "visit": "معاينة",
+      "offer": "عرض",
+      "other": "أخرى"
+    },
+    "status": {
+      "new": "جديد",
+      "in_progress": "قيد المتابعة",
+      "contacted": "تم التواصل",
+      "closed": "مغلق"
+    },
     "myInquiries": "طلباتي",
     "myInquiriesSubtitle": "المرسلة",
     "inbox": "الوارد",
@@ -454,7 +479,12 @@
     "cancel": "إلغاء",
     "estimate": "التقدير",
     "guest": "الضيف",
-    "status": { "pending": "انتظار", "confirmed": "مؤكد", "cancelled": "ملغى", "completed": "مكتمل" }
+    "status": {
+      "pending": "انتظار",
+      "confirmed": "مؤكد",
+      "cancelled": "ملغى",
+      "completed": "مكتمل"
+    }
   },
   "Moderation": {
     "title": "مراجعة العقارات",
@@ -501,7 +531,13 @@
     "successMessage": "سيتواصل المالك معك.",
     "viewMyInterests": "عرض اهتماماتي",
     "investor": "المستثمر",
-    "status": { "new": "جديد", "contacted": "تم التواصل", "closed": "مغلق" }
+    "status": {
+      "new": "جديد",
+      "contacted": "تم التواصل",
+      "closed": "مغلق"
+    },
+    "expressTitle": "سجّل اهتمامك بالفرصة",
+    "close": "إغلاق"
   },
   "Pages": {
     "about": {

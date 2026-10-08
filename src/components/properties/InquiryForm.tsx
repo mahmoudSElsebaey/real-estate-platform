@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { CheckCircle2, ShieldCheck, Sparkles } from "lucide-react";
 
 interface InquiryFormProps {
   propertyId: string;
@@ -19,6 +20,7 @@ export function InquiryForm({
   onSuccess,
 }: InquiryFormProps) {
   const t = useTranslations("Inquiry");
+  const locale = useLocale();
   const [name, setName] = useState(defaultName);
   const [email, setEmail] = useState(defaultEmail);
   const [phone, setPhone] = useState("");
@@ -67,10 +69,25 @@ export function InquiryForm({
 
   if (success) {
     return (
-      <div className="rounded-xl border border-emerald-200 bg-emerald-50 dark:bg-emerald-950/30 p-6 text-center">
-        <p className="text-emerald-700 dark:text-emerald-300 font-medium mb-1">{t("successTitle")}</p>
-        <p className="text-sm text-emerald-600/80 dark:text-emerald-400/80">{t("successMessage")}</p>
-        <button type="button" onClick={() => setSuccess(false)} className="mt-4 text-sm text-primary font-medium hover:underline">{t("sendAnother")}</button>
+      <div className="relative overflow-hidden rounded-[24px] border border-[#24483a] bg-[#102019] p-7 text-white shadow-[0_18px_50px_rgba(16,32,25,.18)] sm:p-8">
+        <div className="absolute -end-16 -top-20 h-44 w-44 rounded-full bg-primary/20 blur-3xl" />
+        <div className="absolute -start-20 -bottom-24 h-48 w-48 rounded-full bg-white/5 blur-3xl" />
+        <div className="relative mx-auto max-w-md text-center">
+          <div className="mx-auto mb-5 grid h-16 w-16 place-items-center rounded-full border border-emerald-300/25 bg-emerald-400/15 text-emerald-300 shadow-inner">
+            <CheckCircle2 className="h-8 w-8" />
+          </div>
+          <div className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white/65">
+            <Sparkles className="h-3 w-3" />
+            AQARCO
+          </div>
+          <h3 className="mt-2 text-2xl font-semibold tracking-tight text-white">{t("successTitle")}</h3>
+          <p className="mx-auto mt-2 max-w-sm text-sm leading-6 text-white/65">{t("successMessage")}</p>
+          <div className="mx-auto mt-6 flex max-w-sm items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 text-xs text-white/60">
+            <ShieldCheck className="h-4 w-4 shrink-0 text-emerald-300" />
+            <span>{locale === "ar" ? "بياناتك محمية وسنتعامل مع طلبك بسرية." : "Your details are protected and handled privately."}</span>
+          </div>
+          <button type="button" onClick={() => setSuccess(false)} className="mt-6 inline-flex h-11 items-center justify-center rounded-full border border-white/15 bg-white/10 px-6 text-sm font-semibold text-white transition hover:bg-white/15">{t("sendAnother")}</button>
+        </div>
       </div>
     );
   }

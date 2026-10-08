@@ -82,7 +82,7 @@ export function Header() {
   ];
 
   const transparent = isHome && !scrolled;
-  const textClass = transparent ? "text-white/90 hover:text-white hover:bg-white/10" : "text-foreground/80 hover:text-foreground hover:bg-muted";
+  const textClass = transparent ? "text-white/90 mix-blend-difference hover:text-white hover:bg-white/10" : "text-foreground/80 hover:text-foreground hover:bg-muted";
   const brandClass = transparent ? "text-white" : "text-[hsl(var(--primary-500))]";
 
   const closeMenus = () => {
@@ -159,7 +159,7 @@ export function Header() {
             ) : (
               <Link href={`/${locale}/login`} className={cn("hidden rounded-full px-3 py-2 text-xs font-medium transition sm:inline-flex", textClass)}>{tAuth("login")}</Link>
             )}
-            <button onClick={() => setMobileOpen((v) => !v)} className={cn("rounded-full p-2 lg:hidden", transparent ? "text-white" : "text-foreground")} aria-label="Toggle menu">
+            <button onClick={() => setMobileOpen((v) => !v)} className={cn("rounded-full p-2 lg:hidden", transparent ? "text-white mix-blend-difference" : "text-foreground")} aria-label="Toggle menu">
               {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>

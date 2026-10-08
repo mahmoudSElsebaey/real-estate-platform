@@ -23,7 +23,7 @@ interface CompareProperty {
   images: { url: string; isPrimary?: boolean }[];
 }
 
-const COMPARE_KEY = "aether_compare";
+const COMPARE_KEY = "aqarco_compare";
 
 export function getCompareIds(): string[] {
   if (typeof window === "undefined") return [];

@@ -6,6 +6,7 @@
 
 export const brandConfig = {
   brandName: "Aqarco",
+  brandNameAr: "عقاركو",
   shortName: "Aqarco",
   tagline: {
     en: "Exceptional Living. Timeless Investment.",

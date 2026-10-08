@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { PROPERTY_TYPES, PROPERTY_STATUS, LISTING_PURPOSE } from "@/models/Property";
+import { z } from "zod";
+import { PROPERTY_TYPES, PROPERTY_STATUS, LISTING_PURPOSE } from "@/lib/properties/constants";
 
 export const propertyImageSchema = z.object({
   url: z.string().url("Invalid image URL"),

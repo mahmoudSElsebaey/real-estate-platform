@@ -29,10 +29,18 @@ export default function ListingsPage() {
   const [properties, setProperties] = useState<PropertyItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [canManageListings, setCanManageListings] = useState(false);
 
   useEffect(() => {
     async function load() {
       try {
+        const meRes = await fetch("/api/user/me");
+        if (meRes.status === 401) { router.push(`/${locale}/login`); return; }
+        const meData = await meRes.json();
+        const allowed = ["owner", "agent", "hotel_operator", "admin"].includes(meData.user?.role || "");
+        if (!allowed) { router.push(`/${locale}/dashboard`); return; }
+        setCanManageListings(true);
+
         const res = await fetch("/api/properties?mine=true");
         if (res.status === 401) { router.push(`/${locale}/login`); return; }
         const data = await res.json();
@@ -57,17 +65,21 @@ export default function ListingsPage() {
 
   return (
     <AccountFrame title={t("title")} subtitle={t("subtitle")} eyebrow="AQARCO / LISTINGS">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <Link href={`/${locale}/listings/new`} className="inline-flex items-center justify-center gap-2 h-10 px-4 text-sm font-medium rounded-md bg-primary text-primary-foreground shadow hover:bg-[hsl(var(--primary-600))] transition-colors">
-          <Plus className="w-4 h-4" />
-          {t("addNew")}
-        </Link>
-      </div>
+      {canManageListings && (
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <Link href={`/${locale}/listings/new`} className="inline-flex items-center justify-center gap-2 h-10 px-4 text-sm font-medium rounded-md bg-primary text-primary-foreground shadow hover:bg-[hsl(var(--primary-600))] transition-colors">
+            <Plus className="w-4 h-4" />
+            {t("addNew")}
+          </Link>
+        </div>
+      )}
       {error && <div className="mb-6 rounded-md bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">{error}</div>}
       {properties.length === 0 ? (
         <div className="text-center py-20 border border-dashed border-[hsl(var(--border))] rounded-xl">
           <p className="text-muted-foreground mb-4">{t("empty")}</p>
-          <Link href={`/${locale}/listings/new`} className="inline-flex items-center justify-center h-10 px-4 text-sm font-medium rounded-md bg-primary text-primary-foreground shadow hover:bg-[hsl(var(--primary-600))] transition-colors">{t("emptyCta")}</Link>
+          {canManageListings && (
+            <Link href={`/${locale}/listings/new`} className="inline-flex items-center justify-center h-10 px-4 text-sm font-medium rounded-md bg-primary text-primary-foreground shadow hover:bg-[hsl(var(--primary-600))] transition-colors">{t("emptyCta")}</Link>
+          )}
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

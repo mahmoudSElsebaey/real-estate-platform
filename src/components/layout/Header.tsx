@@ -195,6 +195,10 @@ export function Header() {
                   <div className="absolute end-0 top-12 z-[60] w-60 overflow-hidden rounded-2xl border border-border bg-background p-2 shadow-xl">
                     <div className="border-b border-border px-3 py-2.5"><p className="text-xs font-medium text-muted-foreground">{t("account")}</p></div>
                     <div className="py-1">{profileItems.map((item) => <Link key={item.href} href={item.href} onClick={() => setProfileOpen(false)} className="block rounded-xl px-3 py-2.5 text-sm font-medium text-foreground transition hover:bg-muted">{item.label}</Link>)}</div>
+                    <div className="grid grid-cols-2 gap-1 border-t border-border px-1 pt-2">
+                      <Link href={`/${locale}/favorites`} onClick={() => setProfileOpen(false)} className="flex items-center gap-2 rounded-xl px-2.5 py-2.5 text-xs font-semibold text-foreground transition hover:bg-muted"><Heart className="h-4 w-4 text-primary" />{tDashboard("favorites")}</Link>
+                      <Link href={`/${locale}/investments/my`} onClick={() => setProfileOpen(false)} className="flex items-center gap-2 rounded-xl px-2.5 py-2.5 text-xs font-semibold text-foreground transition hover:bg-muted"><Building2 className="h-4 w-4 text-primary" />{tDashboard("myInterests")}</Link>
+                    </div>
                     <div className="border-t border-border pt-1"><button type="button" onClick={handleLogout} className="flex w-full items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium text-red-600 transition hover:bg-red-50"><LogOut className="h-4 w-4" />{tAuth("logout")}</button></div>
                   </div>
                 )}
@@ -219,7 +223,11 @@ export function Header() {
             <Link href={`/${locale}/careers`} onClick={closeMenus} className="block rounded-2xl px-4 py-3 text-base font-medium">{locale === "ar" ? "الوظائف" : "Careers"}</Link>
             <Link href={`/${locale}/contact`} onClick={closeMenus} className="block rounded-2xl px-4 py-3 text-base font-medium">{locale === "ar" ? "تواصل معنا" : "Contact"}</Link>
             {!isLoggedIn && <Link href={`/${locale}/login`} onClick={closeMenus} className="block rounded-2xl px-4 py-3 text-base font-medium text-primary">{tAuth("login")}</Link>}
-            {isLoggedIn && <button type="button" onClick={handleLogout} className="flex w-full items-center gap-2 rounded-2xl px-4 py-3 text-start font-medium text-red-600"><LogOut className="h-4 w-4" />{tAuth("logout")}</button>}
+            {isLoggedIn && <>
+              <Link href={`/${locale}/favorites`} onClick={closeMenus} className="flex items-center gap-2 rounded-2xl px-4 py-3 text-base font-medium text-foreground transition hover:bg-muted"><Heart className="h-4 w-4 text-primary" />{tDashboard("favorites")}</Link>
+              <Link href={`/${locale}/investments/my`} onClick={closeMenus} className="flex items-center gap-2 rounded-2xl px-4 py-3 text-base font-medium text-foreground transition hover:bg-muted"><Building2 className="h-4 w-4 text-primary" />{tDashboard("myInterests")}</Link>
+              <button type="button" onClick={handleLogout} className="flex w-full items-center gap-2 rounded-2xl px-4 py-3 text-start font-medium text-red-600"><LogOut className="h-4 w-4" />{tAuth("logout")}</button>
+            </>}
           </nav>
         </div>
       )}

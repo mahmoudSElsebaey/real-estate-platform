@@ -10,11 +10,10 @@ import {
   rateLimitResponse,
 } from "@/lib/auth/rate-limit";
 
-// POST /api/auth/register
 export async function POST(req: NextRequest) {
   try {
     const ip = clientIp(req);
-    const rl = rateLimit(`register:${ip}`, 5, 15 * 60 * 1000); // 5 per 15 min
+    const rl = rateLimit("register:" + ip, 5, 15 * 60 * 1000);
     if (!rl.success) return rateLimitResponse(rl.resetAt);
 
     const body = await req.json();
@@ -26,15 +25,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { name, email, password, preferredLocale } = parsed.data;
-    // Never allow admin via public registration — even if client sends it
-    let role = parsed.data.role || "buyer";
-    if (
-      !(PUBLIC_REGISTER_ROLES as readonly string[]).includes(role) ||
-      role === "admin"
-    ) {
+    let role: string = parsed.data.role || "buyer";
+    if (!(PUBLIC_REGISTER_ROLES as readonly string[]).includes(role)) {
       role = "buyer";
     }
+
+    const { name, email, password, preferredLocale } = parsed.data;
 
     await connectDB();
     const existing = await User.findOne({ email });

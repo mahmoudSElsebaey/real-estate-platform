@@ -10,11 +10,10 @@ import {
   rateLimitResponse,
 } from "@/lib/auth/rate-limit";
 
-// POST /api/auth/login
 export async function POST(req: NextRequest) {
   try {
     const ip = clientIp(req);
-    const rl = rateLimit(`login:${ip}`, 10, 15 * 60 * 1000); // 10 per 15 min
+    const rl = rateLimit("login:" + ip, 10, 15 * 60 * 1000);
     if (!rl.success) return rateLimitResponse(rl.resetAt);
 
     const body = await req.json();

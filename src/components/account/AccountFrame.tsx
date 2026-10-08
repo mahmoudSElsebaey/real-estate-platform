@@ -25,9 +25,9 @@ const labels = {
 export function AccountFrame({ children, title, subtitle, eyebrow = "AQARCO ACCOUNT" }: { children: React.ReactNode; title: string; subtitle?: string; eyebrow?: string }) {
   const locale = useLocale() as "ar" | "en";
   const pathname = usePathname();
-  const t = useTranslations("Dashboard");
   const current = pathname.split("/").filter(Boolean).slice(1).join("/");
   const text = labels[locale];
+  const roleLabels = locale === "ar" ? { admin: "مدير النظام", owner: "مالك عقار", agent: "وسيط عقاري", investor: "مستثمر", buyer: "مشتري", renter: "مستأجر", hotel_operator: "مشغّل فندقي" } : { admin: "Administrator", owner: "Property Owner", agent: "Real Estate Agent", investor: "Investor", buyer: "Buyer", renter: "Renter", hotel_operator: "Hotel Operator" };
   const [user, setUser] = useState<{ name: string; avatar?: string; role?: string } | null>(null);
 
   useEffect(() => {
@@ -59,7 +59,7 @@ export function AccountFrame({ children, title, subtitle, eyebrow = "AQARCO ACCO
                 </div>
                 <div className="pe-2">
                   <p className="text-sm font-semibold">{user.name}</p>
-                  <p className="text-[11px] text-white/55">{user.role ? t(`roleLabels.${user.role}` as any) || user.role : (locale === "ar" ? "حسابك" : "Your account")}</p>
+                  <p className="text-[11px] text-white/55">{user.role ? roleLabels[user.role as keyof typeof roleLabels] || user.role : (locale === "ar" ? "حسابك" : "Your account")}</p>
                 </div>
                 <ArrowUpRight className="h-4 w-4 text-white/45 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </Link>

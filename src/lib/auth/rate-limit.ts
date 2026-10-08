@@ -1,13 +1,13 @@
 /**
  * Simple in-memory sliding-window rate limiter.
  * Suitable for single-instance / serverless warm containers.
- * For multi-instance production, replace with Redis/Upstash later.
  */
+
+import { NextResponse } from "next/server";
 
 type Entry = { count: number; resetAt: number };
 
 const store = new Map<string, Entry>();
-
 const MAX_KEYS = 10_000;
 
 function prune() {
@@ -17,8 +17,8 @@ function prune() {
     if (entry.resetAt <= now) store.delete(key);
   }
   if (store.size >= MAX_KEYS) {
-    const keys = [...store.keys()];
-    for (let i = 0; i < keys.length / 2; i++) {
+    const keys = Array.from(store.keys());
+    for (let i = 0; i < Math.floor(keys.length / 2); i++) {
       store.delete(keys[i]);
     }
   }
@@ -30,11 +30,6 @@ export interface RateLimitResult {
   resetAt: number;
 }
 
-/**
- * @param key unique key e.g. `login:1.2.3.4`
- * @param limit max requests in the window
- * @param windowMs window length in ms
- */
 export function rateLimit(
   key: string,
   limit: number,
@@ -73,10 +68,9 @@ export function clientIp(req: Request): string {
   return "unknown";
 }
 
-/** Standard 429 JSON response */
 export function rateLimitResponse(resetAt: number) {
   const retryAfter = Math.max(1, Math.ceil((resetAt - Date.now()) / 1000));
-  return Response.json(
+  return NextResponse.json(
     {
       error: "Too many requests. Please try again later.",
       retryAfter,

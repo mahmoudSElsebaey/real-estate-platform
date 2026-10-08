@@ -15,6 +15,7 @@ interface UserProfile {
   preferredLocale: string;
   isVerified: boolean;
   createdAt?: string;
+  avatar?: string;
 }
 
 export default function ProfilePage() {
@@ -82,7 +83,7 @@ export default function ProfilePage() {
       <div>
         {message && <div className="mb-6 rounded-md bg-emerald-50 border border-emerald-200 px-4 py-3 text-sm text-emerald-700">{message}</div>}
         {error && <div className="mb-6 rounded-md bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">{error}</div>}
-        <div className="bg-card border border-[hsl(var(--border))] rounded-xl p-6 md:p-8 shadow-sm">
+        <div className="mb-6 overflow-hidden rounded-[28px] border border-border bg-[#102019] text-white shadow-lg">\n          <div className="relative p-6 sm:p-8">\n            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(16,32,25,.95),rgba(16,32,25,.68)),url(https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=85)] bg-cover bg-center" />\n            <div className="relative flex items-center gap-4">\n              <div className="h-20 w-20 overflow-hidden rounded-2xl border border-white/20 bg-white/10 shadow-xl">\n                {user.avatar ? <img src={user.avatar} alt={user.name} className="h-full w-full object-cover" /> : <div className="grid h-full w-full place-items-center text-2xl font-semibold">{user.name.charAt(0).toUpperCase()}</div>}\n              </div>\n              <div><p className="text-xs uppercase tracking-[0.22em] text-white/50">{locale === "ar" ? "ملفك العقاري" : "YOUR PROPERTY PROFILE"}</p><h2 className="mt-1 text-2xl font-semibold">{user.name}</h2><p className="mt-1 text-sm text-white/60">{user.email}</p></div>\n            </div>\n          </div>\n        </div>\n        <div className="rounded-[28px] border border-border bg-card p-6 shadow-sm md:p-8">
           {!editing ? (
             <div className="space-y-5">
               <div><p className="text-xs text-muted-foreground mb-1">{t("name")}</p><p className="font-medium">{user.name}</p></div>

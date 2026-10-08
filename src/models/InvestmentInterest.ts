@@ -17,12 +17,32 @@ export interface IInvestmentInterest extends Document {
 
 const InvestmentInterestSchema = new Schema<IInvestmentInterest>(
   {
-    property: { type: Schema.Types.ObjectId, ref: "Property", required: true, index: true },
-    propertyOwner: { type: Schema.Types.ObjectId, ref: "User", required: true, index: true },
-    user: { type: Schema.Types.ObjectId, ref: "User", required: true, index: true },
+    property: {
+      type: Schema.Types.ObjectId,
+      ref: "Property",
+      required: true,
+      index: true,
+    },
+    propertyOwner: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+      index: true,
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+      index: true,
+    },
     proposedAmount: { type: Number, min: 0 },
     message: { type: String, maxlength: 2000 },
-    status: { type: String, enum: INTEREST_STATUS, default: "new", index: true },
+    status: {
+      type: String,
+      enum: INTEREST_STATUS,
+      default: "new",
+      index: true,
+    },
     notes: { type: String, maxlength: 2000 },
   },
   { timestamps: true }
@@ -34,6 +54,9 @@ InvestmentInterestSchema.index({ propertyOwner: 1, createdAt: -1 });
 
 const InvestmentInterest: Model<IInvestmentInterest> =
   mongoose.models.InvestmentInterest ||
-  mongoose.model<IInvestmentInterest>("InvestmentInterest", InvestmentInterestSchema);
+  mongoose.model<IInvestmentInterest>(
+    "InvestmentInterest",
+    InvestmentInterestSchema
+  );
 
 export default InvestmentInterest;

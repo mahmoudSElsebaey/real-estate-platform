@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { AccountFrame } from "@/components/account/AccountFrame";
 import { getSession } from "@/lib/auth/session";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import Link from "next/link";
@@ -38,13 +39,8 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
   ].filter((a) => a.show);
 
   return (
-    <div className="min-h-[70vh] py-12 md:py-16">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-10">
-          <h1 className="text-3xl font-semibold tracking-tight mb-2">{t("welcome", { name: userName })}</h1>
-          <p className="text-muted-foreground">{t("role")}: <span className="font-medium text-foreground">{roleLabel}</span></p>
-        </div>
-        <section>
+    <AccountFrame title={t("welcome", { name: userName })} subtitle={`${t("role")}: ${roleLabel}`}>
+      <section>
           <h2 className="text-lg font-semibold mb-4">{t("quickActions")}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {actions.map((action) => (
@@ -58,6 +54,6 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
           </div>
         </section>
       </div>
-    </div>
+    </AccountFrame>
   );
 }

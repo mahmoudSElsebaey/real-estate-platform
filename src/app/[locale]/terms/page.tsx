@@ -1,11 +1,63 @@
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const { locale } = await params;
-  const titles: Record<string,string> = { ar: "Terms", en: "Terms" };
-  return { title: titles[locale] ?? titles.en, alternates: { canonical: absoluteUrl(`/${locale}/terms`), languages: { en: absoluteUrl("/en/terms"), ar: absoluteUrl("/ar/terms") } } };
-}
-
-import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
-import { absoluteUrl } from "@/lib/seo";
+import { setRequestLocale } from "next-intl/server";
 import { ArrowUpRight, CheckCircle2, FileCheck2, Handshake, Scale } from "lucide-react";
-export default async function TermsPage({ params }: { params: Promise<{ locale: string }> }){const { locale } = await params; setRequestLocale(locale); const ar=locale==="ar";const cards=[["استخدام المنصة","Using the platform","باستخدام عقاركو توافق على الالتزام بالشروط واستخدام الخدمات بطريقة مسؤولة.","By using Aqarco, you agree to these terms and to use the services responsibly.",FileCheck2],["القوائم والعروض","Listings & offers","القوائم يقدمها ملاك أو وكلاء، وعقاركو تسهّل الاكتشاف والاستفسارات والحجوزات.","Listings are provided by owners or agents; Aqarco facilitates discovery, inquiries, and bookings.",Handshake],["الدقة والمسؤولية","Accuracy & responsibility","يجب تقديم معلومات دقيقة وعدم استخدام المنصة في نشاط مضلل أو مسيء.","Information should be accurate and the platform must not be used for misleading or abusive activity.",Scale],["المعاملات","Decisions & transactions","راجع التفاصيل مع الطرف المعني قبل الالتزام بأي معاملة أو حجز.","Review details with the relevant party before committing to a transaction or booking.",CheckCircle2]];return <main><section className="relative isolate overflow-hidden bg-[hsl(var(--primary-950))]"><img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=2200&q=85" className="absolute inset-0 -z-20 h-full w-full object-cover"/><div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/80 via-black/65 to-black/25"/><div className="mx-auto flex min-h-[430px] max-w-7xl items-end px-4 pb-20 pt-32 sm:px-6 lg:px-8"><div className="max-w-3xl text-white"><p className="text-xs font-semibold uppercase tracking-[.28em] text-white/60">Aqarco / {ar?"الشروط":"TERMS"}</p><h1 className="mt-5 text-4xl font-semibold sm:text-5xl lg:text-6xl">{ar?"استخدم عقاركو بثقة.":"Use Aqarco with confidence."}</h1><p className="mt-5 text-lg leading-8 text-white/70">{ar?"الشروط الأساسية التي تنظم استخدام المنصة.":"The core terms governing your use of the platform."}</p></div></div></section><section className="relative z-10 mx-auto -mt-10 max-w-7xl px-4 pb-24 sm:px-6 lg:px-8"><div className="grid gap-5 md:grid-cols-2">{cards.map(([a,b,c,d,Icon])=>{const I=Icon as typeof FileCheck2;return <article key={b as string} className="rounded-3xl border bg-card p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"><div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[hsl(var(--primary-100))] text-[hsl(var(--primary-600))]"><I className="h-5 w-5"/></div><h2 className="mt-6 text-xl font-semibold">{ar?a:b}</h2><p className="mt-3 leading-7 text-muted-foreground">{ar?c:d}</p></article>})}</div></section><section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8"><div className="rounded-3xl bg-[hsl(var(--primary-900))] p-8 text-white sm:p-12"><p className="text-xs uppercase tracking-[.22em] text-white/60">{ar?"قبل المتابعة":"BEFORE YOU PROCEED"}</p><h2 className="mt-3 text-3xl font-semibold">{ar?"راجع التفاصيل واتخذ قرارك بوضوح.":"Review the details and decide clearly."}</h2><a href={"/"+locale+"/contact"} className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[hsl(var(--primary-900))]">{ar?"تواصل معنا":"Contact us"}<ArrowUpRight className="h-4 w-4"/></a></div></section></main>}
+
+export const metadata: Metadata = {
+  title: "Terms | Aqarco",
+  description: "The core terms governing your use of the Aqarco platform.",
+};
+
+type Props = { params: Promise<{ locale: string }> };
+
+export default async function TermsPage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const ar = locale === "ar";
+
+  const cards = [
+    { title: ar ? "استخدام المنصة" : "Using the platform", text: ar ? "باستخدام عقاركو توافق على الالتزام بالشروط واستخدام الخدمات بطريقة مسؤولة." : "By using Aqarco, you agree to these terms and to use the services responsibly.", Icon: FileCheck2 },
+    { title: ar ? "القوائم والعروض" : "Listings & offers", text: ar ? "القوائم يقدمها ملاك أو وكلاء، وعقاركو تسهّل الاكتشاف والاستفسارات والحجوزات." : "Listings are provided by owners or agents; Aqarco facilitates discovery, inquiries, and bookings.", Icon: Handshake },
+    { title: ar ? "الدقة والمسؤولية" : "Accuracy & responsibility", text: ar ? "يجب تقديم معلومات دقيقة وعدم استخدام المنصة في نشاط مضلل أو مسيء." : "Information should be accurate and the platform must not be used for misleading or abusive activity.", Icon: Scale },
+    { title: ar ? "المعاملات" : "Decisions & transactions", text: ar ? "راجع التفاصيل مع الطرف المعني قبل الالتزام بأي معاملة أو حجز." : "Review details with the relevant party before committing to a transaction or booking.", Icon: CheckCircle2 },
+  ];
+
+  return (
+    <main>
+      <section className="relative isolate overflow-hidden bg-[hsl(var(--primary-950))]">
+        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=2200&q=85" alt="" className="absolute inset-0 -z-20 h-full w-full object-cover" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/80 via-black/65 to-black/25" />
+        <div className="mx-auto flex min-h-[430px] max-w-7xl items-end px-4 pb-20 pt-32 sm:px-6 lg:px-8">
+          <div className="max-w-3xl text-white">
+            <p className="text-xs font-semibold uppercase tracking-[.28em] text-white/60">Aqarco / {ar ? "الشروط" : "TERMS"}</p>
+            <h1 className="mt-5 text-4xl font-semibold sm:text-5xl lg:text-6xl">{ar ? "استخدم عقاركو بثقة." : "Use Aqarco with confidence."}</h1>
+            <p className="mt-5 text-lg leading-8 text-white/70">{ar ? "الشروط الأساسية التي تنظم استخدام المنصة." : "The core terms governing your use of the platform."}</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative z-10 mx-auto -mt-10 max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
+        <div className="grid gap-5 md:grid-cols-2">
+          {cards.map(({ title, text, Icon }) => (
+            <article key={title} className="rounded-3xl border bg-card p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[hsl(var(--primary-100))] text-[hsl(var(--primary-600))]">
+                <Icon className="h-5 w-5" />
+              </div>
+              <h2 className="mt-6 text-xl font-semibold">{title}</h2>
+              <p className="mt-3 leading-7 text-muted-foreground">{text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
+        <div className="rounded-3xl bg-[hsl(var(--primary-900))] p-8 text-white sm:p-12">
+          <p className="text-xs uppercase tracking-[.22em] text-white/60">{ar ? "قبل المتابعة" : "BEFORE YOU PROCEED"}</p>
+          <h2 className="mt-3 text-3xl font-semibold">{ar ? "راجع التفاصيل واتخذ قرارك بوضوح." : "Review the details and decide clearly."}</h2>
+          <a href={`/${locale}/contact`} className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[hsl(var(--primary-900))]">
+            {ar ? "تواصل معنا" : "Contact us"} <ArrowUpRight className="h-4 w-4" />
+          </a>
+        </div>
+      </section>
+    </main>
+  );
+}

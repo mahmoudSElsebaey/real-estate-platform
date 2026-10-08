@@ -2,7 +2,7 @@ import { randomUUID } from "crypto";
 import { mkdir, writeFile } from "fs/promises";
 import path from "path";
 
-const MAX_BYTES = 5 * 1024 * 1024;
+const MAX_BYTES = 5 * 1024 * 1024; // 5MB
 const ALLOWED_TYPES = new Set([
   "image/jpeg",
   "image/jpg",
@@ -43,6 +43,7 @@ async function uploadToCloudinary(file: File): Promise<UploadedImage> {
   const buffer = Buffer.from(bytes);
   const base64 = `data:${file.type};base64,${buffer.toString("base64")}`;
 
+  // Signed upload via Cloudinary Admin API (upload endpoint with auth)
   const timestamp = Math.floor(Date.now() / 1000).toString();
   const folder = "aether-residences";
   const crypto = await import("crypto");

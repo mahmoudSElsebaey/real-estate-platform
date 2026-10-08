@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
 import { uploadImageFile, validateImageFile } from "@/lib/media/upload";
 
+// POST /api/upload — multipart form field "file"
 export async function POST(req: NextRequest) {
   try {
     const session = await getSession();
@@ -13,7 +14,10 @@ export async function POST(req: NextRequest) {
     const file = form.get("file");
 
     if (!file || !(file instanceof File)) {
-      return NextResponse.json({ error: "No file provided" }, { status: 400 });
+      return NextResponse.json(
+        { error: "No file provided" },
+        { status: 400 }
+      );
     }
 
     const validationError = validateImageFile(file);
@@ -24,7 +28,10 @@ export async function POST(req: NextRequest) {
     const result = await uploadImageFile(file, session.userId);
 
     return NextResponse.json(
-      { url: result.url, publicId: result.publicId || null },
+      {
+        url: result.url,
+        publicId: result.publicId || null,
+      },
       { status: 201 }
     );
   } catch (error) {

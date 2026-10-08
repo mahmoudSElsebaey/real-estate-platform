@@ -37,22 +37,10 @@
     "viewAll": "View all",
     "categoriesTitle": "Explore by intention",
     "categories": {
-      "buy": {
-        "title": "Buy",
-        "description": "Own exceptional architecture."
-      },
-      "rent": {
-        "title": "Rent",
-        "description": "Flexible premium living."
-      },
-      "invest": {
-        "title": "Invest",
-        "description": "Structured opportunities."
-      },
-      "hospitality": {
-        "title": "Stay",
-        "description": "Hotels and resorts."
-      }
+      "buy": { "title": "Buy", "description": "Own exceptional architecture." },
+      "rent": { "title": "Rent", "description": "Flexible premium living." },
+      "invest": { "title": "Invest", "description": "Structured opportunities." },
+      "hospitality": { "title": "Stay", "description": "Hotels and resorts." }
     },
     "trustTitle": "Built on trust",
     "trustItems": {
@@ -136,18 +124,107 @@
     "welcome": "Welcome back, {name}",
     "role": "Role",
     "quickActions": "Quick actions",
+    "overview": "Overview",
     "profile": "My Profile",
     "favorites": "Favorites",
     "bookings": "My Bookings",
     "bookingsInbox": "Booking inbox",
     "investments": "Investments",
-    "myInterests": "My interests",
-    "investmentsInbox": "Investment inbox",
     "listings": "My Listings",
+    "addListing": "Add listing",
     "settings": "Settings",
     "inquiries": "My Requests",
     "inbox": "Inbox",
-    "moderation": "Property moderation"
+    "moderation": "Property moderation",
+    "myInterests": "My interests",
+    "investmentsInbox": "Investment inbox",
+    "users": "Manage users",
+    "browse": "Browse properties",
+    "loading": "Loading dashboard...",
+    "error": "Failed to load dashboard data",
+    "refresh": "Refresh",
+    "viewAll": "View all",
+    "empty": "Nothing here yet",
+    "investorTipTitle": "Explore investment opportunities",
+    "investorTipBody": "Browse curated investment listings and express interest directly from property pages.",
+    "browseOpportunities": "Browse opportunities",
+    "stats": {
+      "usersTotal": "Total users",
+      "activeUsers": "Active users",
+      "propertiesTotal": "Total properties",
+      "pendingReview": "Pending review",
+      "published": "Published",
+      "newInquiries": "New inquiries",
+      "pendingBookings": "Pending bookings",
+      "newInterests": "New investment interests",
+      "needsAttention": "Needs attention",
+      "myListings": "My listings",
+      "drafts": "Drafts",
+      "inboxInquiries": "Inbox inquiries",
+      "inboxBookings": "Inbox bookings",
+      "inboxInterests": "Investment inbox",
+      "savedByUsers": "Saved by users",
+      "favorites": "Favorites",
+      "myBookings": "My bookings",
+      "myInquiries": "My requests",
+      "myInterests": "My interests",
+      "newCount": "{count} new",
+      "pendingCount": "{count} pending"
+    },
+    "charts": {
+      "usersByRole": "Users by role",
+      "propertiesByStatus": "Properties by status"
+    },
+    "recent": {
+      "inquiries": "Recent inquiries",
+      "bookings": "Recent bookings",
+      "favorites": "Recent favorites"
+    },
+    "actions": {
+      "profileDesc": "View and update your account details",
+      "favoritesDesc": "Properties you saved for later",
+      "bookingsDesc": "Track your stay and rental requests",
+      "bookingsInboxDesc": "Manage incoming booking requests",
+      "inquiriesDesc": "Requests you sent to owners",
+      "inboxDesc": "Incoming messages about your listings",
+      "listingsDesc": "Create and manage your properties",
+      "addListingDesc": "Publish a new property listing",
+      "investmentsDesc": "Explore investment opportunities",
+      "myInterestsDesc": "Interest requests you submitted",
+      "investmentsInboxDesc": "Investor interest on your listings",
+      "moderationDesc": "Approve, reject, or suspend listings",
+      "usersDesc": "Search, edit roles, activate or deactivate users",
+      "browseDesc": "Discover curated properties on Aqarco"
+    }
+  },
+  "AdminUsers": {
+    "title": "User management",
+    "subtitle": "{count} users",
+    "backDashboard": "Dashboard",
+    "moderationLink": "Property moderation",
+    "searchPlaceholder": "Search name, email, or phone...",
+    "search": "Search",
+    "allRoles": "All roles",
+    "allStatus": "All statuses",
+    "active": "Active",
+    "inactive": "Inactive",
+    "colName": "Name",
+    "colEmail": "Email",
+    "colRole": "Role",
+    "colStatus": "Status",
+    "colJoined": "Joined",
+    "colActions": "Actions",
+    "loading": "Loading users...",
+    "empty": "No users found",
+    "error": "Failed to load users",
+    "updateError": "Failed to update user",
+    "forbidden": "You do not have permission to manage users",
+    "deactivate": "Deactivate",
+    "activate": "Activate",
+    "confirmDeactivate": "Deactivate this user? They will not be able to sign in.",
+    "prev": "Previous",
+    "next": "Next",
+    "pageOf": "Page {page} of {pages} · {total} total"
   },
   "Profile": {
     "title": "My Profile",
@@ -343,18 +420,8 @@
     "successTitle": "Sent",
     "successMessage": "We will contact you.",
     "sendAnother": "Send another",
-    "types": {
-      "info": "Information",
-      "visit": "Visit",
-      "offer": "Offer",
-      "other": "Other"
-    },
-    "status": {
-      "new": "New",
-      "in_progress": "In progress",
-      "contacted": "Contacted",
-      "closed": "Closed"
-    },
+    "types": { "info": "Information", "visit": "Visit", "offer": "Offer", "other": "Other" },
+    "status": { "new": "New", "in_progress": "In progress", "contacted": "Contacted", "closed": "Closed" },
     "myInquiries": "My Requests",
     "myInquiriesSubtitle": "Sent requests",
     "inbox": "Inbox",
@@ -387,12 +454,7 @@
     "cancel": "Cancel",
     "estimate": "Estimate",
     "guest": "Guest",
-    "status": {
-      "pending": "Pending",
-      "confirmed": "Confirmed",
-      "cancelled": "Cancelled",
-      "completed": "Completed"
-    }
+    "status": { "pending": "Pending", "confirmed": "Confirmed", "cancelled": "Cancelled", "completed": "Completed" }
   },
   "Moderation": {
     "title": "Property moderation",
@@ -439,11 +501,7 @@
     "successMessage": "The owner will contact you.",
     "viewMyInterests": "View my interests",
     "investor": "Investor",
-    "status": {
-      "new": "New",
-      "contacted": "Contacted",
-      "closed": "Closed"
-    }
+    "status": { "new": "New", "contacted": "Contacted", "closed": "Closed" }
   },
   "Pages": {
     "about": {

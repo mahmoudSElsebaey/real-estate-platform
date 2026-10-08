@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
-import { CalendarDays, CheckCircle2, Clock3, Mail, MapPin, Phone, ShieldCheck, Sparkles, X } from "lucide-react";
+import { CalendarDays, Clock3, Mail, MapPin, Phone, ShieldCheck, Sparkles, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { InquiryForm } from "@/components/properties/InquiryForm";
 
@@ -52,7 +52,7 @@ export function PropertyInquiryModal({
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-end justify-center p-0 sm:items-center sm:p-5"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-5 md:p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -71,14 +71,14 @@ export function PropertyInquiryModal({
             role="dialog"
             aria-modal="true"
             aria-labelledby="property-inquiry-title"
-            initial={{ opacity: 0, y: 45, scale: 0.97 }}
+            initial={{ opacity: 0, y: 28, scale: 0.975 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 30, scale: 0.98 }}
+            exit={{ opacity: 0, y: 20, scale: 0.985 }}
             transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-10 flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-t-[2rem] border border-white/10 bg-background shadow-[0_30px_100px_rgba(0,0,0,0.35)] sm:rounded-[2rem] md:flex-row"
+            className="relative z-10 flex max-h-[90vh] w-full max-w-5xl flex-col overflow-hidden rounded-[2rem] border border-white/10 bg-background shadow-[0_30px_100px_rgba(0,0,0,0.35)] md:flex-row"
             dir={locale === "ar" ? "rtl" : "ltr"}
           >
-            <div className="relative hidden min-h-[620px] w-[38%] overflow-hidden md:block">
+            <div className="relative hidden min-h-0 w-[38%] overflow-hidden md:block">
               {propertyImage ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={propertyImage} alt="" className="absolute inset-0 h-full w-full object-cover" />
@@ -162,11 +162,7 @@ export function PropertyInquiryModal({
                   <span className="ms-auto shrink-0 text-sm font-semibold text-primary">{priceLabel}</span>
                 </div>
 
-                <InquiryForm
-                  propertyId={propertyId}
-                  initialType={type}
-                  onSuccess={() => undefined}
-                />
+                <InquiryForm propertyId={propertyId} initialType={type} onSuccess={() => undefined} />
 
                 <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11px] text-muted-foreground">
                   <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-3.5 w-3.5" />{locale === "ar" ? "بياناتك محمية" : "Your data is protected"}</span>

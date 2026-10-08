@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { Bed, Bath, Maximize2, MapPin, ArrowLeft, Building2, Mail, CalendarDays, Heart, Check, TrendingUp } from "lucide-react";
+import { Bed, Bath, Maximize2, MapPin, ArrowLeft, Building2, Mail, CalendarDays, Heart, TrendingUp } from "lucide-react";
 import { InvestmentInterestModal } from "@/components/properties/InvestmentInterestModal";
 import { PropertyInquiryModal } from "@/components/properties/PropertyInquiryModal";
 
@@ -37,6 +37,7 @@ export default function PropertyDetailPage() {
   const tForm = useTranslations("Listings.form");
   const locale = useLocale();
   const params = useParams();
+  const router = useRouter();
   const id = params.id as string;
 
   const [property, setProperty] = useState<PropertyDetail | null>(null);
@@ -235,7 +236,7 @@ export default function PropertyDetailPage() {
                 )}
               </div>
 
-              <div className="pt-2 grid grid-cols-2 gap-2">
+              <div className={`pt-2 grid gap-2 ${["invest", "both"].includes(property.purpose) ? "grid-cols-2" : "grid-cols-1"}`}>
                 <button type="button" onClick={toggleFavorite} disabled={favoriteLoading} className="h-11 rounded-md border border-[hsl(var(--border))] text-sm font-medium transition hover:bg-muted disabled:opacity-60">
                   <span className="inline-flex items-center justify-center gap-2"><Heart className={`h-4 w-4 ${isFavorite ? "fill-current text-primary" : ""}`} />{isFavorite ? t("saved") : t("saveFavorite")}</span>
                 </button>

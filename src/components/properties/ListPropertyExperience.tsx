@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Check, ImagePlus, MapPin, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PROPERTY_TYPES, LISTING_PURPOSE } from "@/lib/properties/constants";
 import { ImageUploader, type ImageItem } from "@/components/properties/ImageUploader";

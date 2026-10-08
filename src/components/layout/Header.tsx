@@ -119,7 +119,7 @@ export function Header() {
                 <ChevronDown className={cn("h-4 w-4 transition-transform", propertiesOpen && "rotate-180")} />
               </button>
               {propertiesOpen && (
-                <div className="absolute start-1/2 top-12 w-[390px] -translate-x-1/2 overflow-hidden rounded-3xl border border-border bg-background p-2 shadow-2xl">
+                <div className="absolute left-1/2 top-12 w-[390px] -translate-x-1/2 overflow-hidden rounded-3xl border border-border bg-background p-2 shadow-2xl">
                   <div className="px-4 pb-2 pt-3">
                     <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-muted-foreground">{locale === "ar" ? "استكشف عقاركو" : "EXPLORE AQARCO"}</p>
                   </div>

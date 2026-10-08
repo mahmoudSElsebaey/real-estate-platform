@@ -24,6 +24,14 @@ export function Header() {
   const profileRef = useRef<HTMLDivElement>(null);
 
   const isHome = pathname === `/${locale}`;
+  // Pages with dark/image hero sections can safely use the immersive transparent header.
+  // Content/account pages keep the solid header to avoid contrast issues on light backgrounds.
+  const immersivePage =
+    isHome ||
+    pathname === `/${locale}/discover` ||
+    pathname === `/${locale}/about` ||
+    pathname === `/${locale}/contact` ||
+    pathname === `/${locale}/careers`;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -81,7 +89,7 @@ export function Header() {
     { href: `/${locale}/listings`, label: tDashboard("listings") },
   ];
 
-  const transparent = isHome && !scrolled;
+  const transparent = immersivePage && !scrolled;
   const textClass = transparent ? "text-white/90 mix-blend-difference hover:text-white hover:bg-white/10" : "text-foreground/80 hover:text-foreground hover:bg-muted";
   const brandClass = transparent ? "text-white" : "text-[hsl(var(--primary-500))]";
 

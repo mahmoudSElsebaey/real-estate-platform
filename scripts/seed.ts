@@ -96,6 +96,7 @@ async function main() {
       { ...u, password: passwordHash, isVerified: true, isActive: true },
       { upsert: true, new: true, setDefaultsOnInsert: true }
     );
+    if (!doc) throw new Error(`Could not seed user ${u.email}`);
     createdUsers[u.email] = doc._id;
   }
 

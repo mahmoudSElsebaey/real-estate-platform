@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
 import { uploadImageFile, validateImageFile } from "@/lib/media/upload";
+import {
+  rateLimit,
+  clientIp,
+  rateLimitResponse,
+} from "@/lib/auth/rate-limit";
 
 // POST /api/upload — multipart form field "file"
 export async function POST(req: NextRequest) {
@@ -9,6 +14,10 @@ export async function POST(req: NextRequest) {
     if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+
+    const ip = clientIp(req);
+    const rl = rateLimit(`upload:${session.userId}:${ip}`, 30, 60 * 60 * 1000); // 30/hour
+    if (!rl.success) return rateLimitResponse(rl.resetAt);
 
     const form = await req.formData();
     const file = form.get("file");

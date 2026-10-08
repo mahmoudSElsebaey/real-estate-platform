@@ -69,7 +69,7 @@ export default function ListPropertyExperience() {
 
   return (
     <main className="bg-background">
-      <section className="relative overflow-hidden bg-neutral-950 text-white">
+      <section className="relative overflow-hidden bg-neutral-950 text-white" style={{ backgroundImage: "linear-gradient(90deg,rgba(5,12,9,.92),rgba(5,12,9,.58)),url(https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2200&q=85)", backgroundSize: "cover", backgroundPosition: "center" }}>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(94,142,112,.28),transparent_35%),radial-gradient(circle_at_80%_80%,rgba(255,255,255,.08),transparent_30%)]" />
         <div className="relative mx-auto max-w-7xl px-4 pb-16 pt-28 sm:px-6 lg:px-8 lg:pb-20">
           <div className="max-w-3xl">

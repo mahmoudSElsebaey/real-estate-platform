@@ -72,15 +72,15 @@ export default function LoginPage() {
 
   return (
     <main data-auth-page className="min-h-screen overflow-hidden bg-background">
-      <div className="mx-auto flex min-h-screen max-w-7xl flex-col">
-        <div className="flex items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
+      <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col">
+        <header className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
           <Link
             href={`/${locale}`}
             className="inline-flex items-center gap-2.5"
             aria-label={locale === "ar" ? brandConfig.brandNameAr : brandConfig.brandName}
           >
-            <Image src={brandConfig.logo.mark} alt={brandConfig.shortName} width={40} height={40} priority />
-            <span className="text-xl font-semibold tracking-tight">
+            <span aria-hidden="true" className="h-10 w-10 shrink-0 bg-primary" style={{ maskImage: `url(${brandConfig.logo.mark})`, WebkitMaskImage: `url(${brandConfig.logo.mark})`, maskRepeat: "no-repeat", WebkitMaskRepeat: "no-repeat", maskPosition: "center", WebkitMaskPosition: "center", maskSize: "contain", WebkitMaskSize: "contain" }} />
+            <span className="text-xl font-semibold tracking-tight text-primary">
               {locale === "ar" ? brandConfig.brandNameAr : brandConfig.brandName}
             </span>
           </Link>
@@ -94,7 +94,7 @@ export default function LoginPage() {
             <Globe className="h-4 w-4" />
             {locale === "en" ? "العربية" : "English"}
           </button>
-        </div>
+        </header>
 
         <div className="grid flex-1 items-stretch lg:grid-cols-2">
           <motion.section

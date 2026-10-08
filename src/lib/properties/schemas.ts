@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { z } from "zod";
 import { PROPERTY_TYPES, PROPERTY_STATUS, LISTING_PURPOSE } from "@/lib/properties/constants";
 
 export const propertyImageSchema = z.object({

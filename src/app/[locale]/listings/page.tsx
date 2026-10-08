@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { AccountFrame } from "@/components/account/AccountFrame";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -55,13 +56,8 @@ export default function ListingsPage() {
   }
 
   return (
-    <div className="min-h-[70vh] py-12 md:py-16">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10">
-          <div>
-            <h1 className="text-3xl font-semibold tracking-tight">{t("title")}</h1>
-            <p className="text-muted-foreground mt-1">{t("subtitle")}</p>
-          </div>
+    <AccountFrame title={t("title")} subtitle={t("subtitle")} eyebrow="AQARCO / LISTINGS">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <Link href={`/${locale}/listings/new`} className="inline-flex items-center justify-center gap-2 h-10 px-4 text-sm font-medium rounded-md bg-primary text-primary-foreground shadow hover:bg-[hsl(var(--primary-600))] transition-colors">
             <Plus className="w-4 h-4" />
             {t("addNew")}
@@ -120,6 +116,6 @@ export default function ListingsPage() {
           </div>
         )}
       </div>
-    </div>
+    </AccountFrame>
   );
 }

@@ -204,10 +204,12 @@
       "investmentsDesc": "Explore investment opportunities",
       "myInterestsDesc": "Interest requests you submitted",
       "investmentsInboxDesc": "Investor interest on your listings",
-      "moderationDesc": "View, add, edit, and remove all listings",
+      "moderationDesc": "Review submitted listings and approve or reject them",
       "usersDesc": "Search, edit roles, activate or deactivate users",
-      "browseDesc": "Discover curated properties on Aqarco"
-    }
+      "browseDesc": "Discover curated properties on Aqarco",
+      "managePropertiesDesc": "View, add, edit, and remove all listings"
+    },
+    "manageProperties": "Manage all properties"
   },
   "AdminUsers": {
     "title": "User management",
@@ -487,7 +489,7 @@
     }
   },
   "Moderation": {
-    "title": "Manage all properties",
+    "title": "Property moderation",
     "subtitle": "Review listings",
     "allStatuses": "All statuses",
     "searchPlaceholder": "Search...",

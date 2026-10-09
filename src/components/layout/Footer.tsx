@@ -21,7 +21,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-4">
             <div className="mb-6 flex items-center gap-3 sm:gap-4">
-              <div className="h-[72px] w-[72px] shrink-0 text-[hsl(var(--accent-400))] drop-shadow-[0_5px_12px_rgba(0,0,0,0.28)] md:h-[108px] md:w-[108px]">
+              <div className="h-[56px] w-[56px] shrink-0 text-[hsl(var(--accent-400))] drop-shadow-[0_5px_12px_rgba(0,0,0,0.28)] md:h-[84px] md:w-[84px]">
                 <svg width="100%" height="100%" viewBox="0 0 40 40" fill="none" aria-hidden="true">
                   <rect x="6" y="18" width="8" height="16" rx="1" fill="currentColor" />
                   <rect x="16" y="12" width="8" height="22" rx="1" fill="currentColor" />
@@ -30,7 +30,7 @@ export function Footer() {
                   <circle cx="20" cy="22" r="2.5" fill="currentColor" opacity="0.9" />
                 </svg>
               </div>
-              <span className="text-4xl font-semibold leading-none tracking-tight drop-shadow-[0_4px_10px_rgba(0,0,0,0.3)] md:text-[60px]">
+              <span className="text-3xl font-semibold leading-none tracking-tight drop-shadow-[0_4px_10px_rgba(0,0,0,0.3)] md:text-[48px]">
                 {locale === "ar" ? brandConfig.brandNameAr : brandConfig.brandName}
               </span>
             </div>

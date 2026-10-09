@@ -94,7 +94,7 @@ export default function RegisterPage() {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="relative hidden min-h-[620px] flex-col justify-end overflow-hidden text-white lg:flex"
           >
-            <div className="relative z-10 flex h-full -translate-y-[200px] flex-col justify-center p-10 pb-16 text-white xl:p-14 xl:pb-20">
+            <div className="relative z-10 flex h-full -translate-y-[280px] flex-col justify-center p-10 pb-16 text-white xl:p-14 xl:pb-20">
               <motion.div
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}

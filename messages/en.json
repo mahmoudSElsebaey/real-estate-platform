@@ -84,7 +84,8 @@
     "buy": "Buy",
     "rent": "Rent",
     "invest": "Invest",
-    "hotels": "Hotels & Resorts"
+    "hotels": "Hotels & Resorts",
+    "craftedBy": "Designed & developed with passion by me"
   },
   "Common": {
     "loading": "Loading...",

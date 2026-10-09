@@ -147,7 +147,7 @@
     "settings": "الإعدادات",
     "inquiries": "طلباتي",
     "inbox": "الوارد",
-    "moderation": "مراجعة العقارات",
+    "moderation": "إدارة العقارات",
     "myInterests": "اهتماماتي",
     "investmentsInbox": "وارد الاستثمار",
     "users": "إدارة المستخدمين",
@@ -204,7 +204,7 @@
       "investmentsDesc": "استكشف فرص الاستثمار",
       "myInterestsDesc": "طلبات الاهتمام التي أرسلتها",
       "investmentsInboxDesc": "اهتمام المستثمرين بقوائمك",
-      "moderationDesc": "قبول أو رفض أو إيقاف العقارات",
+      "moderationDesc": "عرض وإضافة وتعديل وحذف جميع العقارات",
       "usersDesc": "بحث وتعديل الأدوار وتفعيل أو إيقاف المستخدمين",
       "browseDesc": "اكتشف عقارات مختارة على عقاركو"
     }
@@ -213,7 +213,7 @@
     "title": "إدارة المستخدمين",
     "subtitle": "{count} مستخدم",
     "backDashboard": "لوحة التحكم",
-    "moderationLink": "مراجعة العقارات",
+    "moderationLink": "إدارة العقارات",
     "searchPlaceholder": "ابحث بالاسم أو البريد أو الهاتف...",
     "search": "بحث",
     "allRoles": "كل الأدوار",
@@ -487,7 +487,7 @@
     }
   },
   "Moderation": {
-    "title": "مراجعة العقارات",
+    "title": "إدارة جميع العقارات",
     "subtitle": "قبول ورفض ونشر",
     "allStatuses": "كل الحالات",
     "searchPlaceholder": "ابحث...",

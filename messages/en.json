@@ -147,7 +147,7 @@
     "settings": "Settings",
     "inquiries": "My Requests",
     "inbox": "Inbox",
-    "moderation": "Property moderation",
+    "moderation": "Manage properties",
     "myInterests": "My interests",
     "investmentsInbox": "Investment inbox",
     "users": "Manage users",
@@ -204,7 +204,7 @@
       "investmentsDesc": "Explore investment opportunities",
       "myInterestsDesc": "Interest requests you submitted",
       "investmentsInboxDesc": "Investor interest on your listings",
-      "moderationDesc": "Approve, reject, or suspend listings",
+      "moderationDesc": "View, add, edit, and remove all listings",
       "usersDesc": "Search, edit roles, activate or deactivate users",
       "browseDesc": "Discover curated properties on Aqarco"
     }
@@ -213,7 +213,7 @@
     "title": "User management",
     "subtitle": "{count} users",
     "backDashboard": "Dashboard",
-    "moderationLink": "Property moderation",
+    "moderationLink": "Manage properties",
     "searchPlaceholder": "Search name, email, or phone...",
     "search": "Search",
     "allRoles": "All roles",
@@ -487,7 +487,7 @@
     }
   },
   "Moderation": {
-    "title": "Property moderation",
+    "title": "Manage all properties",
     "subtitle": "Review listings",
     "allStatuses": "All statuses",
     "searchPlaceholder": "Search...",

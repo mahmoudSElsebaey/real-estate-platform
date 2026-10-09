@@ -80,7 +80,7 @@ export default function LoginPage() {
             aria-label={locale === "ar" ? brandConfig.brandNameAr : brandConfig.brandName}
           >
             <span aria-hidden="true" className="h-10 w-10 shrink-0 bg-[hsl(var(--accent-400))]" style={{ maskImage: `url(${brandConfig.logo.mark})`, WebkitMaskImage: `url(${brandConfig.logo.mark})`, maskRepeat: "no-repeat", WebkitMaskRepeat: "no-repeat", maskPosition: "center", WebkitMaskPosition: "center", maskSize: "contain", WebkitMaskSize: "contain" }} />
-            <span className="text-xl font-semibold tracking-tight text-[hsl(var(--primary-900))]">
+            <span className="text-xl font-semibold tracking-tight text-white drop-shadow-[0_1px_8px_rgba(0,0,0,0.28)]">
               {locale === "ar" ? brandConfig.brandNameAr : brandConfig.brandName}
             </span>
           </Link>

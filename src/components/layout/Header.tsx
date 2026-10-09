@@ -189,8 +189,8 @@ export function Header() {
           </Link>
 
           <nav className="hidden items-center gap-1 lg:flex">
-            <Link href={`/${locale}/contact`} aria-current={isPathActive(`/${locale}/contact`) ? "page" : undefined} className={navItemClass(isPathActive(`/${locale}/contact`))}>{activePill(isPathActive(`/${locale}/contact`)}{locale === "ar" ? "تواصل معنا" : "Contact"}</Link>
-            <Link href={`/${locale}/about`} aria-current={isPathActive(`/${locale}/about`) ? "page" : undefined} className={navItemClass(isPathActive(`/${locale}/about`))}>{activePill(isPathActive(`/${locale}/about`)}{locale === "ar" ? "من نحن" : "About us"}</Link>
+            <Link href={`/${locale}/contact`} aria-current={isPathActive(`/${locale}/contact`) ? "page" : undefined} className={navItemClass(isPathActive(`/${locale}/contact`))}>{activePill(isPathActive(`/${locale}/contact`))}{locale === "ar" ? "تواصل معنا" : "Contact"}</Link>
+            <Link href={`/${locale}/about`} aria-current={isPathActive(`/${locale}/about`) ? "page" : undefined} className={navItemClass(isPathActive(`/${locale}/about`))}>{activePill(isPathActive(`/${locale}/about`)){locale === "ar" ? "من نحن" : "About us"}</Link>
             <div ref={propertiesRef} className="relative">
               <button type="button" onClick={() => setPropertiesOpen((v) => !v)} className={navItemClass(propertiesActive)} aria-expanded={propertiesOpen} aria-current={propertiesActive ? "page" : undefined}>
                 {activePill(propertiesActive)}
@@ -214,7 +214,7 @@ export function Header() {
                 </div>
               )}
             </div>
-            <Link href={`/${locale}/careers`} aria-current={isPathActive(`/${locale}/careers`) ? "page" : undefined} className={navItemClass(isPathActive(`/${locale}/careers`))}>{activePill(isPathActive(`/${locale}/careers`)}{locale === "ar" ? "الوظائف" : "Careers"}</Link>
+            <Link href={`/${locale}/careers`} aria-current={isPathActive(`/${locale}/careers`) ? "page" : undefined} className={navItemClass(isPathActive(`/${locale}/careers`))}>{activePill(isPathActive(`/${locale}/careers`)){locale === "ar" ? "الوظائف" : "Careers"}</Link>
           </nav>
 
           <div className="flex items-center gap-1.5">

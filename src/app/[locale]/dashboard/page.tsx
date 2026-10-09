@@ -106,6 +106,7 @@ export default function DashboardPage() {
     { href: `/${locale}/investments/my`, label: t("myInterests"), description: t("actions.myInterestsDesc"), icon: Wallet, show: true },
     { href: `/${locale}/investments/inbox`, label: t("investmentsInbox"), description: t("actions.investmentsInboxDesc"), icon: FileText, show: isProvider || isAdmin },
     { href: `/${locale}/admin/properties`, label: t("moderation"), description: t("actions.moderationDesc"), icon: Shield, show: isAdmin },
+    { href: `/${locale}/admin/manage-properties`, label: t("manageProperties"), description: t("actions.managePropertiesDesc"), icon: Building2, show: isAdmin },
     { href: `/${locale}/admin/users`, label: t("users"), description: t("actions.usersDesc"), icon: Users, show: isAdmin },
     { href: `/${locale}/discover`, label: t("browse"), description: t("actions.browseDesc"), icon: Sparkles, show: true },
   ].filter((a) => a.show);
@@ -150,7 +151,7 @@ export default function DashboardPage() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {isAdmin && (<>
               <StatCard label={t("stats.usersTotal")} value={stats.usersTotal ?? 0} icon={Users} tone="primary" href={`/${locale}/admin/users`} />
-              <StatCard label={t("stats.propertiesTotal")} value={stats.propertiesTotal ?? 0} icon={Building2} tone="accent" href={`/${locale}/admin/properties`} />
+              <StatCard label={t("stats.propertiesTotal")} value={stats.propertiesTotal ?? 0} icon={Building2} tone="accent" href={`/${locale}/admin/manage-properties`} />
               <StatCard label={t("stats.pendingReview")} value={stats.pendingProperties ?? 0} icon={Clock} tone="warning" href={`/${locale}/admin/properties`} hint={t("stats.needsAttention")} />
               <StatCard label={t("stats.published")} value={stats.publishedProperties ?? 0} icon={CheckCircle2} tone="success" />
               <StatCard label={t("stats.newInquiries")} value={stats.inquiriesNew ?? 0} icon={MessageSquare} tone="primary" href={`/${locale}/inbox`} />

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useLocale } from "next-intl";
-import { Building2 } from "lucide-react";
+
 
 export function ScrollToTop() {
   const locale = useLocale();
@@ -62,10 +62,13 @@ export function ScrollToTop() {
           />
         </svg>
 
-        <Building2
-          className="relative h-[17px] w-[17px] transition-transform duration-300 group-hover:-translate-y-0.5"
-          strokeWidth={1.9}
-        />
+        <svg viewBox="0 0 40 40" className="relative h-6 w-6 transition-transform duration-300 group-hover:-translate-y-0.5" fill="none" aria-hidden="true">
+          <rect x="6" y="18" width="8" height="16" rx="1" fill="currentColor" />
+          <rect x="16" y="12" width="8" height="22" rx="1" fill="currentColor" />
+          <rect x="26" y="16" width="8" height="18" rx="1" fill="currentColor" />
+          <path d="M4 18 L20 6 L36 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx="20" cy="22" r="2.5" fill="currentColor" opacity="0.9" />
+        </svg>
         <span className="sr-only">{locale === "ar" ? "العودة إلى أعلى الصفحة" : "Back to top"}</span>
       </button>
     </div>

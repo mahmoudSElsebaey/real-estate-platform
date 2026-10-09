@@ -86,7 +86,7 @@ export default function LoginPage() {
         <header className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
           <Link
             href={`/${locale}`}
-            className="inline-flex items-center gap-2.5 rounded-2xl border border-white/15 bg-black/40 px-4 py-2.5 shadow-[0_10px_28px_rgba(0,0,0,0.45)] backdrop-blur-md transition hover:bg-black/50"
+            className="inline-flex items-center gap-2.5 rounded-2xl bg-black/40 px-4 py-2.5 shadow-[0_10px_28px_rgba(0,0,0,0.45)] backdrop-blur-md transition hover:bg-black/50"
             aria-label={locale === "ar" ? brandConfig.brandNameAr : brandConfig.brandName}
           >
             <span aria-hidden="true" className="h-10 w-10 shrink-0 bg-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]" style={{ maskImage: `url(${brandConfig.logo.mark})`, WebkitMaskImage: `url(${brandConfig.logo.mark})`, maskRepeat: "no-repeat", WebkitMaskRepeat: "no-repeat", maskPosition: "center", WebkitMaskPosition: "center", maskSize: "contain", WebkitMaskSize: "contain" }} />
@@ -98,7 +98,7 @@ export default function LoginPage() {
           <button
             type="button"
             onClick={switchLocale}
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-2 text-sm font-medium text-foreground shadow-sm transition hover:border-primary/30 hover:bg-primary/5"
+            className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-2 text-sm font-medium text-foreground shadow-sm transition hover:border-primary/30 hover:bg-primary/5 hover:text-white"
             aria-label="Switch language"
           >
             <Globe className="h-4 w-4" />
@@ -113,7 +113,7 @@ export default function LoginPage() {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="relative hidden min-h-[620px] flex-col justify-end overflow-hidden text-white lg:flex"
           >
-            <div className="relative z-10 flex h-full flex-col justify-end p-10 text-white xl:p-14">
+            <div className="relative z-10 flex h-full flex-col justify-center p-10 pb-16 text-white xl:p-14 xl:pb-20">
               <motion.div
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}

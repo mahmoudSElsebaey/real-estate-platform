@@ -44,6 +44,7 @@ export const createPropertySchema = z.object({
 
 export const updatePropertySchema = createPropertySchema.partial().extend({
   status: z.enum(PROPERTY_STATUS).optional(),
+  isFeatured: z.boolean().optional(),
 });
 
 export type CreatePropertyInput = z.infer<typeof createPropertySchema>;

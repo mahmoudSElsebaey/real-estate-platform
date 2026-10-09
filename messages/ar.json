@@ -204,10 +204,12 @@
       "investmentsDesc": "استكشف فرص الاستثمار",
       "myInterestsDesc": "طلبات الاهتمام التي أرسلتها",
       "investmentsInboxDesc": "اهتمام المستثمرين بقوائمك",
-      "moderationDesc": "عرض وإضافة وتعديل وحذف جميع العقارات",
+      "moderationDesc": "مراجعة العقارات المقدمة وقبولها أو رفضها",
       "usersDesc": "بحث وتعديل الأدوار وتفعيل أو إيقاف المستخدمين",
-      "browseDesc": "اكتشف عقارات مختارة على عقاركو"
-    }
+      "browseDesc": "اكتشف عقارات مختارة على عقاركو",
+      "managePropertiesDesc": "عرض وإضافة وتعديل وحذف جميع العقارات"
+    },
+    "manageProperties": "إدارة جميع العقارات"
   },
   "AdminUsers": {
     "title": "إدارة المستخدمين",
@@ -487,7 +489,7 @@
     }
   },
   "Moderation": {
-    "title": "إدارة جميع العقارات",
+    "title": "مراجعة العقارات",
     "subtitle": "قبول ورفض ونشر",
     "allStatuses": "كل الحالات",
     "searchPlaceholder": "ابحث...",

@@ -77,6 +77,15 @@ export function Footer() {
           <div className="lg:col-span-2"><h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-white/90">{t("support")}</h3><ul className="space-y-3 text-sm text-white/70"><li><Link href={`/${locale}/help`} className="hover:text-white">{t("help")}</Link></li><li><Link href={`/${locale}/user-guide`} className="hover:text-white">{t("userGuide")}</Link></li><li><Link href={`/${locale}/privacy`} className="hover:text-white">{t("privacy")}</Link></li><li><Link href={`/${locale}/terms`} className="hover:text-white">{t("terms")}</Link></li></ul></div>
           <div className="lg:col-span-2"><h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-white/90">{t("newsletter")}</h3><form className="space-y-3" onSubmit={(e) => e.preventDefault()}><input type="email" placeholder={t("newsletterPlaceholder")} className="w-full rounded-md border border-white/20 bg-white/10 px-3 py-2.5 text-sm text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--accent-400))]" /><button type="submit" className="w-full rounded-md bg-[hsl(var(--accent-500))] px-4 py-2.5 text-sm font-medium text-[hsl(var(--primary-900))] transition-colors hover:bg-[hsl(var(--accent-400))]">{t("subscribe")}</button></form></div>
         </div>
+        <div className="mt-14 flex justify-center">
+          <div className="group inline-flex items-center gap-2 rounded-full border border-[hsl(var(--accent-400))]/25 bg-white/[0.04] px-4 py-2.5 text-center shadow-lg shadow-black/10 transition-all duration-300 hover:border-[hsl(var(--accent-400))]/50 hover:bg-white/[0.07]">
+            <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-[hsl(var(--accent-400))] transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="m12 3 1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3Z" />
+              <path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z" />
+            </svg>
+            <span className="text-xs font-medium tracking-wide text-white/75 sm:text-sm">{t("craftedBy")}</span>
+          </div>
+        </div>
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-sm text-white/50 sm:flex-row"><p>© {year} {brandConfig.brandName}. {t("rights")}</p><p className="text-xs">Cairo · Dubai · London</p></div>
       </div>
     </footer>

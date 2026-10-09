@@ -127,6 +127,39 @@ export function Header() {
   const transparent = immersivePage && !scrolled;
   const textClass = transparent ? "text-white/90 mix-blend-difference hover:text-white hover:bg-white/10" : "text-foreground/80 hover:text-foreground hover:bg-muted";
   const brandClass = transparent ? "text-white" : "text-[hsl(var(--primary-500))]";
+  const isPathActive = (href: string) => {
+    const basePath = href.split("?")[0];
+    return pathname === basePath || pathname.startsWith(`${basePath}/`);
+  };
+  const propertiesActive =
+    pathname.startsWith(`/${locale}/discover`) ||
+    pathname.startsWith(`/${locale}/listings`);
+  const navItemClass = (active: boolean) =>
+    cn(
+      "relative isolate inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60",
+      active ? (transparent ? "text-white" : "text-primary") : textClass,
+    );
+  const activePill = (active: boolean) =>
+    active ? (
+      <>
+        <span
+          aria-hidden="true"
+          className={cn(
+            "absolute inset-0 -z-10 rounded-full backdrop-blur-md transition-all duration-300",
+            transparent
+              ? "bg-white/15 ring-1 ring-white/25 shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
+              : "bg-primary/10 ring-1 ring-primary/20 shadow-[0_6px_20px_rgba(0,0,0,0.07)]",
+          )}
+        />
+        <span
+          aria-hidden="true"
+          className={cn(
+            "absolute bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full",
+            transparent ? "bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)]" : "bg-primary shadow-[0_0_8px_hsl(var(--primary-500)/0.55)]",
+          )}
+        />
+      </>
+    ) : null;
 
   const closeMenus = () => {
     setMobileOpen(false);
@@ -153,13 +186,14 @@ export function Header() {
           </Link>
 
           <nav className="hidden items-center gap-1 lg:flex">
-            <Link href={`/${locale}/contact`} className={cn("rounded-full px-4 py-2.5 text-sm font-medium transition", textClass)}>{locale === "ar" ? "تواصل معنا" : "Contact"}</Link>
-            <Link href={`/${locale}/about`} className={cn("rounded-full px-4 py-2.5 text-sm font-medium transition", textClass)}>{locale === "ar" ? "من نحن" : "About us"}</Link>
+            <Link href={`/${locale}/contact`} aria-current={isPathActive(`/${locale}/contact`) ? "page" : undefined} className={navItemClass(isPathActive(`/${locale}/contact`))}>{activePill(isPathActive(`/${locale}/contact`)}{locale === "ar" ? "تواصل معنا" : "Contact"}</Link>
+            <Link href={`/${locale}/about`} aria-current={isPathActive(`/${locale}/about`) ? "page" : undefined} className={navItemClass(isPathActive(`/${locale}/about`))}>{activePill(isPathActive(`/${locale}/about`)}{locale === "ar" ? "من نحن" : "About us"}</Link>
             <div ref={propertiesRef} className="relative">
-              <button type="button" onClick={() => setPropertiesOpen((v) => !v)} className={cn("inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-medium transition", textClass)} aria-expanded={propertiesOpen}>
+              <button type="button" onClick={() => setPropertiesOpen((v) => !v)} className={navItemClass(propertiesActive)} aria-expanded={propertiesOpen} aria-current={propertiesActive ? "page" : undefined}>
+                {activePill(propertiesActive)}
                 <Building2 className="h-4 w-4" />
                 {locale === "ar" ? "العقارات" : "Properties"}
-                <ChevronDown className={cn("h-4 w-4 transition-transform", propertiesOpen && "rotate-180")} />
+                <ChevronDown className={cn("h-4 w-4 transition-transform duration-300", (propertiesOpen || propertiesActive) && "rotate-180")} />
               </button>
               {propertiesOpen && (
                 <div className="absolute left-1/2 top-12 w-[390px] -translate-x-1/2 overflow-hidden rounded-3xl border border-border bg-background p-2 shadow-2xl">
@@ -177,7 +211,7 @@ export function Header() {
                 </div>
               )}
             </div>
-            <Link href={`/${locale}/careers`} className={cn("rounded-full px-4 py-2.5 text-sm font-medium transition", textClass)}>{locale === "ar" ? "الوظائف" : "Careers"}</Link>
+            <Link href={`/${locale}/careers`} aria-current={isPathActive(`/${locale}/careers`) ? "page" : undefined} className={navItemClass(isPathActive(`/${locale}/careers`))}>{activePill(isPathActive(`/${locale}/careers`)}{locale === "ar" ? "الوظائف" : "Careers"}</Link>
           </nav>
 
           <div className="flex items-center gap-1.5">
@@ -217,11 +251,28 @@ export function Header() {
         <div className="border-b border-border bg-background shadow-xl lg:hidden">
           <nav className="space-y-1 px-4 py-4">
             <p className="px-4 pb-2 pt-1 text-[10px] font-bold uppercase tracking-[0.24em] text-muted-foreground">{locale === "ar" ? "العقارات" : "PROPERTIES"}</p>
-            {propertyItems.map((item) => <Link key={item.href} href={item.href} onClick={closeMenus} className="block rounded-2xl px-4 py-3 text-base font-medium text-foreground transition hover:bg-muted">{item.label}</Link>)}
+            {propertyItems.map((item) => {
+              const active = isPathActive(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={closeMenus}
+                  aria-current={active ? "page" : undefined}
+                  className={cn(
+                    "flex items-center justify-between rounded-2xl px-4 py-3 text-base font-medium transition-all duration-200",
+                    active ? "bg-primary/10 text-primary ring-1 ring-inset ring-primary/15" : "text-foreground hover:bg-muted",
+                  )}
+                >
+                  {item.label}
+                  {active && <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_8px_hsl(var(--primary-500)/0.55)]" />}
+                </Link>
+              );
+            })}
             <div className="my-2 border-t border-border" />
-            <Link href={`/${locale}/about`} onClick={closeMenus} className="block rounded-2xl px-4 py-3 text-base font-medium">{locale === "ar" ? "من نحن" : "About us"}</Link>
-            <Link href={`/${locale}/careers`} onClick={closeMenus} className="block rounded-2xl px-4 py-3 text-base font-medium">{locale === "ar" ? "الوظائف" : "Careers"}</Link>
-            <Link href={`/${locale}/contact`} onClick={closeMenus} className="block rounded-2xl px-4 py-3 text-base font-medium">{locale === "ar" ? "تواصل معنا" : "Contact"}</Link>
+            <Link href={`/${locale}/about`} onClick={closeMenus} aria-current={isPathActive(`/${locale}/about`) ? "page" : undefined} className={cn("block rounded-2xl px-4 py-3 text-base font-medium transition", isPathActive(`/${locale}/about`) ? "bg-primary/10 text-primary ring-1 ring-inset ring-primary/15" : "text-foreground hover:bg-muted")}>{locale === "ar" ? "من نحن" : "About us"}</Link>
+            <Link href={`/${locale}/careers`} onClick={closeMenus} aria-current={isPathActive(`/${locale}/careers`) ? "page" : undefined} className={cn("block rounded-2xl px-4 py-3 text-base font-medium transition", isPathActive(`/${locale}/careers`) ? "bg-primary/10 text-primary ring-1 ring-inset ring-primary/15" : "text-foreground hover:bg-muted")}>{locale === "ar" ? "الوظائف" : "Careers"}</Link>
+            <Link href={`/${locale}/contact`} onClick={closeMenus} aria-current={isPathActive(`/${locale}/contact`) ? "page" : undefined} className={cn("block rounded-2xl px-4 py-3 text-base font-medium transition", isPathActive(`/${locale}/contact`) ? "bg-primary/10 text-primary ring-1 ring-inset ring-primary/15" : "text-foreground hover:bg-muted")}>{locale === "ar" ? "تواصل معنا" : "Contact"}</Link>
             {!isLoggedIn && <Link href={`/${locale}/login`} onClick={closeMenus} className="block rounded-2xl px-4 py-3 text-base font-medium text-primary">{tAuth("login")}</Link>}
             {isLoggedIn && <>
               <Link href={`/${locale}/favorites`} onClick={closeMenus} className="flex items-center gap-2 rounded-2xl px-4 py-3 text-base font-medium text-foreground transition hover:bg-muted"><Heart className="h-4 w-4 text-primary" />{tDashboard("favorites")}</Link>

@@ -77,6 +77,7 @@ export function Footer() {
           <div className="lg:col-span-2"><h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-white/90">{t("support")}</h3><ul className="space-y-3 text-sm text-white/70"><li><Link href={`/${locale}/help`} className="hover:text-white">{t("help")}</Link></li><li><Link href={`/${locale}/user-guide`} className="hover:text-white">{t("userGuide")}</Link></li><li><Link href={`/${locale}/privacy`} className="hover:text-white">{t("privacy")}</Link></li><li><Link href={`/${locale}/terms`} className="hover:text-white">{t("terms")}</Link></li></ul></div>
           <div className="lg:col-span-2"><h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-white/90">{t("newsletter")}</h3><form className="space-y-3" onSubmit={(e) => e.preventDefault()}><input type="email" placeholder={t("newsletterPlaceholder")} className="w-full rounded-md border border-white/20 bg-white/10 px-3 py-2.5 text-sm text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--accent-400))]" /><button type="submit" className="w-full rounded-md bg-[hsl(var(--accent-500))] px-4 py-2.5 text-sm font-medium text-[hsl(var(--primary-900))] transition-colors hover:bg-[hsl(var(--accent-400))]">{t("subscribe")}</button></form></div>
         </div>
+        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-sm text-white/50 sm:flex-row"><p>© {year} {brandConfig.brandName}. {t("rights")}</p><p className="text-xs">Cairo · Dubai · London</p></div>
         <div className="mt-8 flex justify-center text-center">
           <p className="inline-flex items-center gap-2 text-xs font-medium tracking-wide text-white/60 transition-colors duration-300 hover:text-white/85 sm:text-sm">
             <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-[hsl(var(--accent-400))]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -86,7 +87,6 @@ export function Footer() {
             <span>{t("craftedBy")}</span>
           </p>
         </div>
-        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-sm text-white/50 sm:flex-row"><p>© {year} {brandConfig.brandName}. {t("rights")}</p><p className="text-xs">Cairo · Dubai · London</p></div>
       </div>
     </footer>
   );

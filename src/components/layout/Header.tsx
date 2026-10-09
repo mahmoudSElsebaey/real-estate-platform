@@ -252,7 +252,7 @@ export function Header() {
           <nav className="space-y-1 px-4 py-4">
             <p className="px-4 pb-2 pt-1 text-[10px] font-bold uppercase tracking-[0.24em] text-muted-foreground">{locale === "ar" ? "العقارات" : "PROPERTIES"}</p>
             {propertyItems.map((item) => {
-              const active = isPathActive(item.href);
+              const active = !item.href.includes("?") && isPathActive(item.href);
               return (
                 <Link
                   key={item.href}

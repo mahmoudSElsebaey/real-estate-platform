@@ -20,9 +20,9 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-4">
-            <div className="mb-4 flex items-center gap-2.5">
-              <div className="h-9 w-9 text-[hsl(var(--accent-400))]">
-                <svg width="36" height="36" viewBox="0 0 40 40" fill="none">
+            <div className="mb-6 flex items-center gap-3 sm:gap-4">
+              <div className="h-[72px] w-[72px] shrink-0 text-[hsl(var(--accent-400))] drop-shadow-[0_5px_12px_rgba(0,0,0,0.28)] md:h-[108px] md:w-[108px]">
+                <svg width="100%" height="100%" viewBox="0 0 40 40" fill="none" aria-hidden="true">
                   <rect x="6" y="18" width="8" height="16" rx="1" fill="currentColor" />
                   <rect x="16" y="12" width="8" height="22" rx="1" fill="currentColor" />
                   <rect x="26" y="16" width="8" height="18" rx="1" fill="currentColor" />
@@ -30,12 +30,45 @@ export function Footer() {
                   <circle cx="20" cy="22" r="2.5" fill="currentColor" opacity="0.9" />
                 </svg>
               </div>
-              <span className="text-xl font-semibold tracking-tight">{locale === "ar" ? brandConfig.brandNameAr : brandConfig.brandName}</span>
+              <span className="text-4xl font-semibold leading-none tracking-tight drop-shadow-[0_4px_10px_rgba(0,0,0,0.3)] md:text-[60px]">
+                {locale === "ar" ? brandConfig.brandNameAr : brandConfig.brandName}
+              </span>
             </div>
             <p className="mb-6 max-w-xs text-sm leading-relaxed text-white/70">{t("tagline")}</p>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap items-center gap-3" aria-label={locale === "ar" ? "حسابات التواصل الاجتماعي" : "Social media links"}>
               {Object.entries(brandConfig.social).filter(([, url]) => Boolean(url)).map(([key, url]) => (
-                <a key={key} href={url} target="_blank" rel="noopener noreferrer" className="text-sm capitalize text-white/60 transition-colors hover:text-[hsl(var(--accent-400))]">{key}</a>
+                <a
+                  key={key}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={key === "twitter" ? "X" : key.charAt(0).toUpperCase() + key.slice(1)}
+                  title={key === "twitter" ? "X" : key.charAt(0).toUpperCase() + key.slice(1)}
+                  className="group flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.06] text-white/70 shadow-sm backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-[hsl(var(--accent-400))]/60 hover:bg-[hsl(var(--accent-400))] hover:text-[hsl(var(--primary-900))] hover:shadow-lg hover:shadow-black/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-400))]"
+                >
+                  {key === "instagram" && (
+                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                      <rect x="3.25" y="3.25" width="17.5" height="17.5" rx="5" />
+                      <circle cx="12" cy="12" r="4" />
+                      <circle cx="17.7" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                    </svg>
+                  )}
+                  {key === "twitter" && (
+                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true">
+                      <path d="M18.9 2H22l-6.78 7.75L23.2 22h-6.25l-4.9-7.47L5.5 22H2.36l7.25-8.29L1.8 2h6.4l4.43 6.78L18.9 2Zm-1.1 17.9h1.73L7.27 3.98H5.42L17.8 19.9Z" />
+                    </svg>
+                  )}
+                  {key === "linkedin" && (
+                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true">
+                      <path d="M5.2 3.25a2.2 2.2 0 1 1 0 4.4 2.2 2.2 0 0 1 0-4.4ZM3.3 9h3.8v11.7H3.3V9Zm6.1 0H13v1.6h.05A4.1 4.1 0 0 1 16.7 8.7c3.9 0 4.6 2.55 4.6 5.85v6.15h-3.8v-5.45c0-1.3-.03-2.97-1.8-2.97-1.8 0-2.08 1.4-2.08 2.87v5.55H9.4V9Z" />
+                    </svg>
+                  )}
+                  {key === "facebook" && (
+                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true">
+                      <path d="M13.7 21v-8.2h2.76l.42-3.2H13.7V7.56c0-.93.26-1.56 1.6-1.56H17V3.14C16.7 3.1 15.7 3 14.5 3c-2.5 0-4.2 1.53-4.2 4.34V9.6H7.5v3.2h2.8V21h3.4Z" />
+                    </svg>
+                  )}
+                </a>
               ))}
             </div>
           </div>

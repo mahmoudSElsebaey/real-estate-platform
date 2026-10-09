@@ -29,6 +29,10 @@ npm run dev
 
 Open http://localhost:3000
 
+## دليل الاستخدام بالعربية
+
+شرح تفصيلي لاستخدام المنصة والأدوار والصلاحيات وإدارة العقارات: [دليل الاستخدام والأدوار](docs/دليل-الاستخدام-والأدوار.md).
+
 ## Roles
 
 buyer · renter · investor · owner · agent · hotel_operator · admin

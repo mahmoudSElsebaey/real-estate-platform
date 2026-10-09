@@ -71,8 +71,18 @@ export default function LoginPage() {
   }
 
   return (
-    <main data-auth-page className="min-h-screen overflow-hidden bg-background">
-      <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col">
+    <main data-auth-page className="relative min-h-screen overflow-hidden bg-[#102019]">
+      <Image
+        src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=2000&q=90"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        aria-hidden="true"
+        className="object-cover object-center"
+      />
+      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/45 to-[#102019]/75" />
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col">
         <header className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
           <Link
             href={`/${locale}`}
@@ -96,23 +106,13 @@ export default function LoginPage() {
           </button>
         </header>
 
-        <div className="grid flex-1 items-stretch lg:grid-cols-2">
+        <div className="grid flex-1 items-center justify-center gap-8 px-5 pb-10 pt-28 sm:px-8 lg:grid-cols-2 lg:gap-10 lg:px-12">
           <motion.section
             initial={{ opacity: 0, x: locale === "ar" ? 30 : -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="relative hidden min-h-[680px] overflow-hidden lg:block"
+            className="relative hidden min-h-[620px] flex-col justify-end overflow-hidden text-white lg:flex"
           >
-            <Image
-              src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1600&q=85"
-              alt="Modern luxury residence"
-              fill
-              priority
-              sizes="50vw"
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/25 to-black/65" />
-
             <div className="relative z-10 flex h-full flex-col justify-end p-10 text-white xl:p-14">
               <motion.div
                 initial={{ opacity: 0, y: 18 }}
@@ -156,12 +156,12 @@ export default function LoginPage() {
             </div>
           </motion.section>
 
-          <section className="flex items-center justify-center px-5 py-10 sm:px-8 lg:px-12 xl:px-16">
+          <section className="flex items-center justify-center py-2 sm:px-0">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, ease: "easeOut" }}
-              className="w-full max-w-md"
+              className="w-full max-w-md rounded-3xl border border-white/35 bg-white/90 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-xl sm:p-8"
             >
               <div className="mb-8">
                 <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">

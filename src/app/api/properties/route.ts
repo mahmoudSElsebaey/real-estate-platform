@@ -4,6 +4,45 @@ import Property from "@/models/Property";
 import { getSession } from "@/lib/auth/session";
 import { createPropertySchema } from "@/lib/properties/schemas";
 
+const CITY_SEARCH_GROUPS = [
+  ["cairo", "القاهرة", "القاهره"],
+  ["giza", "الجيزة", "الجيزه"],
+  ["alexandria", "الإسكندرية", "الاسكندرية", "اسكندرية"],
+  ["new cairo", "القاهرة الجديدة", "التجمع الخامس"],
+  ["6th of october", "6 october", "6 أكتوبر", "السادس من أكتوبر"],
+  ["sheikh zayed", "الشيخ زايد"],
+  ["maadi", "المعادي"],
+  ["nasr city", "مدينة نصر"],
+  ["heliopolis", "مصر الجديدة"],
+  ["mansoura", "المنصورة"],
+  ["tanta", "طنطا"],
+  ["menoufia", "المنوفية"],
+  ["sharm el sheikh", "شرم الشيخ"],
+  ["hurghada", "الغردقة"],
+  ["north coast", "الساحل الشمالي"],
+  ["dubai", "دبي"],
+  ["abu dhabi", "أبو ظبي", "ابوظبي"],
+  ["sharjah", "الشارقة"],
+  ["riyadh", "الرياض"],
+  ["jeddah", "جدة"],
+  ["doha", "الدوحة"],
+  ["london", "لندن"],
+] as const;
+
+function escapeRegex(value: string) {
+  return [...value].map((character) =>
+    "\\.^$*+?()[]{}|".includes(character) ? String.fromCharCode(92) + character : character
+  ).join("");
+}
+
+function getCitySearchTerms(value: string) {
+  const normalized = value.trim().toLocaleLowerCase();
+  const group = CITY_SEARCH_GROUPS.find((items) =>
+    items.some((item) => item.toLocaleLowerCase() === normalized)
+  );
+  return group ? [...group] : [value.trim()];
+}
+
 export async function GET(req: NextRequest) {
   try {
     await connectDB();
@@ -39,7 +78,12 @@ export async function GET(req: NextRequest) {
 
     if (purpose) filter.purpose = purpose;
     if (type) filter.type = type;
-    if (city) filter["location.city"] = new RegExp(city, "i");
+    if (city) {
+      const cityTerms = getCitySearchTerms(city).map((term) => new RegExp(escapeRegex(term), "i"));
+      filter.$and = [...(Array.isArray(filter.$and) ? filter.$and : []), {
+        $or: cityTerms.map((term) => ({ "location.city": term })),
+      }];
+    }
 
     if (minPrice || maxPrice) {
       const priceFilter: Record<string, number> = {};
@@ -59,13 +103,19 @@ export async function GET(req: NextRequest) {
     if (bathrooms) filter.bathrooms = { $gte: Number(bathrooms) };
 
     if (q) {
+      const safeQuery = escapeRegex(q);
+      const matchingCityGroups = CITY_SEARCH_GROUPS.filter((items) =>
+        items.some((item) => q.toLocaleLowerCase().includes(item.toLocaleLowerCase()))
+      );
+      const cityTerms = [...new Set(matchingCityGroups.flatMap((items) => [...items]))];
       filter.$or = [
-        { "title.en": { $regex: q, $options: "i" } },
-        { "title.ar": { $regex: q, $options: "i" } },
-        { "description.en": { $regex: q, $options: "i" } },
-        { "description.ar": { $regex: q, $options: "i" } },
-        { "location.city": { $regex: q, $options: "i" } },
-        { "location.district": { $regex: q, $options: "i" } },
+        { "title.en": { $regex: safeQuery, $options: "i" } },
+        { "title.ar": { $regex: safeQuery, $options: "i" } },
+        { "description.en": { $regex: safeQuery, $options: "i" } },
+        { "description.ar": { $regex: safeQuery, $options: "i" } },
+        { "location.city": { $regex: safeQuery, $options: "i" } },
+        { "location.district": { $regex: safeQuery, $options: "i" } },
+        ...cityTerms.map((term) => ({ "location.city": { $regex: escapeRegex(term), $options: "i" } })),
       ];
     }
 

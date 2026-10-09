@@ -117,7 +117,7 @@ body {
 }
 
 [dir="rtl"] {
-  font-family: var(--font-sans), "Segoe UI", Tahoma, Arial, sans-serif;
+  font-family: var(--font-arabic), "Segoe UI", Tahoma, Arial, sans-serif;
 }
 
 html { scroll-behavior: smooth; }

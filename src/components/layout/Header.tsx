@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
 import { ChevronDown, Globe, Heart, LogOut, Menu, User, X, Building2 } from "lucide-react";
@@ -142,10 +143,12 @@ export function Header() {
   const activePill = (active: boolean) =>
     active ? (
       <>
-        <span
+        <motion.span
+          layoutId="header-active-pill"
           aria-hidden="true"
+          transition={{ type: "spring", stiffness: 420, damping: 34, mass: 0.7 }}
           className={cn(
-            "absolute inset-0 -z-10 rounded-full backdrop-blur-md transition-all duration-300",
+            "absolute inset-0 -z-10 rounded-full backdrop-blur-md",
             transparent
               ? "bg-white/15 ring-1 ring-white/25 shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
               : "bg-primary/10 ring-1 ring-primary/20 shadow-[0_6px_20px_rgba(0,0,0,0.07)]",

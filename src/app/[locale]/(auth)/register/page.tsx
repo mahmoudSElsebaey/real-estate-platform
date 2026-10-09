@@ -87,63 +87,8 @@ export default function RegisterPage() {
           </button>
         </header>
 
-        <div className="grid flex-1 items-center justify-center gap-8 px-5 pb-10 pt-28 sm:px-8 lg:grid-cols-2 lg:gap-10 lg:px-12">
-          <motion.section
-            initial={{ opacity: 0, x: locale === "ar" ? 30 : -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="relative hidden min-h-[620px] flex-col justify-end overflow-hidden text-white lg:flex"
-          >
-            <Image
-              src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1600&q=85"
-              alt="Modern luxury residence"
-              fill
-              priority
-              sizes="50vw"
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/25 to-black/65" />
-            <div className="relative z-10 flex h-full flex-col justify-end p-10 text-white xl:p-14">
-              <motion.div
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.6 }}
-                className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm backdrop-blur-md"
-              >
-                <Sparkles className="h-4 w-4" />
-                <span>{locale === "ar" ? "ابدأ رحلتك العقارية" : "Start your real estate journey"}</span>
-              </motion.div>
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.6 }}
-                className="max-w-xl text-4xl font-semibold leading-tight tracking-tight xl:text-5xl"
-              >
-                {locale === "ar" ? brandConfig.tagline.ar : brandConfig.tagline.en}
-              </motion.h2>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-                className="mt-5 max-w-lg text-base leading-7 text-white/75"
-              >
-                {locale === "ar" ? brandConfig.description.ar : brandConfig.description.en}
-              </motion.p>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.6 }}
-                className="mt-8 flex items-center gap-3 text-sm text-white/80"
-              >
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/15 backdrop-blur">
-                  <ShieldCheck className="h-4 w-4" />
-                </div>
-                <span>{locale === "ar" ? "تجربة آمنة وبسيطة من البداية" : "A secure, simple experience from the start"}</span>
-              </motion.div>
-            </div>
-          </motion.section>
-
-          <section className="flex items-center justify-center py-2 sm:px-0">
+        <div className="flex flex-1 items-center justify-center px-5 pb-10 pt-28 sm:px-8 lg:px-12">
+          <section className="flex w-full items-center justify-center py-2 sm:px-0">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}

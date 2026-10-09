@@ -98,7 +98,7 @@ export default function LoginPage() {
           <button
             type="button"
             onClick={switchLocale}
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-2 text-sm font-medium text-foreground shadow-sm transition hover:border-primary/30 hover:bg-primary/5"
+            className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/45 px-3.5 py-2 text-sm font-medium text-white shadow-sm backdrop-blur-md transition hover:border-white/40 hover:bg-black/60 hover:text-white focus-visible:text-white"
             aria-label="Switch language"
           >
             <Globe className="h-4 w-4" />
@@ -106,7 +106,7 @@ export default function LoginPage() {
           </button>
         </header>
 
-        <div className="grid flex-1 items-center justify-center gap-8 px-5 pb-10 pt-28 sm:px-8 lg:grid-cols-2 lg:gap-10 lg:px-12">
+        <div className="grid flex-1 items-center justify-center gap-8 px-5 pb-10 pt-24 sm:px-8 lg:grid-cols-2 lg:gap-10 lg:px-12 lg:pb-16 lg:pt-20">
           <motion.section
             initial={{ opacity: 0, x: locale === "ar" ? 30 : -30 }}
             animate={{ opacity: 1, x: 0 }}
